@@ -14,18 +14,46 @@ radial-gradient(circle at 80% 20%,rgba(93,168,255,.14),transparent 32%),var(--bg
 body:before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:36px 36px}
 button,input,select,textarea{font:inherit}.wrap{width:min(1180px,92%);margin:auto}.nav{position:sticky;top:0;z-index:30;background:rgba(6,17,31,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.navin{display:flex;justify-content:space-between;align-items:center;padding:14px 0}.brand{display:flex;align-items:center;gap:12px;font-weight:900}.logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--gold2),#8c5c14);color:#08111f}.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:800;cursor:pointer;background:var(--gold);color:#09111c}.btn.alt{background:#172b45;color:white;border:1px solid var(--line)}.btn.blue{background:var(--blue)}.btn.green{background:var(--green)}.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center;padding:74px 0 50px;min-height:68vh}.eyebrow{font-size:13px;color:var(--gold2);font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{font-size:clamp(44px,7vw,80px);line-height:.98;margin:15px 0}h1 span{color:var(--gold2)}.lead{color:var(--muted);font-size:19px;line-height:1.65}.glass,.card,.panel{background:var(--panel);border:1px solid rgba(227,176,75,.14);backdrop-filter:blur(12px);box-shadow:0 24px 70px rgba(0,0,0,.22)}.glass{border-radius:28px;padding:22px}.section{padding:60px 0}.section h2{font-size:36px;margin:0 0 10px}.sub{color:var(--muted);max-width:800px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}.card{border-radius:18px;padding:19px}.card b{display:block;margin-bottom:8px}.card p{color:var(--muted);line-height:1.5}.badge{display:inline-flex;padding:7px 10px;border-radius:999px;background:rgba(227,176,75,.12);border:1px solid rgba(227,176,75,.3);color:#ffdc92;font-size:12px;font-weight:800}.app{display:none}.app.on{display:block}.landing.off{display:none}.dash{display:grid;grid-template-columns:255px 1fr;min-height:100vh}.side{padding:22px;background:rgba(6,18,33,.94);border-right:1px solid var(--line);position:sticky;top:0;height:100vh}.side button{display:block;width:100%;text-align:left;background:transparent;border:0;color:var(--muted);padding:12px;border-radius:10px;margin:4px 0;cursor:pointer}.side button:hover,.side button.active{background:#142944;color:white}.main{padding:28px}.top{display:flex;justify-content:space-between;gap:15px;align-items:center}.panel{border-radius:20px;padding:20px;margin-top:18px}.page{display:none}.page.on{display:block}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.metric{padding:17px;border-radius:16px;background:rgba(13,31,52,.86);border:1px solid var(--line)}.metric b{font-size:27px}.metric small{display:block;color:var(--muted);margin-top:5px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}label{font-size:13px;color:#bac9db;display:block;margin-bottom:6px}input,select,textarea{width:100%;padding:12px;border-radius:11px;border:1px solid var(--line);background:#071524;color:white;outline:none}textarea{min-height:100px}.checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}.checks label{padding:10px;border:1px solid var(--line);border-radius:11px;background:rgba(255,255,255,.03)}.checks input{width:auto}.sync{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;padding:11px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:rgba(255,255,255,.03)}.ok{color:#6fe3a2;font-weight:900}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.artifact{display:none}.artifact.on{display:block}.lesson{padding:14px 0;border-bottom:1px solid var(--line)}.note{font-size:12px;color:var(--muted);line-height:1.55}.progress{height:9px;background:#06111f;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--green))}.lang{display:flex;gap:5px}.lang button{padding:7px 10px}.kzonly{display:none}body.kz .ruonly{display:none}body.kz .kzonly{display:inline}.modal{position:fixed;inset:0;display:none;place-items:center;background:rgba(0,0,0,.72);backdrop-filter:blur(10px);z-index:50}.modal.on{display:grid}.auth{width:min(450px,92%);padding:24px;border-radius:22px;background:#0b1c30;border:1px solid var(--line)}@media(max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.dash{grid-template-columns:1fr}.side{position:relative;height:auto}.metrics{grid-template-columns:1fr 1fr}}@media(max-width:600px){.grid,.formgrid,.checks,.metrics{grid-template-columns:1fr}.sync{grid-template-columns:1fr}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 <section class="landing" id="landing">
-<div class="nav"><div class="wrap navin"><div class="brand"><div class="logo">ТТ</div>Тарих Таным AI</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang"><button class="btn alt" onclick="setLang('ru')">RU</button><button class="btn alt" onclick="setLang('kz')">ҚАЗ</button></div><button class="btn alt" onclick="auth('login')">Войти</button><button class="btn" onclick="auth('register')">Регистрация</button></div></div></div>
+<div class="nav"><div class="wrap navin"><div class="brand"><div class="logo">ТТ</div>Тарих Таным AI</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang"><button class="btn alt" onclick="setLang('ru')">RU</button><button class="btn alt" onclick="setLang('kz')">ҚАЗ</button></div><button class="btn alt" onclick="googleAuth()">Войти через Google</button><button class="btn" onclick="googleAuth()">Регистрация через Google</button></div></div></div>
 <div class="wrap hero">
-<div><div class="eyebrow">Авторская образовательная AI-платформа</div><span class="badge">Қазақстан тарихы • Всемирная история • ЕНТ • КСП</span><h1>Один урок — <span>единый комплект</span></h1><p class="lead">Учитель вводит тему и цели один раз. Платформа связывает КСП/ҚМЖ, рабочий лист, дескрипторы, инфографику и Canva-презентацию в один синхронизированный Lesson Package.</p><button class="btn" onclick="auth('register')">Начать работу</button></div>
+<div><div class="eyebrow">Авторская образовательная AI-платформа</div><span class="badge">Қазақстан тарихы • Всемирная история • ЕНТ • КСП</span><h1>Один урок — <span>единый комплект</span></h1><p class="lead">Учитель вводит тему и цели один раз. Платформа связывает КСП/ҚМЖ, рабочий лист, дескрипторы, инфографику и Canva-презентацию в один синхронизированный Lesson Package.</p><button class="btn" onclick="googleAuth()">Начать через Google</button></div>
 <div class="glass"><span class="badge">STRICT ROUTING</span><h3>Только ваши модули</h3><div class="lesson"><b>📝 Тарих Ұстаз | ҚМЖ • КСП</b><div class="note">КСП, ҚМЖ, задания, дескрипторы, рабочие листы</div></div><div class="lesson"><b>🎓 Qazaq Tarih Academy</b><div class="note">Подготовка к ЕНТ</div></div><div class="lesson"><b>👨‍🏫 Помощник учителя истории Казахстана</b><div class="note">Методическая помощь и объяснение</div></div><div class="lesson"><b>🎨 Canva</b><div class="note">Только визуализация: слайды и инфографика</div></div></div>
 </div>
 <div class="section"><div class="wrap"><h2>Экосистема платформы</h2><p class="sub">Содержание создают профильные модули, а Canva визуализирует уже подготовленный материал.</p><div class="grid"><div class="card"><b>📝 КСП / ҚМЖ</b><p>План урока, задания, критерии, дескрипторы, рабочий лист и ключ.</p></div><div class="card"><b>🎓 ЕНТ</b><p>10–11 классы, темы, контексты, тренировочные тесты и карта пробелов.</p></div><div class="card"><b>👨‍🏫 Помощник</b><p>Подготовка учителя, объяснение и методическая поддержка.</p></div><div class="card"><b>🎨 Canva</b><p>Связанные с КСП презентации и инфографика.</p></div></div></div></div>
 </section>
 
-<div class="modal" id="modal"><div class="auth"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3 id="authTitle">Регистрация</h3><button class="btn alt" style="padding:7px 11px" onclick="closeAuth()">✕</button></div><div id="registerFields"><label>Роль</label><select id="role"><option value="teacher">Учитель</option><option value="student">Ученик</option></select><br><label>Имя</label><input id="name" placeholder="Имя и фамилия"><br></div><label>Email</label><input id="email" type="email" autocomplete="email"><br><label>Пароль</label><input id="pass" type="password" minlength="6" autocomplete="current-password"><br><button class="btn" id="authSubmit" style="width:100%" onclick="enter()">Зарегистрироваться</button><p class="note" id="authHint">Для входа необходимо сначала зарегистрировать аккаунт. Данные сохраняются на этом устройстве.</p><p id="authError" style="display:none;color:#ff9292;font-size:13px"></p></div></div>
+<div class="modal" id="modal"><div class="auth">
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+    <h3 id="authTitle">Вход в Тарих Таным AI</h3>
+    <button class="btn alt" style="padding:7px 11px" onclick="closeAuth()">✕</button>
+  </div>
+  <p class="note">Регистрация и вход выполняются только через Google-аккаунт.</p>
+  <button class="btn" style="width:100%;background:white;color:#17202a" onclick="startGoogleOAuth()">G&nbsp;&nbsp;Продолжить с Google</button>
+  <p id="authError" style="display:none;color:#ff9292;font-size:13px"></p>
+</div></div>
+
+<div class="modal" id="onboardingModal"><div class="auth">
+  <h3>Настройка профиля</h3>
+  <p class="note">Выберите роль. Ученик обязательно указывает класс.</p>
+  <label>Роль</label>
+  <select id="profileRole" onchange="toggleStudentGrade()">
+    <option value="teacher">Учитель</option>
+    <option value="student">Ученик</option>
+  </select>
+  <div id="studentGradeBox" style="display:none;margin-top:14px">
+    <label>Класс ученика</label>
+    <select id="profileGrade">
+      <option value="5">5 класс</option><option value="6">6 класс</option><option value="7">7 класс</option>
+      <option value="8">8 класс</option><option value="9">9 класс</option><option value="10">10 класс</option><option value="11">11 класс</option>
+    </select>
+  </div>
+  <br><button class="btn green" style="width:100%" onclick="saveGoogleProfile()">Сохранить профиль</button>
+  <p class="note">ЕНТ доступен ученикам только 10–11 классов.</p>
+</div></div>
 
 <section class="app" id="app">
 <div class="dash">
@@ -48,111 +76,130 @@ button,input,select,textarea{font:inherit}.wrap{width:min(1180px,92%);margin:aut
 <div class="page" data-page="analytics"><div class="metrics"><div class="metric"><b>74%</b><small>средний результат</small></div><div class="metric"><b>81%</b><small>ДЗ</small></div><div class="metric"><b>6</b><small>зона риска</small></div><div class="metric"><b>+9%</b><small>динамика</small></div></div><div class="panel"><h3>Слабые темы</h3><div class="lesson"><b>Казахское ханство — 52%</b><div class="progress"><span style="width:52%"></span></div></div><div class="lesson"><b>XVIII–XIX вв. — 61%</b><div class="progress"><span style="width:61%"></span></div></div><div class="lesson"><b>XX век — 69%</b><div class="progress"><span style="width:69%"></span></div></div></div></div>
 </div>
 
-<div id="student" style="display:none"><div class="page on" data-page="studenthome"><div class="metrics"><div class="metric"><b>8/10</b><small>последняя работа</small></div><div class="metric"><b>75%</b><small>прогресс</small></div><div class="metric"><b>2</b><small>задания</small></div><div class="metric"><b>1</b><small>повторить</small></div></div><div class="panel"><h3>Сегодня</h3><div class="lesson"><b>Восстание 1916 года</b><div class="note">Классная работа • 10 баллов</div></div></div></div><div class="page" data-page="join"><div class="panel"><h3>Вступить в класс</h3><input id="joinCode" placeholder="Код класса"><br><button class="btn" onclick="joinClass()">Вступить</button><div id="joinResult"></div></div></div><div class="page" data-page="grades"><div class="panel"><h3>Мои результаты</h3><div class="lesson">Саки <b style="float:right">9/10</b></div><div class="lesson">Казахское ханство <b style="float:right">6/10</b></div></div></div></div>
+<div id="student" style="display:none"><div class="page on" data-page="studenthome"><div class="metrics"><div class="metric"><b>8/10</b><small>последняя работа</small></div><div class="metric"><b>75%</b><small>прогресс</small></div><div class="metric"><b>2</b><small>задания</small></div><div class="metric"><b>1</b><small>повторить</small></div></div><div class="panel"><h3>Сегодня</h3><div class="lesson"><b>Восстание 1916 года</b><div class="note">Классная работа • 10 баллов</div></div></div></div><div class="page" data-page="join"><div class="panel"><h3>Вступить в класс</h3><input id="joinCode" placeholder="Код класса"><br><button class="btn" onclick="joinClass()">Вступить</button><div id="joinResult"></div></div></div><div class="page" data-page="studentent"><div class="panel"><span class="badge">Qazaq Tarih Academy</span><h3>ЕНТ — персональная подготовка</h3><p class="note">Раздел открыт только ученикам 10–11 классов.</p><div id="studentEntPath"></div></div></div><div class="page" data-page="grades"><div class="panel"><h3>Мои результаты</h3><div class="lesson">Саки <b style="float:right">9/10</b></div><div class="lesson">Казахское ханство <b style="float:right">6/10</b></div></div></div></div>
 </main></div></section>
 
 <script>
 const ROUTES={ksp:'gpt-8c23583c0355e86311a52ff30a4894b4',ent:'gpt-86f9986eee3d5cdceab0792015bd581b',helper:'gpt-0fe81d89dc550c42d47118ec9242684c',canva:'Canva'};
 let currentPackage=null;
-let authMode='register';
 const originalTextNodes=new WeakMap();
 
-const I18N={
-'Войти':'Кіру','Регистрация':'Тіркелу','Зарегистрироваться':'Тіркелу','Вход':'Кіру',
-'Авторская образовательная AI-платформа':'Авторлық білім беру AI-платформасы',
-'Один урок —':'Бір сабақ —','единый комплект':'біртұтас комплект',
-'Учитель вводит тему и цели один раз. Платформа связывает КСП/ҚМЖ, рабочий лист, дескрипторы, инфографику и Canva-презентацию в один синхронизированный Lesson Package.':'Мұғалім тақырып пен мақсаттарды бір рет енгізеді. Платформа ҚМЖ/КСП, жұмыс парағын, дескрипторларды, инфографиканы және Canva презентациясын бір синхрондалған сабақ комплектіне біріктіреді.',
-'Начать работу':'Жұмысты бастау','Только ваши модули':'Тек сіздің модульдеріңіз',
-'КСП, ҚМЖ, задания, дескрипторы, рабочие листы':'ҚМЖ, КСП, тапсырмалар, дескрипторлар, жұмыс парақтары',
-'Подготовка к ЕНТ':'ҰБТ-ға дайындық','Методическая помощь и объяснение':'Әдістемелік көмек және түсіндіру',
-'Только визуализация: слайды и инфографика':'Тек визуализация: слайдтар және инфографика',
-'Экосистема платформы':'Платформа экожүйесі',
-'Содержание создают профильные модули, а Canva визуализирует уже подготовленный материал.':'Мазмұнды бейінді модульдер жасайды, ал Canva дайын материалды визуалдайды.',
-'План урока, задания, критерии, дескрипторы, рабочий лист и ключ.':'Сабақ жоспары, тапсырмалар, критерийлер, дескрипторлар, жұмыс парағы және жауап кілті.',
-'10–11 классы, темы, контексты, тренировочные тесты и карта пробелов.':'10–11 сыныптар, тақырыптар, контекстер, жаттығу тесттері және әлсіз тұстар картасы.',
-'Подготовка учителя, объяснение и методическая поддержка.':'Мұғалімді даярлау, түсіндіру және әдістемелік қолдау.',
-'Связанные с КСП презентации и инфографика.':'ҚМЖ/КСП-мен байланыстырылған презентациялар мен инфографика.',
-'Роль':'Рөл','Учитель':'Мұғалім','Ученик':'Оқушы','Имя':'Аты-жөні','Пароль':'Құпиясөз',
-'Для входа необходимо сначала зарегистрировать аккаунт. Данные сохраняются на этом устройстве.':'Кіру үшін алдымен аккаунтты тіркеу қажет. Деректер осы құрылғыда сақталады.',
-'Личный кабинет':'Жеке кабинет','Добро пожаловать':'Қош келдіңіз','Выйти':'Шығу',
-'Главная':'Басты бет','Комплект урока':'Сабақ комплекті','Классы':'Сыныптар','Помощник учителя':'Мұғалім көмекшісі','Аналитика':'Талдау','Мой класс':'Менің сыныбым','Оценки':'Бағалар',
-'класса':'сынып','ученика':'оқушы','заданий':'тапсырма','выполнение':'орындалуы',
-'Основной рабочий сценарий: создать синхронизированный комплект урока → отправить классу → получить результаты → посмотреть аналитику.':'Негізгі жұмыс барысы: синхрондалған сабақ комплектін құру → сыныпқа жіберу → нәтижелерді алу → талдауды қарау.',
-'Создать комплект урока':'Сабақ комплектін құру','Предмет':'Пән','Класс':'Сынып','Язык':'Тіл','Длительность':'Ұзақтығы','Тема':'Тақырып','Цели обучения':'Оқу мақсаттары',
-'История Казахстана':'Қазақстан тарихы','Всемирная история':'Дүниежүзі тарихы','Основы права':'Құқық негіздері','Русский':'Орысша',
-'Рабочий лист':'Жұмыс парағы','Ключ учителя':'Мұғалімге арналған жауап кілті','Инфографика':'Инфографика','Canva-слайды':'Canva слайдтары','ЕНТ-блок':'ҰБТ блогы',
-'Создать синхронизированный комплект':'Синхрондалған комплект құру','Контроль связи материалов':'Материалдар байланысын бақылау',
-'Цели обучения':'Оқу мақсаттары','все материалы':'барлық материалдар','Задания':'Тапсырмалар','Ключевые факты':'Негізгі фактілер','Структура урока':'Сабақ құрылымы','ожидание':'күтілуде',
-'Готовый комплект':'Дайын комплект','Сохранить':'Сақтау','Слайды':'Слайдтар','Название':'Атауы','Создать класс':'Сынып құру',
-'Классов пока нет.':'Әзірге сыныптар жоқ.','ЕНТ — 10–11 классы':'ҰБТ — 10–11 сыныптар',
-'Напишите запрос по истории Казахстана':'Қазақстан тарихы бойынша сұрағыңызды жазыңыз','Отправить':'Жіберу',
-'средний результат':'орташа нәтиже','ДЗ':'Үй жұмысы','зона риска':'тәуекел тобы','динамика':'динамика','Слабые темы':'Әлсіз тақырыптар',
-'последняя работа':'соңғы жұмыс','прогресс':'ілгерілеу','повторить':'қайталау','Сегодня':'Бүгін','Классная работа • 10 баллов':'Сынып жұмысы • 10 балл',
-'Вступить в класс':'Сыныпқа қосылу','Вступить':'Қосылу','Мои результаты':'Менің нәтижелерім'
-};
+// ===== Google OAuth / Supabase configuration =====
+// После создания проекта Supabase вставьте сюда два публичных значения:
+// Project URL и anon public key. НЕ используйте service_role key в браузере.
+const SUPABASE_URL='PASTE_SUPABASE_PROJECT_URL';
+const SUPABASE_ANON_KEY='PASTE_SUPABASE_ANON_KEY';
+const supabaseReady=!SUPABASE_URL.startsWith('PASTE_')&&!SUPABASE_ANON_KEY.startsWith('PASTE_');
+const sb=supabaseReady?window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY):null;
 
-const PLACEHOLDERS={
-'Имя и фамилия':'Аты-жөні',
-'Введите цели или оставьте для определения профильным модулем':'Оқу мақсаттарын енгізіңіз немесе бейінді модуль анықтауы үшін бос қалдырыңыз',
-'Напишите запрос по истории Казахстана':'Қазақстан тарихы бойынша сұрағыңызды жазыңыз',
-'Код класса':'Сынып коды'
-};
-
-function auth(mode){
-  authMode=mode;
+function closeAuth(){document.getElementById('modal').classList.remove('on')}
+function googleAuth(){
   document.getElementById('modal').classList.add('on');
-  document.getElementById('registerFields').style.display=mode==='register'?'block':'none';
-  document.getElementById('authTitle').textContent=mode==='login'?'Вход':'Регистрация';
-  document.getElementById('authSubmit').textContent=mode==='login'?'Войти':'Зарегистрироваться';
-  document.getElementById('authHint').textContent=mode==='login'?'Введите данные зарегистрированного аккаунта.':'Для входа необходимо сначала зарегистрировать аккаунт. Данные сохраняются на этом устройстве.';
   document.getElementById('authError').style.display='none';
   applyLanguage();
 }
-function closeAuth(){document.getElementById('modal').classList.remove('on')}
-function users(){try{return JSON.parse(localStorage.getItem('tt_users')||'[]')}catch{return[]}}
-function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}
-function showAuthError(msgRu,msgKz){
-  const e=document.getElementById('authError');
-  e.textContent=currentLang()==='kz'?msgKz:msgRu;e.style.display='block';
+async function startGoogleOAuth(){
+  if(!sb){
+    const e=document.getElementById('authError');
+    e.textContent=currentLang()==='kz'
+      ? 'Google кіруін іске қосу үшін Supabase Project URL және anon key қажет.'
+      : 'Для запуска Google-входа нужно подключить Supabase Project URL и anon key.';
+    e.style.display='block';
+    return;
+  }
+  const redirectTo=window.location.origin+window.location.pathname;
+  const {error}=await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo}});
+  if(error){
+    const e=document.getElementById('authError');e.textContent=error.message;e.style.display='block';
+  }
+}
+function toggleStudentGrade(){
+  const role=document.getElementById('profileRole').value;
+  document.getElementById('studentGradeBox').style.display=role==='student'?'block':'none';
+}
+function profileKey(email){return 'tt_google_profile_'+email.toLowerCase()}
+function loadLocalProfile(email){try{return JSON.parse(localStorage.getItem(profileKey(email))||'null')}catch{return null}}
+function saveGoogleProfile(){
+  const email=localStorage.getItem('tt_google_email');
+  const name=localStorage.getItem('tt_google_name')||'Google User';
+  if(!email)return;
+  const role=document.getElementById('profileRole').value;
+  const grade=role==='student'?Number(document.getElementById('profileGrade').value):null;
+  const profile={email,name,role,grade};
+  localStorage.setItem(profileKey(email),JSON.stringify(profile));
+  document.getElementById('onboardingModal').classList.remove('on');
+  startSession(profile);
+}
+function canAccessEnt(profile){
+  if(!profile)return false;
+  if(profile.role==='teacher')return true;
+  return profile.role==='student'&&(Number(profile.grade)===10||Number(profile.grade)===11);
 }
 function startSession(user){
   localStorage.setItem('tt_role',user.role);
   localStorage.setItem('tt_name',user.name);
+  localStorage.setItem('tt_student_grade',user.grade??'');
   localStorage.setItem('tt_session_email',user.email);
   closeAuth();
   document.getElementById('landing').classList.add('off');
   document.getElementById('app').classList.add('on');
-  updateWelcome(user.name,user.role);
-  buildMenu(user.role);
+  updateWelcome(user.name,user.role,user.grade);
+  buildMenu(user.role,user.grade);
 }
-function updateWelcome(name,role){
+function updateWelcome(name,role,grade){
   const kz=currentLang()==='kz';
   document.getElementById('welcome').textContent=(kz?'Қош келдіңіз, ':'Добро пожаловать, ')+name;
-  document.getElementById('roleBadge').textContent=role==='teacher'?(kz?'Мұғалім':'Учитель'):(kz?'Оқушы':'Ученик');
+  let badge=role==='teacher'?(kz?'Мұғалім':'Учитель'):(kz?'Оқушы':'Ученик');
+  if(role==='student'&&grade)badge+=' • '+grade+(kz?' сынып':' класс');
+  document.getElementById('roleBadge').textContent=badge;
 }
-function enter(){
-  const email=document.getElementById('email').value.trim().toLowerCase();
-  const pass=document.getElementById('pass').value;
-  if(!validEmail(email)){showAuthError('Введите корректный Email.','Дұрыс Email енгізіңіз.');return}
-  if(pass.length<6){showAuthError('Пароль должен содержать минимум 6 символов.','Құпиясөз кемінде 6 таңбадан тұруы керек.');return}
-  const all=users();
-  if(authMode==='register'){
-    const role=document.getElementById('role').value;
-    const name=document.getElementById('name').value.trim();
-    if(!name){showAuthError('Введите имя и фамилию.','Аты-жөніңізді енгізіңіз.');return}
-    if(all.some(u=>u.email===email)){showAuthError('Этот Email уже зарегистрирован. Используйте вход.','Бұл Email тіркелген. Кіру батырмасын пайдаланыңыз.');return}
-    const user={id:Date.now(),name,email,pass,role};
-    all.push(user);localStorage.setItem('tt_users',JSON.stringify(all));
-    startSession(user);
+async function restoreGoogleSession(){
+  if(!sb)return;
+  const {data}=await sb.auth.getSession();
+  const u=data?.session?.user;
+  if(!u)return;
+  const email=u.email||'';
+  const name=u.user_metadata?.full_name||u.user_metadata?.name||email;
+  localStorage.setItem('tt_google_email',email);
+  localStorage.setItem('tt_google_name',name);
+  const profile=loadLocalProfile(email);
+  if(profile)startSession(profile);
+  else document.getElementById('onboardingModal').classList.add('on');
+}
+async function logout(){
+  if(sb)await sb.auth.signOut();
+  ['tt_session_email','tt_role','tt_name','tt_student_grade','tt_google_email','tt_google_name'].forEach(k=>localStorage.removeItem(k));
+  document.getElementById('app').classList.remove('on');
+  document.getElementById('landing').classList.remove('off');
+  applyLanguage();
+}
+function buildMenu(role,grade){
+  const m=document.getElementById('menu');
+  if(role==='teacher'){
+    document.getElementById('teacher').style.display='block';
+    document.getElementById('student').style.display='none';
+    m.innerHTML='<button class="active" onclick="page(\'home\',this)">Главная</button><button onclick="page(\'package\',this)">✨ Комплект урока</button><button onclick="page(\'classes\',this);renderClasses()">Классы</button><button onclick="page(\'ent\',this);renderEnt()">ЕНТ</button><button onclick="page(\'helper\',this)">Помощник учителя</button><button onclick="page(\'analytics\',this)">Аналитика</button>';
   }else{
-    const user=all.find(u=>u.email===email&&u.pass===pass);
-    if(!user){showAuthError('Аккаунт не найден или пароль неверный. Сначала зарегистрируйтесь.','Аккаунт табылмады немесе құпиясөз қате. Алдымен тіркеліңіз.');return}
-    startSession(user);
+    document.getElementById('teacher').style.display='none';
+    document.getElementById('student').style.display='block';
+    const entBtn=(Number(grade)===10||Number(grade)===11)?'<button onclick="page(\'studentent\',this);renderStudentEnt()">🎓 ЕНТ</button>':'';
+    m.innerHTML='<button class="active" onclick="page(\'studenthome\',this)">Главная</button><button onclick="page(\'join\',this)">Мой класс</button>'+entBtn+'<button onclick="page(\'grades\',this)">Оценки</button>';
   }
+  applyLanguage();
 }
-function buildMenu(role){const m=document.getElementById('menu');if(role==='teacher'){document.getElementById('teacher').style.display='block';document.getElementById('student').style.display='none';m.innerHTML='<button class="active" onclick="page(\'home\',this)">Главная</button><button onclick="page(\'package\',this)">✨ Комплект урока</button><button onclick="page(\'classes\',this);renderClasses()">Классы</button><button onclick="page(\'ent\',this);renderEnt()">ЕНТ</button><button onclick="page(\'helper\',this)">Помощник учителя</button><button onclick="page(\'analytics\',this)">Аналитика</button>'}else{document.getElementById('teacher').style.display='none';document.getElementById('student').style.display='block';m.innerHTML='<button class="active" onclick="page(\'studenthome\',this)">Главная</button><button onclick="page(\'join\',this)">Мой класс</button><button onclick="page(\'grades\',this)">Оценки</button>'}applyLanguage()}
-function page(name,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));document.querySelector('[data-page="'+name+'"]')?.classList.add('on');document.querySelectorAll('.side button').forEach(x=>x.classList.remove('active'));b?.classList.add('active')}
-function logout(){localStorage.removeItem('tt_session_email');document.getElementById('app').classList.remove('on');document.getElementById('landing').classList.remove('off');applyLanguage()}
+function page(name,b){
+  const role=localStorage.getItem('tt_role');
+  const grade=Number(localStorage.getItem('tt_student_grade'));
+  if((name==='ent'||name==='studentent')&&role==='student'&&![10,11].includes(grade)){
+    alert(currentLang()==='kz'?'ҰБТ бөлімі тек 10–11 сынып оқушыларына қолжетімді.':'Раздел ЕНТ доступен только ученикам 10–11 классов.');
+    return;
+  }
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+  document.querySelector('[data-page="'+name+'"]')?.classList.add('on');
+  document.querySelectorAll('.side button').forEach(x=>x.classList.remove('active'));
+  b?.classList.add('active');
+}
+
 function currentLang(){return localStorage.getItem('tt_lang')||'ru'}
 function applyLanguage(){
   const lang=currentLang();
@@ -175,8 +222,8 @@ function applyLanguage(){
   });
   const email=localStorage.getItem('tt_session_email');
   if(email){
-    const user=users().find(u=>u.email===email);
-    if(user)updateWelcome(user.name,user.role);
+    const profile=loadLocalProfile(email);
+    if(profile)updateWelcome(profile.name,profile.role,profile.grade);
   }
 }
 function setLang(l){localStorage.setItem('tt_lang',l);applyLanguage()}
@@ -190,7 +237,14 @@ function renderClasses(){const b=document.getElementById('classList');if(!b)retu
 function joinClass(){const code=document.getElementById('joinCode').value.trim();const c=classes().find(x=>x.code===code);document.getElementById('joinResult').innerHTML=c?'<p class="ok">Вы вступили в '+esc(c.name)+'</p>':'<p style="color:#ff8888">Класс не найден</p>'}
 const ENT={10:[['Диагностика',100],['Древний Казахстан + древний мир',76],['Средневековье',58],['Казахское ханство',34],['Тематический контроль',10]],11:[['Повтор базы',92],['XVIII–XIX вв.',74],['XX век',61],['Независимость',43],['Полные варианты ЕНТ',18],['Финальный этап',0]]};
 function renderEnt(){const g=document.getElementById('entGrade')?.value||10,b=document.getElementById('entPath');if(!b)return;b.innerHTML=ENT[g].map((x,i)=>'<div class="lesson"><b>'+(i+1)+'. '+x[0]+'</b><span style="float:right;color:#ffd372">'+x[1]+'%</span><div class="progress"><span style="width:'+x[1]+'%"></span></div></div>').join('')}
+function renderStudentEnt(){
+  const grade=Number(localStorage.getItem('tt_student_grade'));
+  const b=document.getElementById('studentEntPath');if(!b)return;
+  if(![10,11].includes(grade)){b.innerHTML='';return}
+  b.innerHTML=ENT[grade].map((x,i)=>'<div class="lesson"><b>'+(i+1)+'. '+x[0]+'</b><span style="float:right;color:#ffd372">'+x[1]+'%</span><div class="progress"><span style="width:'+x[1]+'%"></span></div></div>').join('');
+}
 setLang(localStorage.getItem('tt_lang')||'ru');
+restoreGoogleSession();
 </script>
 </body>
 </html>
