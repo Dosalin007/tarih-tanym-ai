@@ -1,0 +1,31 @@
+{
+  "strict_routing": true,
+  "version": "4.0",
+  "content_plugins": {
+    "ksp_qmj": {
+      "name": "Тарих Ұстаз | ҚМЖ • КСП",
+      "plugin_id": "gpt-8c23583c0355e86311a52ff30a4894b4",
+      "allowed_for": ["КСП", "ҚМЖ", "рабочие листы", "дескрипторы", "ключ учителя"]
+    },
+    "ent": {
+      "name": "Qazaq Tarih Academy",
+      "plugin_id": "gpt-86f9986eee3d5cdceab0792015bd581b",
+      "allowed_for": ["ЕНТ", "темы ЕНТ", "контексты", "проверка ученика"]
+    },
+    "teacher_helper": {
+      "name": "Помощник учителя истории Казахстана",
+      "plugin_id": "gpt-0fe81d89dc550c42d47118ec9242684c",
+      "allowed_for": ["история Казахстана", "методическая помощь", "объяснение", "задания"]
+    }
+  },
+  "visualization": {
+    "name": "Canva",
+    "allowed_for": ["презентация", "инфографика", "визуальное оформление"],
+    "rule": "Canva visualizes approved content only and does not invent historical content."
+  },
+  "lesson_package_sync": {
+    "master_source": "Тарих Ұстаз | ҚМЖ • КСП",
+    "synchronized_outputs": ["КСП/ҚМЖ", "рабочий лист", "ключ учителя", "инфографика", "Canva презентация"],
+    "rule": "Any approved refinement propagates across all linked outputs."
+  }
+}
