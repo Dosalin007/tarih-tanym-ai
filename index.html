@@ -17,7 +17,7 @@ button,input,select,textarea{font:inherit}.wrap{width:min(1180px,92%);margin:aut
 </head>
 <body>
 <section class="landing" id="landing">
-<div class="nav"><div class="wrap navin"><div class="brand"><div class="logo">ТТ</div>Тарих Таным AI</div><div><button class="btn alt" onclick="auth('login')">Войти</button> <button class="btn" onclick="auth('register')">Регистрация</button></div></div></div>
+<div class="nav"><div class="wrap navin"><div class="brand"><div class="logo">ТТ</div>Тарих Таным AI</div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><div class="lang"><button class="btn alt" onclick="setLang('ru')">RU</button><button class="btn alt" onclick="setLang('kz')">ҚАЗ</button></div><button class="btn alt" onclick="auth('login')">Войти</button><button class="btn" onclick="auth('register')">Регистрация</button></div></div></div>
 <div class="wrap hero">
 <div><div class="eyebrow">Авторская образовательная AI-платформа</div><span class="badge">Қазақстан тарихы • Всемирная история • ЕНТ • КСП</span><h1>Один урок — <span>единый комплект</span></h1><p class="lead">Учитель вводит тему и цели один раз. Платформа связывает КСП/ҚМЖ, рабочий лист, дескрипторы, инфографику и Canva-презентацию в один синхронизированный Lesson Package.</p><button class="btn" onclick="auth('register')">Начать работу</button></div>
 <div class="glass"><span class="badge">STRICT ROUTING</span><h3>Только ваши модули</h3><div class="lesson"><b>📝 Тарих Ұстаз | ҚМЖ • КСП</b><div class="note">КСП, ҚМЖ, задания, дескрипторы, рабочие листы</div></div><div class="lesson"><b>🎓 Qazaq Tarih Academy</b><div class="note">Подготовка к ЕНТ</div></div><div class="lesson"><b>👨‍🏫 Помощник учителя истории Казахстана</b><div class="note">Методическая помощь и объяснение</div></div><div class="lesson"><b>🎨 Canva</b><div class="note">Только визуализация: слайды и инфографика</div></div></div>
@@ -25,7 +25,7 @@ button,input,select,textarea{font:inherit}.wrap{width:min(1180px,92%);margin:aut
 <div class="section"><div class="wrap"><h2>Экосистема платформы</h2><p class="sub">Содержание создают профильные модули, а Canva визуализирует уже подготовленный материал.</p><div class="grid"><div class="card"><b>📝 КСП / ҚМЖ</b><p>План урока, задания, критерии, дескрипторы, рабочий лист и ключ.</p></div><div class="card"><b>🎓 ЕНТ</b><p>10–11 классы, темы, контексты, тренировочные тесты и карта пробелов.</p></div><div class="card"><b>👨‍🏫 Помощник</b><p>Подготовка учителя, объяснение и методическая поддержка.</p></div><div class="card"><b>🎨 Canva</b><p>Связанные с КСП презентации и инфографика.</p></div></div></div></div>
 </section>
 
-<div class="modal" id="modal"><div class="auth"><h3 id="authTitle">Регистрация</h3><label>Роль</label><select id="role"><option value="teacher">Учитель</option><option value="student">Ученик</option></select><br><label>Имя</label><input id="name" placeholder="Имя и фамилия"><br><label>Email</label><input id="email" type="email"><br><label>Пароль</label><input id="pass" type="password"><br><button class="btn" style="width:100%" onclick="enter()">Продолжить</button><p class="note">Демо-авторизация. Реальный Google OAuth/Classroom подключается на серверном этапе.</p></div></div>
+<div class="modal" id="modal"><div class="auth"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3 id="authTitle">Регистрация</h3><button class="btn alt" style="padding:7px 11px" onclick="closeAuth()">✕</button></div><div id="registerFields"><label>Роль</label><select id="role"><option value="teacher">Учитель</option><option value="student">Ученик</option></select><br><label>Имя</label><input id="name" placeholder="Имя и фамилия"><br></div><label>Email</label><input id="email" type="email" autocomplete="email"><br><label>Пароль</label><input id="pass" type="password" minlength="6" autocomplete="current-password"><br><button class="btn" id="authSubmit" style="width:100%" onclick="enter()">Зарегистрироваться</button><p class="note" id="authHint">Для входа необходимо сначала зарегистрировать аккаунт. Данные сохраняются на этом устройстве.</p><p id="authError" style="display:none;color:#ff9292;font-size:13px"></p></div></div>
 
 <section class="app" id="app">
 <div class="dash">
@@ -54,12 +54,132 @@ button,input,select,textarea{font:inherit}.wrap{width:min(1180px,92%);margin:aut
 <script>
 const ROUTES={ksp:'gpt-8c23583c0355e86311a52ff30a4894b4',ent:'gpt-86f9986eee3d5cdceab0792015bd581b',helper:'gpt-0fe81d89dc550c42d47118ec9242684c',canva:'Canva'};
 let currentPackage=null;
-function auth(mode){document.getElementById('modal').classList.add('on');document.getElementById('authTitle').textContent=mode==='login'?'Вход':'Регистрация'}
-function enter(){const role=document.getElementById('role').value,name=document.getElementById('name').value||'Пользователь';localStorage.setItem('tt_role',role);localStorage.setItem('tt_name',name);document.getElementById('modal').classList.remove('on');document.getElementById('landing').classList.add('off');document.getElementById('app').classList.add('on');document.getElementById('welcome').textContent='Добро пожаловать, '+name;document.getElementById('roleBadge').textContent=role==='teacher'?'Учитель':'Ученик';buildMenu(role)}
-function buildMenu(role){const m=document.getElementById('menu');if(role==='teacher'){document.getElementById('teacher').style.display='block';document.getElementById('student').style.display='none';m.innerHTML='<button class="active" onclick="page(\'home\',this)">Главная</button><button onclick="page(\'package\',this)">✨ Комплект урока</button><button onclick="page(\'classes\',this);renderClasses()">Классы</button><button onclick="page(\'ent\',this);renderEnt()">ЕНТ</button><button onclick="page(\'helper\',this)">Помощник учителя</button><button onclick="page(\'analytics\',this)">Аналитика</button>'}else{document.getElementById('teacher').style.display='none';document.getElementById('student').style.display='block';m.innerHTML='<button class="active" onclick="page(\'studenthome\',this)">Главная</button><button onclick="page(\'join\',this)">Мой класс</button><button onclick="page(\'grades\',this)">Оценки</button>'}}
+let authMode='register';
+const originalTextNodes=new WeakMap();
+
+const I18N={
+'Войти':'Кіру','Регистрация':'Тіркелу','Зарегистрироваться':'Тіркелу','Вход':'Кіру',
+'Авторская образовательная AI-платформа':'Авторлық білім беру AI-платформасы',
+'Один урок —':'Бір сабақ —','единый комплект':'біртұтас комплект',
+'Учитель вводит тему и цели один раз. Платформа связывает КСП/ҚМЖ, рабочий лист, дескрипторы, инфографику и Canva-презентацию в один синхронизированный Lesson Package.':'Мұғалім тақырып пен мақсаттарды бір рет енгізеді. Платформа ҚМЖ/КСП, жұмыс парағын, дескрипторларды, инфографиканы және Canva презентациясын бір синхрондалған сабақ комплектіне біріктіреді.',
+'Начать работу':'Жұмысты бастау','Только ваши модули':'Тек сіздің модульдеріңіз',
+'КСП, ҚМЖ, задания, дескрипторы, рабочие листы':'ҚМЖ, КСП, тапсырмалар, дескрипторлар, жұмыс парақтары',
+'Подготовка к ЕНТ':'ҰБТ-ға дайындық','Методическая помощь и объяснение':'Әдістемелік көмек және түсіндіру',
+'Только визуализация: слайды и инфографика':'Тек визуализация: слайдтар және инфографика',
+'Экосистема платформы':'Платформа экожүйесі',
+'Содержание создают профильные модули, а Canva визуализирует уже подготовленный материал.':'Мазмұнды бейінді модульдер жасайды, ал Canva дайын материалды визуалдайды.',
+'План урока, задания, критерии, дескрипторы, рабочий лист и ключ.':'Сабақ жоспары, тапсырмалар, критерийлер, дескрипторлар, жұмыс парағы және жауап кілті.',
+'10–11 классы, темы, контексты, тренировочные тесты и карта пробелов.':'10–11 сыныптар, тақырыптар, контекстер, жаттығу тесттері және әлсіз тұстар картасы.',
+'Подготовка учителя, объяснение и методическая поддержка.':'Мұғалімді даярлау, түсіндіру және әдістемелік қолдау.',
+'Связанные с КСП презентации и инфографика.':'ҚМЖ/КСП-мен байланыстырылған презентациялар мен инфографика.',
+'Роль':'Рөл','Учитель':'Мұғалім','Ученик':'Оқушы','Имя':'Аты-жөні','Пароль':'Құпиясөз',
+'Для входа необходимо сначала зарегистрировать аккаунт. Данные сохраняются на этом устройстве.':'Кіру үшін алдымен аккаунтты тіркеу қажет. Деректер осы құрылғыда сақталады.',
+'Личный кабинет':'Жеке кабинет','Добро пожаловать':'Қош келдіңіз','Выйти':'Шығу',
+'Главная':'Басты бет','Комплект урока':'Сабақ комплекті','Классы':'Сыныптар','Помощник учителя':'Мұғалім көмекшісі','Аналитика':'Талдау','Мой класс':'Менің сыныбым','Оценки':'Бағалар',
+'класса':'сынып','ученика':'оқушы','заданий':'тапсырма','выполнение':'орындалуы',
+'Основной рабочий сценарий: создать синхронизированный комплект урока → отправить классу → получить результаты → посмотреть аналитику.':'Негізгі жұмыс барысы: синхрондалған сабақ комплектін құру → сыныпқа жіберу → нәтижелерді алу → талдауды қарау.',
+'Создать комплект урока':'Сабақ комплектін құру','Предмет':'Пән','Класс':'Сынып','Язык':'Тіл','Длительность':'Ұзақтығы','Тема':'Тақырып','Цели обучения':'Оқу мақсаттары',
+'История Казахстана':'Қазақстан тарихы','Всемирная история':'Дүниежүзі тарихы','Основы права':'Құқық негіздері','Русский':'Орысша',
+'Рабочий лист':'Жұмыс парағы','Ключ учителя':'Мұғалімге арналған жауап кілті','Инфографика':'Инфографика','Canva-слайды':'Canva слайдтары','ЕНТ-блок':'ҰБТ блогы',
+'Создать синхронизированный комплект':'Синхрондалған комплект құру','Контроль связи материалов':'Материалдар байланысын бақылау',
+'Цели обучения':'Оқу мақсаттары','все материалы':'барлық материалдар','Задания':'Тапсырмалар','Ключевые факты':'Негізгі фактілер','Структура урока':'Сабақ құрылымы','ожидание':'күтілуде',
+'Готовый комплект':'Дайын комплект','Сохранить':'Сақтау','Слайды':'Слайдтар','Название':'Атауы','Создать класс':'Сынып құру',
+'Классов пока нет.':'Әзірге сыныптар жоқ.','ЕНТ — 10–11 классы':'ҰБТ — 10–11 сыныптар',
+'Напишите запрос по истории Казахстана':'Қазақстан тарихы бойынша сұрағыңызды жазыңыз','Отправить':'Жіберу',
+'средний результат':'орташа нәтиже','ДЗ':'Үй жұмысы','зона риска':'тәуекел тобы','динамика':'динамика','Слабые темы':'Әлсіз тақырыптар',
+'последняя работа':'соңғы жұмыс','прогресс':'ілгерілеу','повторить':'қайталау','Сегодня':'Бүгін','Классная работа • 10 баллов':'Сынып жұмысы • 10 балл',
+'Вступить в класс':'Сыныпқа қосылу','Вступить':'Қосылу','Мои результаты':'Менің нәтижелерім'
+};
+
+const PLACEHOLDERS={
+'Имя и фамилия':'Аты-жөні',
+'Введите цели или оставьте для определения профильным модулем':'Оқу мақсаттарын енгізіңіз немесе бейінді модуль анықтауы үшін бос қалдырыңыз',
+'Напишите запрос по истории Казахстана':'Қазақстан тарихы бойынша сұрағыңызды жазыңыз',
+'Код класса':'Сынып коды'
+};
+
+function auth(mode){
+  authMode=mode;
+  document.getElementById('modal').classList.add('on');
+  document.getElementById('registerFields').style.display=mode==='register'?'block':'none';
+  document.getElementById('authTitle').textContent=mode==='login'?'Вход':'Регистрация';
+  document.getElementById('authSubmit').textContent=mode==='login'?'Войти':'Зарегистрироваться';
+  document.getElementById('authHint').textContent=mode==='login'?'Введите данные зарегистрированного аккаунта.':'Для входа необходимо сначала зарегистрировать аккаунт. Данные сохраняются на этом устройстве.';
+  document.getElementById('authError').style.display='none';
+  applyLanguage();
+}
+function closeAuth(){document.getElementById('modal').classList.remove('on')}
+function users(){try{return JSON.parse(localStorage.getItem('tt_users')||'[]')}catch{return[]}}
+function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)}
+function showAuthError(msgRu,msgKz){
+  const e=document.getElementById('authError');
+  e.textContent=currentLang()==='kz'?msgKz:msgRu;e.style.display='block';
+}
+function startSession(user){
+  localStorage.setItem('tt_role',user.role);
+  localStorage.setItem('tt_name',user.name);
+  localStorage.setItem('tt_session_email',user.email);
+  closeAuth();
+  document.getElementById('landing').classList.add('off');
+  document.getElementById('app').classList.add('on');
+  updateWelcome(user.name,user.role);
+  buildMenu(user.role);
+}
+function updateWelcome(name,role){
+  const kz=currentLang()==='kz';
+  document.getElementById('welcome').textContent=(kz?'Қош келдіңіз, ':'Добро пожаловать, ')+name;
+  document.getElementById('roleBadge').textContent=role==='teacher'?(kz?'Мұғалім':'Учитель'):(kz?'Оқушы':'Ученик');
+}
+function enter(){
+  const email=document.getElementById('email').value.trim().toLowerCase();
+  const pass=document.getElementById('pass').value;
+  if(!validEmail(email)){showAuthError('Введите корректный Email.','Дұрыс Email енгізіңіз.');return}
+  if(pass.length<6){showAuthError('Пароль должен содержать минимум 6 символов.','Құпиясөз кемінде 6 таңбадан тұруы керек.');return}
+  const all=users();
+  if(authMode==='register'){
+    const role=document.getElementById('role').value;
+    const name=document.getElementById('name').value.trim();
+    if(!name){showAuthError('Введите имя и фамилию.','Аты-жөніңізді енгізіңіз.');return}
+    if(all.some(u=>u.email===email)){showAuthError('Этот Email уже зарегистрирован. Используйте вход.','Бұл Email тіркелген. Кіру батырмасын пайдаланыңыз.');return}
+    const user={id:Date.now(),name,email,pass,role};
+    all.push(user);localStorage.setItem('tt_users',JSON.stringify(all));
+    startSession(user);
+  }else{
+    const user=all.find(u=>u.email===email&&u.pass===pass);
+    if(!user){showAuthError('Аккаунт не найден или пароль неверный. Сначала зарегистрируйтесь.','Аккаунт табылмады немесе құпиясөз қате. Алдымен тіркеліңіз.');return}
+    startSession(user);
+  }
+}
+function buildMenu(role){const m=document.getElementById('menu');if(role==='teacher'){document.getElementById('teacher').style.display='block';document.getElementById('student').style.display='none';m.innerHTML='<button class="active" onclick="page(\'home\',this)">Главная</button><button onclick="page(\'package\',this)">✨ Комплект урока</button><button onclick="page(\'classes\',this);renderClasses()">Классы</button><button onclick="page(\'ent\',this);renderEnt()">ЕНТ</button><button onclick="page(\'helper\',this)">Помощник учителя</button><button onclick="page(\'analytics\',this)">Аналитика</button>'}else{document.getElementById('teacher').style.display='none';document.getElementById('student').style.display='block';m.innerHTML='<button class="active" onclick="page(\'studenthome\',this)">Главная</button><button onclick="page(\'join\',this)">Мой класс</button><button onclick="page(\'grades\',this)">Оценки</button>'}applyLanguage()}
 function page(name,b){document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));document.querySelector('[data-page="'+name+'"]')?.classList.add('on');document.querySelectorAll('.side button').forEach(x=>x.classList.remove('active'));b?.classList.add('active')}
-function logout(){document.getElementById('app').classList.remove('on');document.getElementById('landing').classList.remove('off')}
-function setLang(l){document.body.classList.toggle('kz',l==='kz');localStorage.setItem('tt_lang',l)}
+function logout(){localStorage.removeItem('tt_session_email');document.getElementById('app').classList.remove('on');document.getElementById('landing').classList.remove('off');applyLanguage()}
+function currentLang(){return localStorage.getItem('tt_lang')||'ru'}
+function applyLanguage(){
+  const lang=currentLang();
+  document.documentElement.lang=lang==='kz'?'kk':'ru';
+  document.body.classList.toggle('kz',lang==='kz');
+  const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  const nodes=[];let n;
+  while(n=walker.nextNode())nodes.push(n);
+  nodes.forEach(node=>{
+    if(!originalTextNodes.has(node))originalTextNodes.set(node,node.nodeValue);
+    const original=originalTextNodes.get(node);
+    const trimmed=original.trim();
+    if(!trimmed)return;
+    const translated=lang==='kz'?(I18N[trimmed]||trimmed):trimmed;
+    node.nodeValue=original.replace(trimmed,translated);
+  });
+  document.querySelectorAll('[placeholder]').forEach(el=>{
+    if(!el.dataset.ruPlaceholder)el.dataset.ruPlaceholder=el.getAttribute('placeholder')||'';
+    el.placeholder=lang==='kz'?(PLACEHOLDERS[el.dataset.ruPlaceholder]||el.dataset.ruPlaceholder):el.dataset.ruPlaceholder;
+  });
+  const email=localStorage.getItem('tt_session_email');
+  if(email){
+    const user=users().find(u=>u.email===email);
+    if(user)updateWelcome(user.name,user.role);
+  }
+}
+function setLang(l){localStorage.setItem('tt_lang',l);applyLanguage()}
 function esc(s){return String(s||'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
 function makePackage(){const topic=document.getElementById('topic').value.trim();if(!topic)return alert('Введите тему');const grade=document.getElementById('grade').value,subject=document.getElementById('subject').value,obj=document.getElementById('objectives').value.trim()||'Определяются профильным модулем по КТП и программе №399',id='LES-'+Date.now().toString().slice(-8);currentPackage={id,topic,grade,subject,obj};document.getElementById('pid').textContent=id+' • '+ROUTES.ksp;document.getElementById('ksp').innerHTML='<div class="card"><b>КСП / ҚМЖ — '+esc(topic)+'</b><p>Класс: '+grade+' • '+esc(subject)+'</p><p>Цели: '+esc(obj)+'</p><p class="note">Структура урока, задания 3+3+4, дескрипторы, рабочий лист и ключ создаются только модулем «Тарих Ұстаз | ҚМЖ • КСП».</p></div>';document.getElementById('work').innerHTML='<div class="card"><b>Рабочий лист</b><p>Задания и баллы полностью совпадают с КСП.</p><ol><li>Факты и понятия — 3 балла</li><li>Причины и следствия — 3 балла</li><li>Аргументированный вывод — 4 балла</li></ol></div>';document.getElementById('info').innerHTML='<div class="card"><b>Инфографика</b><p>Контекст → ключевые факты → личности → причины → события → последствия.</p><p class="note">Canva визуализирует только содержание, полученное из профильного модуля.</p></div>';document.getElementById('slides').innerHTML='<div class="card"><b>Canva-презентация</b><ol><li>Тема и исследовательский вопрос</li><li>Цели</li><li>Исторический контекст</li><li>Даты и личности</li><li>Инфографика</li><li>Задания</li><li>Закрепление</li><li>Рефлексия</li></ol></div>';['s1','s2','s3','s4'].forEach(x=>document.getElementById(x).textContent='✓ связано');document.getElementById('result').style.display='block'}
 function showArt(id){document.querySelectorAll('.artifact').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on')}
