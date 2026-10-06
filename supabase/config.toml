@@ -1,0 +1,10 @@
+[auth]
+enable_signup = false
+minimum_password_length = 12
+
+[auth.email]
+enable_signup = false
+
+[functions.accounts]
+# JWT is verified inside the function via auth.getUser before every operation.
+verify_jwt = false
