@@ -27,7 +27,7 @@ const currentPhoto=d=>d.upload||URLS[d.image!=="auto"?d.image:PRESETS[d.mode]];
 function setStatus(s){$("status").textContent=s}
 function readForm(){
  const f=$("factsInput").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).slice(0,6);
- return {mode:state.mode,lang:state.lang,topic:$("topicInput").value.trim().slice(0,130)||"Tarih Ustaz AI",subject:$("subjectInput").value,grade:$("gradeInput").value,goal:$("goalInput").value.trim().slice(0,550),facts:f,image:$("imageSelect").value,theme:$("themeInput").value,upload:state.upload||null};
+ return {mode:state.mode,lang:state.lang,topic:$("topicInput").value.trim().slice(0,300)||"Tarih Ustaz AI",subject:$("subjectInput").value,grade:$("gradeInput").value,goal:$("goalInput").value.trim().slice(0,1500),facts:f,image:$("imageSelect").value,theme:$("themeInput").value,upload:state.upload||null};
 }
 function fillForm(d){
  state.mode=d.mode;state.lang=d.lang==="ru"?"ru":"kk";state.upload=d.upload||null;
