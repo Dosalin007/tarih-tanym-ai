@@ -89,9 +89,16 @@ function brand(ctx,c,x,y,label){
  font(ctx,18,800);ctx.textBaseline="top";ctx.fillStyle=c.accent;ctx.fillText("TARIH USTAZ AI",x,y);
  font(ctx,14,700);ctx.fillStyle="#d6e4e7";ctx.fillText(label,x,y+31);
 }
+function creditLine(d){
+ if(d.upload)return TEXT[d.lang].uploaded;
+ const selected=d.image!=="auto"?d.image:PRESETS[d.mode];
+ if(selected==="arch")return "CentrAsia · CC0 · Wikimedia Commons";
+ if(selected==="rock")return "Ninaras · CC BY-SA 4.0 · Wikimedia Commons";
+ return "Alexandr frolov · CC BY-SA 4.0 · Wikimedia Commons";
+}
 function photoCredit(ctx,d,c,w,h){
  ctx.textBaseline="alphabetic";font(ctx,14,600);ctx.fillStyle="#d9e8e8";
- ctx.fillText(d.upload?TEXT[d.lang].uploaded:TEXT[d.lang].credit,52,h-25,Math.min(w-80,950));
+ ctx.fillText(creditLine(d),52,h-25,Math.min(w-80,950));
 }
 function drawSlide(ctx,d,page,img){
  const w=1280,h=720,c=COLORS[d.theme]||COLORS.navy,T=TEXT[d.lang];
@@ -100,10 +107,10 @@ function drawSlide(ctx,d,page,img){
  headingLine(ctx,c,60,70,108);brand(ctx,c,60,96,T.slideNames[page]+" · "+d.grade+" "+T.grade);
  const title=page===0?d.topic:page===1?T.facts:page===2?T.event:T.summary;
  const titleY=page===0?210:175;
- const bottom=wrap(ctx,title,60,titleY,Math.min(840,w*.67),page===0?78:70,page===0?3:3,"#ffffff",page===0?69:60,800);
+ const bottom=wrap(ctx,title,60,titleY,Math.min(840,w*.67),page===0?78:70,page===0?3:2,"#ffffff",page===0?69:56,800);
  if(page===0){wrap(ctx,d.goal,62,bottom+24,660,35,3,"#dcf0f1",25,500);headingLine(ctx,c,62,568,150)}
  if(page===1||page===2){
-  const facts=page===1?d.facts.slice(0,3):d.facts.slice(2,6);
+  const facts=page===1?d.facts.slice(0,3):d.facts.slice(3,6);
   const values=facts.length?facts:(d.goal?[d.goal]:[]);
   let y=Math.min(330,bottom+20);
   values.slice(0,4).forEach((s,i)=>{rrect(ctx,60,y,690,76,9,"#0d2c3bd9");fill(ctx,75,y+18,4,39,c.accent);font(ctx,19,800);ctx.fillStyle=c.accent;ctx.fillText(String(i+1).padStart(2,"0"),95,y+20);wrap(ctx,s,140,y+14,580,27,2,"#effafa",19,650);y+=89;});
@@ -111,7 +118,7 @@ function drawSlide(ctx,d,page,img){
  if(page===3){wrap(ctx,d.goal,60,bottom+22,720,41,4,"#e8f5f3",28,550);headingLine(ctx,c,60,583,125)}
  line(ctx,60,660,1220,660,"#ffffff55",1);
  font(ctx,13,700);ctx.fillStyle="#d5e9e8";ctx.fillText(d.subject==="kaz"?T.subjectKaz:T.subjectWorld,60,676);
- ctx.textAlign="right";ctx.fillText(String(page+1).padStart(2,"0")+" / 04",1215,676);ctx.textAlign="left";
+ font(ctx,11,500);ctx.fillStyle="#c8d9d9";ctx.fillText(creditLine(d),360,676,690);ctx.textAlign="right";ctx.fillText(String(page+1).padStart(2,"0")+" / 04",1215,676);ctx.textAlign="left";
 }
 function drawInfo(ctx,d,img){
  const w=1080,h=1350,c=COLORS[d.theme]||COLORS.navy,T=TEXT[d.lang];
@@ -134,7 +141,7 @@ function drawInfo(ctx,d,img){
  wrap(ctx,s,x+92,y+23,365,33,3,c.ink,23,750);i++;
  });
  fill(ctx,0,1255,w,95,c.bg);font(ctx,18,800);ctx.fillStyle="#fff";ctx.fillText("TARIH USTAZ AI",48,1280);
- font(ctx,15,500);ctx.fillStyle="#d5eceb";ctx.fillText(d.upload?T.uploaded:T.credit,48,1311,950);
+ font(ctx,15,500);ctx.fillStyle="#d5eceb";ctx.fillText(creditLine(d),48,1311,950);
 }
 function drawPoster(ctx,d,img){
  const w=1280,h=720,c=COLORS[d.theme]||COLORS.navy,T=TEXT[d.lang];
@@ -235,7 +242,7 @@ async function exportHTML(){
  const code=slides?'let n=0;const pages=document.querySelectorAll(".page");function go(k){pages[n].hidden=true;n=(n+k+pages.length)%pages.length;pages[n].hidden=false;document.getElementById("pageNumber").textContent=(n+1)+" / "+pages.length}document.getElementById("back").onclick=()=>go(-1);document.getElementById("forward").onclick=()=>go(1);document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")go(-1);if(e.key==="ArrowRight")go(1)})':'';
  const nav=slides?'<nav><button id="back">←</button> <span id="pageNumber">1 / '+imgs.length+'</span> <button id="forward">→</button></nav>':'';
  const html='<!doctype html><html lang="'+d.lang+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>body{margin:0;min-height:100vh;background:#102e40;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;font:14px system-ui;padding:16px;box-sizing:border-box}.page{max-width:100%;max-height:calc(100vh - 110px);width:auto;object-fit:contain;box-shadow:0 15px 60px #0006}.page[hidden]{display:none}nav{padding:12px;display:flex;align-items:center;gap:20px}button{background:#fff;color:#123648;padding:9px 18px;border:0;border-radius:7px;cursor:pointer}@media print{body{background:white;padding:0;display:block}.page{display:block!important;max-width:100%;width:100%;height:auto;max-height:none;page-break-after:always;box-shadow:none}nav{display:none}@page{size:landscape;margin:0}}</style></head><body>'+tags+nav+(slides?'<script>'+code+'</script>':'')+'</body></html>';
- downloadURL(URL.createObjectURL(new Blob([html],{type:"text/html;charset=utf-8"})),"Tarih_Ustaz_"+d.mode+".html");
+ const tempURL=URL.createObjectURL(new Blob([html],{type:"text/html;charset=utf-8"}));downloadURL(tempURL,"Tarih_Ustaz_"+d.mode+".html");setTimeout(()=>URL.revokeObjectURL(tempURL),3500);
  setStatus($t("downloaded"));
 }
 function printPDF(){
