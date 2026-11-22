@@ -130,8 +130,15 @@ function printDoc(){
 let w=window.open('','_blank');if(!w){showStatus(lang==='kk'?'Браузердің қалқымалы терезесіне рұқсат беріңіз.':'Разрешите всплывающие окна.');return}w.document.open();w.document.write(downloadedContent());w.document.close();showStatus(lang==='kk'?'Жаңа қойындыдан PDF ретінде сақтаңыз (Ctrl+P).':'В новой вкладке сохраните как PDF (Ctrl+P).');
 }
 function promptFor(kind){
-const d=getData();const heading=kind==='ksp'?'ҚМЖ/КСП':kind==='helper'?'тарихи түсіндіру және инфографика':kind==='ent'?'ҰБТ/ЕНТ тесті':tool;
+const d=getData();const heading=kind==='ksp'?'45 минуттық ҚМЖ/КСП, сабақ кезеңдері, критерийлер, дескрипторлар және жұмыс парағы':kind==='helper'?'тарихи түсіндіру, уақыт сызығы, себеп-салдар, инфографикаға арналған нақты деректер және тексеруге болатын дереккөздер':kind==='ent'?'ҰБТ/ЕНТ үлгісінде 10 сұрақ, 4 жауап нұсқасы, жауап кілті және түсіндірмесі':tool;
 return 'Сен тарих мұғалімінің әдістемелік көмекшісісің. '+heading+' дайында. Пән: '+d.subject+'. Сынып: '+d.grade+'. Тіл: '+(d.locale==='ru'?'орысша':'қазақша')+'. Тақырып: '+d.topic+'. Оқу мақсаты: '+d.objective+'. Негізгі деректер: '+d.facts.join('; ')+'. Оқиғалардың уақытын, тарихи тұлғаларды, себеп-салдарды нақты көрсет. Тексерілмеген мәліметті факт деп ұсынба. Қажет болса дереккөздер ұсын. Қысқа, түсінікті және оқытуға ыңғайлы материал дайында.';
+}
+function openAssistant(which){
+ const query=promptFor(which);
+ const url='https://chatgpt.com/?q='+encodeURIComponent(query);
+ const tab=window.open(url,'_blank');
+ if(tab){try{tab.opener=null}catch(e){}}
+ else {window.location.assign(url)}
 }
 async function copyPrompt(which){
 let s=promptFor(which||tool);
@@ -161,6 +168,7 @@ $('addQuestion').addEventListener('click',()=>{if(questions.length>=20){showStat
 $('prevSlide').addEventListener('click',()=>{slide=(slide+3)%4;render()});$('nextSlide').addEventListener('click',()=>{slide=(slide+1)%4;render()});
 $('downloadButton').addEventListener('click',download);$('printButton').addEventListener('click',printDoc);$('copyPrompt').addEventListener('click',()=>copyPrompt(tool));
 document.querySelectorAll('[data-bot]').forEach(b=>b.addEventListener('click',()=>copyPrompt(b.dataset.bot)));
+document.querySelectorAll('[data-open-assistant]').forEach(button=>button.addEventListener('click',()=>openAssistant(button.dataset.openAssistant)));
 setLanguage(lang);questionEditor();setTool('info');
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
