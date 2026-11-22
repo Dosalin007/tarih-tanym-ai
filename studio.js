@@ -4,7 +4,10 @@
 const $=id=>document.getElementById(id);
 let lang='kk', tool='info', slide=0, design='royal';
 const ART_BASE='https://dosalin007.github.io/tarih-tanym-ai/';
-const imageSrc=name=>ART_BASE+name+'?v=20261122b';
+const REAL_PHOTOS={arch:"https://upload.wikimedia.org/wikipedia/commons/c/ca/Ahmet_yasawi.jpg",rock:"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Petroglyphs_in_Tamgaly%2C_Kazakhstan_01.jpg/960px-Petroglyphs_in_Tamgaly%2C_Kazakhstan_01.jpg",yurt:"https://upload.wikimedia.org/wikipedia/commons/f/f7/%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D0%BA%D0%B0%D1%8F_%D1%8E%D1%80%D1%82%D0%B0.jpg"};
+const REAL_IMAGE_FOR={"heritage-hero.svg":"arch","illustration-info.svg":"rock","illustration-slides.svg":"arch","illustration-qmj.svg":"yurt","illustration-sheet.svg":"rock","illustration-form.svg":"arch","illustration-game.svg":"yurt"};
+const imageSrc=name=>window.TARIH_CUSTOM_IMAGE||REAL_PHOTOS[window.TARIH_PHOTO_PRESET&&window.TARIH_PHOTO_PRESET!=='auto'?window.TARIH_PHOTO_PRESET:REAL_IMAGE_FOR[name]||'arch'];
+const photoSourceCredit='<div class="export-photo-credit">Фотодереккөздер: CentrAsia (CC0); Ninaras, Alexandr frolov (CC BY-SA 4.0). Wikimedia Commons. Фото кесілген. <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></div>';
 const dflt={
 kk:{topic:'Қазақ хандығының құрылуы',objective:'Қазақ хандығының құрылу себептерін және тарихи маңызын талдау.',facts:'XV ғасыр — Қазақ хандығының құрылу кезеңі\nКерей мен Жәнібек — негізін қалаушылар\nМоғолстан — көшіп барған аймақ\n1465–1466 жж. — дәстүрлі шамаланған дата'},
 ru:{topic:'Образование Казахского ханства',objective:'Определить причины образования Казахского ханства и объяснить его историческое значение.',facts:'XV век — период образования ханства\nКерей и Жанибек — основатели\nМогулистан — регион переселения\n1465–1466 гг. — традиционная приблизительная датировка'}};
@@ -71,6 +74,11 @@ function slideHtml(d,n){
  const factMarkup=a.facts.length?'<div class="slide-facts">'+a.facts.map((item,j)=>'<div class="slide-fact"><em>0'+(j+1)+'</em><span>'+escape(item)+'</span></div>').join('')+'</div>':'<p class="slide-subtitle">'+escape(a.text)+'</p>';
  return '<div class="slides-preview premium design-'+design+' slide-'+a.type+'"><div class="slide-art"><img src="'+imageSrc(a.art)+'" alt="Тарихи тақырыпқа арналған иллюстрация"></div><div class="slide-body"><div class="slide-eyebrow">'+escape(d.subject)+' • '+escape(d.grade)+' '+escape(txt('grade'))+'</div><div class="slide-underline"></div><h3>'+escape(a.title)+'</h3>'+factMarkup+'</div><div class="slide-medallion">✥</div><div class="slide-footer"><span>TARIH USTAZ AI • '+escape(a.note)+'</span><span>'+String(n+1).padStart(2,'0')+' / 04</span></div></div>';
 }
+function photoHtml(d){
+ const photo=imageSrc('heritage-hero.svg');
+ const facts=d.facts.slice(0,3).map((v,i)=>'<div class="photo-card-fact"><strong>'+String(i+1).padStart(2,'0')+'</strong><span>'+escape(v)+'</span></div>').join('');
+ return '<section class="historical-photo-card design-'+design+'"><div class="photo-card-visual"><img src="'+escape(photo)+'" alt="Тарихи тақырыпқа таңдалған көрнекі фотосурет"><div class="photo-card-category">TARIH USTAZ AI / HISTORY STUDIO</div><div class="photo-card-headline"><span>'+escape(d.subject)+' · '+escape(d.grade)+' '+escape(txt('grade'))+'</span><h2>'+escape(d.topic)+'</h2></div></div><div class="photo-card-details"><p>'+escape(d.objective)+'</p><div class="photo-card-facts">'+facts+'</div><footer>'+escape(d.locale==='ru'?'Фото — современный наглядный материал, не изображение исторического события.':'Фото — қазіргі көрнекі материал, тарихи оқиғаның тікелей түсірілімі емес.')+'</footer></div></section>';
+}
 function illustratedDoc(markup,kind){
  const art=kind==='qmj'?'illustration-qmj.svg':'illustration-sheet.svg';
  const label=kind==='qmj'?txt('lesson'):txt('worksheet');
@@ -97,11 +105,11 @@ function quizHtml(d,game){
 }
 function render(){
 let d=getData();
-const tags={info:'INFOGRAPHIC',slides:'SLIDES 16:9',qmj:'ҚМЖ / КСП',sheet:'WORKSHEET',form:'TEST FORM',game:'HTML / 3D CSS'};
+const tags={info:'INFOGRAPHIC',slides:'SLIDES 16:9',qmj:'ҚМЖ / КСП',sheet:'WORKSHEET',form:'TEST FORM',game:'HTML QUIZ',illustration:'PHOTO POSTER'};
 $('previewTag').textContent=tags[tool];
 $('slideControls').classList.toggle('hidden',tool!=='slides');
 $('slideCounter').textContent=(slide+1)+' / 4';
-$('preview').innerHTML=tool==='info'?infoHtml(d):tool==='slides'?slideHtml(d,slide):tool==='qmj'?illustratedDoc(planHtml(d),'qmj'):tool==='sheet'?illustratedDoc(sheetHtml(d),'sheet'):quizHtml(d,tool==='game').replace('class="game-stage"','class="game-stage premium"');
+$('preview').innerHTML=tool==='info'?infoHtml(d):tool==='slides'?slideHtml(d,slide):tool==='qmj'?illustratedDoc(planHtml(d),'qmj'):tool==='sheet'?illustratedDoc(sheetHtml(d),'sheet'):tool==='illustration'?photoHtml(d):quizHtml(d,tool==='game').replace('class="game-stage"','class="game-stage premium"');
 updateSlideThumbnails(d);
 if(tool==='game'){
 let b=$('tryGame');if(b)b.addEventListener('click',()=>{const html=downloadedContent();let w=window.open('','_blank');if(w){w.document.open();w.document.write(html);w.document.close()}else showStatus(lang==='kk'?'Қалқымалы терезеге рұқсат беріңіз.':'Разрешите всплывающее окно.')});
@@ -113,15 +121,18 @@ let b=$('checkQuiz');if(b)b.addEventListener('click',()=>{let score=0;d.question
 function showStatus(s){$('status').textContent=s;let toast=$('toast');toast.textContent=s;toast.classList.add('show');clearTimeout(showStatus.timer);showStatus.timer=setTimeout(()=>toast.classList.remove('show'),2800);}
 const documentStyle='body{margin:0;background:#f0e5cf;color:#18364a;font:16px/1.65 Arial,sans-serif}main{max-width:1000px;margin:35px auto;background:white;border:1px solid #c8a16b;border-radius:18px;overflow:hidden;padding:24px;box-shadow:0 14px 35px #0002}h1,h2,h3{font-family:Georgia,serif;color:#143952}button{cursor:pointer} @media print{body{background:white}main{margin:0;max-width:none;border:0;box-shadow:none;padding:0}@page{size:A4;margin:14mm}}'+
 '.infographic{padding:25px;border:8px solid #173750;background:#fff7e6}.infographic h3{font-size:32px}.infographic small{color:#aa7a40}.info-track{display:grid;grid-template-columns:1fr 1fr;gap:12px}.info-point{border:1px solid #c99f68;border-radius:10px;padding:14px}.info-point b{color:#b47d37}.info-foot{color:#85623d}.slides-preview{background:#143650;color:#fff1cd;aspect-ratio:16/9;display:flex;justify-content:center;flex-direction:column;padding:9%;box-sizing:border-box;margin-bottom:20px;break-inside:avoid}.slides-preview h3{font-size:40px;color:#ffe0a1}.slides-preview p{font-size:21px;color:#e2ebed}.slides-preview small{color:#eab96d}.doc-preview table{width:100%;border-collapse:collapse}.doc-preview td,.doc-preview th{border:1px solid #aaa;padding:10px;text-align:left}.doc-preview th{background:#e7eff4}.doc-preview li{margin-bottom:16px}.lines{height:24px;border-bottom:1px dotted #888;margin-top:14px}';
-function shell(inner,title){return '<!doctype html><html lang="'+($('materialLanguage').value==='ru'?'ru':'kk')+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(title)+'</title><style>'+documentStyle+'</style><link rel="stylesheet" href="'+ART_BASE+'cinematic.css?v=20261122b"></head><body><main class="'+(tool==='slides'?'slideshow-sheet':'')+'">'+inner+'</main></body></html>'}
+function shell(inner,title){
+const l=$('materialLanguage').value==='ru'?'ru':'kk';
+return '<!doctype html><html lang="'+l+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(title)+'</title><style>'+documentStyle+'</style><link rel="stylesheet" href="'+ART_BASE+'cinematic.css?v=20261122e"><link rel="stylesheet" href="'+ART_BASE+'premium-pro.css?v=20261122e"></head><body><main class="'+(tool==='slides'?'slideshow-sheet':'')+'">'+inner+'</main>'+photoSourceCredit+'</body></html>';
+}
 function standAloneQuiz(game){
 const d=getData();const label=dict[d.locale];const data=JSON.stringify(d.questions).replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026');const intro=game?label.game:label.quiz;
 let styles='body{margin:0;font:17px/1.5 Arial,sans-serif;background:linear-gradient(140deg,#06172d,#16445f);color:#f9ead0;min-height:100vh;display:grid;place-items:center}main{width:min(720px,91%);background:#0f2d46;border:2px solid #e1b574;border-radius:22px;padding:30px;box-shadow:0 22px 60px #0009}h1{font:700 31px Georgia,serif;color:#ffdc9f}button{display:block;width:100%;padding:14px;margin:10px 0;background:#fff1d2;color:#15324a;border:0;border-radius:11px;text-align:left;cursor:pointer;font-size:16px}button:hover,button:focus{background:#e2bf7e}#score{color:#ffce81;font-size:19px}small{color:#c6d8df}'+(game?'main{transform:perspective(1300px) rotateY(-3deg);box-shadow:17px 23px 0 #081b2b,0 34px 70px #0008}button{transition:transform .2s}button:hover{transform:translateZ(12px)}':'');
-styles+='main{position:relative;overflow:hidden}main:before{content:"";display:block;height:145px;margin:-30px -30px 20px;background:linear-gradient(0deg,#0b2d44a0,#072b4222),url("'+ART_BASE+(game?'illustration-game.svg':'illustration-form.svg')+'") center/cover;border-bottom:4px solid #d7aa6b}';
+styles+='main{position:relative;overflow:hidden}main:before{content:"";display:block;height:145px;margin:-30px -30px 20px;background:linear-gradient(0deg,#0b2d44a0,#072b4222),url("'+imageSrc(game?'illustration-game.svg':'illustration-form.svg')+'") center/cover;border-bottom:4px solid #d7aa6b}';
 const code='const questions='+data+';let n=0,score=0;const box=document.getElementById("box");const result=document.getElementById("score");function render(){if(n>=questions.length){box.textContent="";const h=document.createElement("h2");h.textContent="'+(d.locale==='ru'?'Готово!':'Аяқталды!')+'";box.append(h);result.textContent="'+label.score+': "+score+" / "+questions.length;const again=document.createElement("button");again.textContent="'+label.restart+'";again.onclick=()=>{n=0;score=0;render()};box.append(again);return}const q=questions[n];box.textContent="";result.textContent=(n+1)+" / "+questions.length+" • "+score+" '+label.points+'";const h=document.createElement("h2");h.textContent=q.q;box.append(h);q.options.forEach((o,j)=>{const b=document.createElement("button");b.textContent=(j+1)+". "+o;b.onclick=()=>{if(j===q.correct)score++;const note=document.createElement("p");note.textContent=j===q.correct?"'+label.correct+'":"'+label.wrong+'";note.style.color=j===q.correct?"#96f0ae":"#ffaf99";box.querySelectorAll("button").forEach(el=>el.disabled=true);box.append(note);const next=document.createElement("button");next.textContent="'+label.next+' →";next.onclick=()=>{n++;render()};box.append(next)};box.append(b)})}render();';
 return '<!doctype html><html lang="'+d.locale+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(d.topic)+'</title><style>'+styles+'</style></head><body><main><small>TARIH USTAZ AI • '+intro+'</small><h1>'+escape(d.topic)+'</h1><div id="box"></div><p id="score" aria-live="polite"></p></main><script>'+code+'</script></body></html>';
 }
-function downloadedContent(){let d=getData();if(tool==='form'||tool==='game')return standAloneQuiz(tool==='game');if(tool==='slides')return shell(slidesArray(d).map((x,i)=>slideHtml(d,i)).join(''),d.topic);return shell(tool==='info'?infoHtml(d):tool==='qmj'?illustratedDoc(planHtml(d),'qmj'):illustratedDoc(sheetHtml(d),'sheet'),d.topic)}
+function downloadedContent(){let d=getData();if(tool==='form'||tool==='game')return standAloneQuiz(tool==='game');if(tool==='slides')return shell(slidesArray(d).map((x,i)=>slideHtml(d,i)).join(''),d.topic);return shell(tool==='info'?infoHtml(d):tool==='qmj'?illustratedDoc(planHtml(d),'qmj'):tool==='illustration'?photoHtml(d):illustratedDoc(sheetHtml(d),'sheet'),d.topic)}
 function download(){
 let content=downloadedContent(),blob=new Blob([content],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
 a.href=url;a.download=tool==='game'?'index.html':('TarihUstazAI_'+tool+'.html');document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2500);showStatus(txt('done'));
@@ -171,5 +182,6 @@ document.querySelectorAll('[data-bot]').forEach(b=>b.addEventListener('click',()
 document.querySelectorAll('[data-open-assistant]').forEach(button=>button.addEventListener('click',()=>openAssistant(button.dataset.openAssistant)));
 setLanguage(lang);questionEditor();setTool('info');
 }
+window.TarihStudio={setTool,getData,render,downloadedContent,openAssistant,promptFor,tool:()=>tool,lang:()=>lang,imageSrc,photoHtml};
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
