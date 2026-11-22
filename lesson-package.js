@@ -314,7 +314,7 @@ function init(){
   }
   updateDateValue();
  });
- $("packageValue").addEventListener("change",updateDateValue);
+ $("packageValue").addEventListener("change",()=>{const info=calendarInfo(read());$("packageValueHint").textContent=(lang()==="ru"?"Выбрана ценность: ":"Таңдалған құндылық: ")+valueName(read())+(info.monthName?" · "+info.monthName:"");});
  updateDateValue();
 
 }
