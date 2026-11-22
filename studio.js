@@ -2,7 +2,9 @@
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
-let lang='kk', tool='info', slide=0;
+let lang='kk', tool='info', slide=0, design='royal';
+const ART_BASE='https://dosalin007.github.io/tarih-tanym-ai/';
+const imageSrc=name=>ART_BASE+name+'?v=20261122b';
 const dflt={
 kk:{topic:'Қазақ хандығының құрылуы',objective:'Қазақ хандығының құрылу себептерін және тарихи маңызын талдау.',facts:'XV ғасыр — Қазақ хандығының құрылу кезеңі\nКерей мен Жәнібек — негізін қалаушылар\nМоғолстан — көшіп барған аймақ\n1465–1466 жж. — дәстүрлі шамаланған дата'},
 ru:{topic:'Образование Казахского ханства',objective:'Определить причины образования Казахского ханства и объяснить его историческое значение.',facts:'XV век — период образования ханства\nКерей и Жанибек — основатели\nМогулистан — регион переселения\n1465–1466 гг. — традиционная приблизительная датировка'}};
@@ -50,19 +52,37 @@ function questionEditor(){
 $('questionList').innerHTML=questions.map((q,i)=>'<div class="question-edit"><label class="field"><span>'+(i+1)+'. '+(lang==='ru'?'Вопрос':'Сұрақ')+'</span><input data-qi="'+i+'" data-field="q" maxlength="300" value="'+escape(q.q)+'"></label>'+q.options.map((x,j)=>'<label class="field"><span>'+(lang==='ru'?'Ответ ':'Жауап ')+(j+1)+'</span><input data-qi="'+i+'" data-field="option" data-oi="'+j+'" maxlength="200" value="'+escape(x)+'"></label>').join('')+'<label class="field"><span>'+(lang==='ru'?'Правильный ответ':'Дұрыс жауап')+'</span><select data-qi="'+i+'" data-field="correct">'+[0,1,2,3].map(j=>'<option value="'+j+'"'+(q.correct===j?' selected':'')+'>'+(j+1)+'</option>').join('')+'</select></label><button type="button" class="pill-btn dark" data-remove="'+i+'">'+(lang==='ru'?'Удалить':'Жою')+'</button></div>').join('');
 }
 function factsHtml(d){return d.facts.map((s,i)=>'<div class="info-point"><b>0'+(i+1)+'</b><p>'+escape(s)+'</p></div>').join('')||'<p>—</p>';}
-function infoHtml(d){return '<div class="infographic"><small>TARIH USTAZ AI • INFOGRAPHIC</small><h3>'+escape(d.topic)+'</h3><p>'+escape(d.objective)+'</p><div class="info-track">'+factsHtml(d)+'</div><p class="info-foot">'+escape(d.subject)+' • '+escape(d.grade)+' '+escape(txt('grade'))+' • '+escape(txt('short'))+'</p></div>';}
+
+function infoHtml(d){
+ const art=imageSrc('heritage-hero.svg');
+ return '<div class="infographic premium design-'+design+'"><div class="info-photo-header"><img src="'+art+'" alt="Тарихи дала мен сәулет өнерінің иллюстрациясы"><div class="info-photo-title"><small>TARIH USTAZ AI • '+escape(d.subject)+'</small><h3>'+escape(d.topic)+'</h3></div></div><div class="info-content"><p class="info-objective"><b>'+escape(txt('goal'))+':</b> '+escape(d.objective)+'</p><div class="info-track">'+factsHtml(d)+'</div><p class="info-foot">'+escape(d.subject)+' • '+escape(d.grade)+' '+escape(txt('grade'))+' • '+escape(txt('short'))+'</p></div></div>';
+}
 function slidesArray(d){
-let facts=d.facts;
-return [
-{title:d.topic,text:d.objective,note:txt('goal')},
-{title:txt('intro'),text:facts.slice(0,2).join(' • ')||d.objective,note:txt('main')},
-{title:txt('main'),text:facts.slice(2).join(' • ')||facts.join(' • '),note:txt('subject')},
-{title:txt('conclusion'),text:d.objective,note:txt('meaning')}
-];
+ const facts=d.facts;
+ return [
+ {type:'cover',art:'heritage-hero.svg',title:d.topic,text:d.objective,note:txt('goal'),facts:[]},
+ {type:'story',art:'heritage-hero.svg',title:txt('intro'),text:d.objective,note:txt('main'),facts:facts.slice(0,2)},
+ {type:'story',art:'illustration-info.svg',title:txt('main'),text:d.objective,note:txt('intro'),facts:facts.slice(2).length?facts.slice(2):facts.slice(0,2)},
+ {type:'conclusion',art:'heritage-hero.svg',title:txt('conclusion'),text:d.objective,note:txt('meaning'),facts:[]}
+ ];
 }
 function slideHtml(d,n){
-const a=slidesArray(d)[n];return '<div class="slides-preview"><small>TARIH USTAZ AI • '+escape(a.note)+' • '+(n+1)+'/4</small><h3>'+escape(a.title)+'</h3><p>'+escape(a.text)+'</p></div>';
+ const a=slidesArray(d)[n];
+ const factMarkup=a.facts.length?'<div class="slide-facts">'+a.facts.map((item,j)=>'<div class="slide-fact"><em>0'+(j+1)+'</em><span>'+escape(item)+'</span></div>').join('')+'</div>':'<p class="slide-subtitle">'+escape(a.text)+'</p>';
+ return '<div class="slides-preview premium design-'+design+' slide-'+a.type+'"><div class="slide-art"><img src="'+imageSrc(a.art)+'" alt="Тарихи тақырыпқа арналған иллюстрация"></div><div class="slide-body"><div class="slide-eyebrow">'+escape(d.subject)+' • '+escape(d.grade)+' '+escape(txt('grade'))+'</div><div class="slide-underline"></div><h3>'+escape(a.title)+'</h3>'+factMarkup+'</div><div class="slide-medallion">✥</div><div class="slide-footer"><span>TARIH USTAZ AI • '+escape(a.note)+'</span><span>'+String(n+1).padStart(2,'0')+' / 04</span></div></div>';
 }
+function illustratedDoc(markup,kind){
+ const art=kind==='qmj'?'illustration-qmj.svg':'illustration-sheet.svg';
+ const label=kind==='qmj'?txt('lesson'):txt('worksheet');
+ return markup.replace('<div class="doc-preview">','<div class="doc-preview premium design-'+design+'"><div class="document-hero"><img src="'+imageSrc(art)+'" alt=""><span>Tarih Ustaz AI • '+escape(label)+'</span></div><div class="document-content">').replace(/<\/div>$/,'</div></div>');
+}
+function updateSlideThumbnails(d){
+ const bar=$('slideThumbnails');if(!bar)return;
+ bar.classList.toggle('hidden',tool!=='slides');
+ if(tool!=='slides'){bar.innerHTML='';return}
+ bar.innerHTML=slidesArray(d).map((item,i)=>'<button type="button" class="slide-thumb'+(slide===i?' selected':'')+'" data-thumb="'+i+'" aria-label="'+(i+1)+'-слайд"><img src="'+imageSrc(item.art)+'" alt=""><span>'+(i+1)+' / 4</span></button>').join('');
+}
+
 function planHtml(d){
 return '<div class="doc-preview"><h3>'+escape(txt('lesson'))+'</h3><p><b>'+escape(txt('subject'))+':</b> '+escape(d.subject)+' &nbsp; <b>'+escape(d.grade)+' '+escape(txt('grade'))+'</b></p><p><b>'+escape(d.topic)+'</b></p><p><b>'+escape(txt('goal'))+':</b> '+escape(d.objective)+'</p><table><thead><tr><th>'+escape(txt('time'))+'</th><th>'+escape(txt('teacher'))+'</th><th>'+escape(txt('student'))+'</th><th>'+escape(txt('assessment'))+'</th></tr></thead><tbody>'+
 [['5',txt('open'),d.topic,'—'],['10',txt('intro'),d.facts[0]||d.topic,'—'],['20',txt('task'),d.facts.slice(1,3).join('; ')||d.objective,txt('answers')],['7',txt('conclusion'),d.objective,txt('assessment')],['3',txt('complete'),d.topic,'—']].map(r=>'<tr>'+r.map(x=>'<td>'+escape(x)+'</td>').join('')+'</tr>').join('')+'</tbody></table><p><small>'+escape(txt('short'))+'</small></p></div>';
@@ -80,7 +100,8 @@ const tags={info:'INFOGRAPHIC',slides:'SLIDES 16:9',qmj:'ҚМЖ / КСП',sheet:
 $('previewTag').textContent=tags[tool];
 $('slideControls').classList.toggle('hidden',tool!=='slides');
 $('slideCounter').textContent=(slide+1)+' / 4';
-$('preview').innerHTML=tool==='info'?infoHtml(d):tool==='slides'?slideHtml(d,slide):tool==='qmj'?planHtml(d):tool==='sheet'?sheetHtml(d):quizHtml(d,tool==='game');
+$('preview').innerHTML=tool==='info'?infoHtml(d):tool==='slides'?slideHtml(d,slide):tool==='qmj'?illustratedDoc(planHtml(d),'qmj'):tool==='sheet'?illustratedDoc(sheetHtml(d),'sheet'):quizHtml(d,tool==='game').replace('class="game-stage"','class="game-stage premium"');
+updateSlideThumbnails(d);
 if(tool==='game'){
 let b=$('tryGame');if(b)b.addEventListener('click',()=>{const html=downloadedContent();let w=window.open('','_blank');if(w){w.document.open();w.document.write(html);w.document.close()}else showStatus(lang==='kk'?'Қалқымалы терезеге рұқсат беріңіз.':'Разрешите всплывающее окно.')});
 }
@@ -91,14 +112,14 @@ let b=$('checkQuiz');if(b)b.addEventListener('click',()=>{let score=0;d.question
 function showStatus(s){$('status').textContent=s;let toast=$('toast');toast.textContent=s;toast.classList.add('show');clearTimeout(showStatus.timer);showStatus.timer=setTimeout(()=>toast.classList.remove('show'),2800);}
 const documentStyle='body{margin:0;background:#f0e5cf;color:#18364a;font:16px/1.65 Arial,sans-serif}main{max-width:1000px;margin:35px auto;background:white;border:1px solid #c8a16b;border-radius:18px;overflow:hidden;padding:24px;box-shadow:0 14px 35px #0002}h1,h2,h3{font-family:Georgia,serif;color:#143952}button{cursor:pointer} @media print{body{background:white}main{margin:0;max-width:none;border:0;box-shadow:none;padding:0}@page{size:A4;margin:14mm}}'+
 '.infographic{padding:25px;border:8px solid #173750;background:#fff7e6}.infographic h3{font-size:32px}.infographic small{color:#aa7a40}.info-track{display:grid;grid-template-columns:1fr 1fr;gap:12px}.info-point{border:1px solid #c99f68;border-radius:10px;padding:14px}.info-point b{color:#b47d37}.info-foot{color:#85623d}.slides-preview{background:#143650;color:#fff1cd;aspect-ratio:16/9;display:flex;justify-content:center;flex-direction:column;padding:9%;box-sizing:border-box;margin-bottom:20px;break-inside:avoid}.slides-preview h3{font-size:40px;color:#ffe0a1}.slides-preview p{font-size:21px;color:#e2ebed}.slides-preview small{color:#eab96d}.doc-preview table{width:100%;border-collapse:collapse}.doc-preview td,.doc-preview th{border:1px solid #aaa;padding:10px;text-align:left}.doc-preview th{background:#e7eff4}.doc-preview li{margin-bottom:16px}.lines{height:24px;border-bottom:1px dotted #888;margin-top:14px}';
-function shell(inner,title){return '<!doctype html><html lang="'+($('materialLanguage').value==='ru'?'ru':'kk')+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(title)+'</title><style>'+documentStyle+'</style></head><body><main>'+inner+'</main></body></html>'}
+function shell(inner,title){return '<!doctype html><html lang="'+($('materialLanguage').value==='ru'?'ru':'kk')+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(title)+'</title><style>'+documentStyle+'</style><link rel="stylesheet" href="'+ART_BASE+'cinematic.css?v=20261122b"></head><body><main class="'+(tool==='slides'?'slideshow-sheet':'')+'">'+inner+'</main></body></html>'}
 function standAloneQuiz(game){
 const d=getData();const label=dict[d.locale];const data=JSON.stringify(d.questions).replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026');const intro=game?label.game:label.quiz;
 let styles='body{margin:0;font:17px/1.5 Arial,sans-serif;background:linear-gradient(140deg,#06172d,#16445f);color:#f9ead0;min-height:100vh;display:grid;place-items:center}main{width:min(720px,91%);background:#0f2d46;border:2px solid #e1b574;border-radius:22px;padding:30px;box-shadow:0 22px 60px #0009}h1{font:700 31px Georgia,serif;color:#ffdc9f}button{display:block;width:100%;padding:14px;margin:10px 0;background:#fff1d2;color:#15324a;border:0;border-radius:11px;text-align:left;cursor:pointer;font-size:16px}button:hover,button:focus{background:#e2bf7e}#score{color:#ffce81;font-size:19px}small{color:#c6d8df}'+(game?'main{transform:perspective(1300px) rotateY(-3deg);box-shadow:17px 23px 0 #081b2b,0 34px 70px #0008}button{transition:transform .2s}button:hover{transform:translateZ(12px)}':'');
 const code='const questions='+data+';let n=0,score=0;const box=document.getElementById("box");const result=document.getElementById("score");function render(){if(n>=questions.length){box.textContent="";const h=document.createElement("h2");h.textContent="'+(d.locale==='ru'?'Готово!':'Аяқталды!')+'";box.append(h);result.textContent="'+label.score+': "+score+" / "+questions.length;const again=document.createElement("button");again.textContent="'+label.restart+'";again.onclick=()=>{n=0;score=0;render()};box.append(again);return}const q=questions[n];box.textContent="";result.textContent=(n+1)+" / "+questions.length+" • "+score+" '+label.points+'";const h=document.createElement("h2");h.textContent=q.q;box.append(h);q.options.forEach((o,j)=>{const b=document.createElement("button");b.textContent=(j+1)+". "+o;b.onclick=()=>{if(j===q.correct)score++;const note=document.createElement("p");note.textContent=j===q.correct?"'+label.correct+'":"'+label.wrong+'";note.style.color=j===q.correct?"#96f0ae":"#ffaf99";box.querySelectorAll("button").forEach(el=>el.disabled=true);box.append(note);const next=document.createElement("button");next.textContent="'+label.next+' →";next.onclick=()=>{n++;render()};box.append(next)};box.append(b)})}render();';
 return '<!doctype html><html lang="'+d.locale+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+escape(d.topic)+'</title><style>'+styles+'</style></head><body><main><small>TARIH USTAZ AI • '+intro+'</small><h1>'+escape(d.topic)+'</h1><div id="box"></div><p id="score" aria-live="polite"></p></main><script>'+code+'</script></body></html>';
 }
-function downloadedContent(){let d=getData();if(tool==='form'||tool==='game')return standAloneQuiz(tool==='game');if(tool==='slides')return shell(slidesArray(d).map((x,i)=>slideHtml(d,i)).join(''),d.topic);return shell(tool==='info'?infoHtml(d):tool==='qmj'?planHtml(d):sheetHtml(d),d.topic)}
+function downloadedContent(){let d=getData();if(tool==='form'||tool==='game')return standAloneQuiz(tool==='game');if(tool==='slides')return shell(slidesArray(d).map((x,i)=>slideHtml(d,i)).join(''),d.topic);return shell(tool==='info'?infoHtml(d):tool==='qmj'?illustratedDoc(planHtml(d),'qmj'):illustratedDoc(sheetHtml(d),'sheet'),d.topic)}
 function download(){
 let content=downloadedContent(),blob=new Blob([content],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
 a.href=url;a.download=tool==='game'?'index.html':('TarihUstazAI_'+tool+'.html');document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2500);showStatus(txt('done'));
@@ -121,6 +142,15 @@ $('mobileMenu').addEventListener('click',()=>{const n=$('mainNav');n.classList.t
 $('mainNav').addEventListener('click',e=>{if(e.target.closest('a')){$('mainNav').classList.remove('open');$('mobileMenu').setAttribute('aria-expanded','false')}});
 document.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>setTool(b.dataset.tool)));
 document.querySelectorAll('[data-go-tool]').forEach(link=>link.addEventListener('click',()=>{setTool(link.dataset.goTool)}));
+document.querySelectorAll('[data-design]').forEach(b=>b.addEventListener('click',()=>{
+ design=b.dataset.design;
+ document.querySelectorAll('[data-design]').forEach(x=>{const active=x.dataset.design===design;x.classList.toggle('active',active);x.setAttribute('aria-pressed',String(active));});
+ render();
+}));
+$('slideThumbnails').addEventListener('click',e=>{
+ const b=e.target.closest('[data-thumb]');if(!b)return;
+ slide=Number(b.dataset.thumb);render();
+});
 ['subject','grade','topic','objective','facts','materialLanguage'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='materialLanguage')setLanguage($(id).value);else render()}));
 $('questionList').addEventListener('input',e=>{let x=e.target;let i=Number(x.dataset.qi);if(!Number.isInteger(i)||!questions[i])return;if(x.dataset.field==='q')questions[i].q=x.value;else if(x.dataset.field==='option')questions[i].options[Number(x.dataset.oi)]=x.value;else if(x.dataset.field==='correct')questions[i].correct=Number(x.value);render()});
 $('questionList').addEventListener('change',e=>{let x=e.target;if(x.dataset.field==='correct'){questions[Number(x.dataset.qi)].correct=Number(x.value);render()}});
