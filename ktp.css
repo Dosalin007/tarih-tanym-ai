@@ -16,3 +16,8 @@
 .ktp-foot .ktp-clear{border:0;background:none;color:#47777c;font-size:10px;font-weight:800;padding:4px 0;text-decoration:underline}
 .ktp-foot .ktp-clear:hover{color:#0d5159}
 @media(max-width:700px){.ktp-import{padding:12px}.ktp-controls{grid-template-columns:1fr}.ktp-file{width:100%}.ktp-foot{flex-direction:column}}
+
+.ktp-foot{flex-wrap:wrap;align-items:center}
+.ktp-go-package{display:inline-flex;align-items:center;justify-content:center;padding:9px 12px;border-radius:8px;background:#0b6b75;color:#fff!important;font:800 11px Manrope,Arial,sans-serif;text-decoration:none;white-space:nowrap}
+.ktp-go-package:hover{background:#064f5a}
+@media(max-width:700px){.ktp-go-package{width:100%}}
