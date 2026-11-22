@@ -117,7 +117,8 @@ function drawSlide(ctx,d,page,img){
  }
  if(page===3){wrap(ctx,d.goal,60,bottom+22,720,41,4,"#e8f5f3",28,550);headingLine(ctx,c,60,583,125)}
  line(ctx,60,660,1220,660,"#ffffff55",1);
- font(ctx,13,700);ctx.fillStyle="#d5e9e8";ctx.fillText(d.subject==="kaz"?T.subjectKaz:T.subjectWorld,60,676);
+ font(ctx,13,700);ctx.fillStyle="#d5e9e8";const names={kaz:[T.subjectKaz,"Қазақстан тарихы"],world:[T.subjectWorld,"Дүниежүзі тарихы"],law:["Құқық негіздері","Основы права"],constitution:["Конституция негіздері","Основы Конституции"],order:["Заң және тәртіп","Закон и порядок"]};
+ const sub=(names[d.subject]||names.kaz);ctx.fillText(d.subject==="kaz"?T.subjectKaz:d.subject==="world"?T.subjectWorld:sub[d.lang==="ru"?1:0],60,676);
  font(ctx,11,500);ctx.fillStyle="#c8d9d9";ctx.fillText(creditLine(d),360,676,690);ctx.textAlign="right";ctx.fillText(String(page+1).padStart(2,"0")+" / 04",1215,676);ctx.textAlign="left";
 }
 function drawInfo(ctx,d,img){
