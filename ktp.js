@@ -1,7 +1,7 @@
 (function(){
 "use strict";
 const $=id=>document.getElementById(id);
-const KEY="tarih-ustaz-ktp-topics-v2",MAX=3500;
+const KEY="tarih-ustaz-ktp-topics-v3",MAX=3500;
 const ru=()=>document.documentElement.lang==="ru";
 const msg=(kk,rus)=>ru()?rus:kk;
 const val=x=>String(x==null?"":x).replace(/\u00a0/g," ").trim();
@@ -63,6 +63,77 @@ function parseCSV(content){
  row.push(cell);if(row.some(x=>x.trim()))rows.push(row);
  return rows;
 }
+
+const TABLE_HINTS={
+ 8:["5","kaz"],9:["5","world"],10:["6","kaz"],11:["6","world"],
+ 12:["7","kaz"],13:["7","world"],14:["8","kaz"],15:["8","world"],
+ 16:["9","kaz"],17:["9","world"],19:["9","law"],
+ 23:["10","kaz"],24:["10","world"],25:["11","kaz"],26:["11","world"],
+ 30:["10","law"],31:["11","law"],32:["5","constitution"],33:["6","constitution"],34:["7","constitution"],
+ 35:["8","order"],36:["9","order"],39:["10","order"],40:["11","order"]
+};
+let mammothLoading=null;
+function mammothLibrary(){
+ if(window.mammoth)return Promise.resolve(window.mammoth);
+ if(mammothLoading)return mammothLoading;
+ mammothLoading=new Promise((resolve,reject)=>{
+  const el=document.createElement("script");
+  el.src="https://cdn.jsdelivr.net/npm/mammoth@1.13.0/mammoth.browser.min.js";
+  el.async=true;
+  el.onload=()=>window.mammoth?resolve(window.mammoth):reject(new Error("DOCX reader not found"));
+  el.onerror=()=>reject(new Error(msg("Word оқу кітапханасы жүктелмеді.","Не удалось загрузить библиотеку Word.")));
+  document.head.append(el);
+ }).catch(e=>{mammothLoading=null;throw e});
+ return mammothLoading;
+}
+function tableCells(tr){
+ return [...tr.children].filter(x=>/^(TD|TH)$/.test(x.tagName)).map(x=>{const paras=[...x.querySelectorAll("p")].map(p=>val(p.textContent)).filter(Boolean);return val(paras.length?paras.join("; "):x.textContent)});
+}
+function decodeWordTable(table,file,index){
+ const hint=TABLE_HINTS[index];
+ if(!hint)return[];
+ const trs=[...table.querySelectorAll("tr")],first=trs[0]?tableCells(trs[0]):[];
+ // All grade-specific sections in the supplied 2026–2027 Word plans have distinct tabular columns.
+ // Preserve only lesson rows with a numbered first column to exclude summaries and heading rows.
+ const schema=index>=32&&index<=36?{title:1,goal:2,date:index<=34?5:4,section:null}:
+              index===39?{title:1,goal:3,date:5,section:2}:
+              index===40?{title:1,goal:2,date:4,section:null}:
+              index===31?{title:4,goal:5,date:7,section:2}:
+              index===19||index===30?{title:3,goal:4,date:6,section:1}:
+              index>=23&&index<=26?{title:3,goal:4,date:6,section:1}:
+              {title:2,goal:3,date:5,section:1};
+ const locale=/темы уроков|тема урока|цели обучения|всемирная|сквозные темы/i.test(first.join(" "))?"ru":"kk";
+ let quarter="",items=[];
+ for(let ri=1;ri<trs.length;ri++){
+  const row=tableCells(trs[ri]);
+  if(!row.length)continue;
+  const full=row.join(" ");
+  const matchQuarter=full.match(/(?:^|\s)([1-4]|[ІIҮVХ]{1,4})\s*[- ]?\s*(?:тоқсан|четверть)/i);
+  if(matchQuarter&&row.filter(Boolean).length<=3){quarter=matchQuarter[1];continue}
+  const order=val(row[0]).replace(/\s/g,"");
+  if(!/^\d{1,3}$/.test(order))continue;
+  // Remove merged/shifted rows instead of silently assigning a section title as a lesson.
+  if(row.length<=schema.goal)continue;
+  const title=val(row[schema.title]),goal=val(row[schema.goal]);
+  if(!title||title.length<4||title.length>500||!goal)continue;
+  const date=val(row[schema.date]||"").match(/\b\d{1,2}[.\/-]\d{1,2}(?:[.\/-]\d{2,4})?\b/);
+  items.push({title:title.slice(0,280),goal:goal.slice(0,1400),
+   grade:hint[0],subject:hint[1],locale,source:val(file),sheet:locale==="ru"?"2026-2027 КТП":"2026-2027 КТЖ",
+   order,quarter,section:schema.section==null?"":val(row[schema.section]||"").slice(0,260),
+   date:date?date[0]:"",row:ri+1});
+  if(items.length>=140)break;
+ }
+ return items;
+}
+async function parseDOCX(buffer,file){
+ const mammoth=await mammothLibrary();
+ const converted=await mammoth.convertToHtml({arrayBuffer:buffer},{convertImage:mammoth.images.imgElement(()=>Promise.resolve({src:""}))});
+ const dom=new DOMParser().parseFromString(converted.value,"text/html");
+ let rows=[],tables=[...dom.querySelectorAll("table")];
+ for(let i=0;i<tables.length;i++)rows.push(...decodeWordTable(tables[i],file,i));
+ return rows.slice(0,MAX);
+}
+
 function library(){
  if(window.XLSX)return Promise.resolve(window.XLSX);
  if(loading)return loading;
@@ -77,9 +148,10 @@ function library(){
 }
 async function readFile(file){
  const ext=(file.name.split(".").pop()||"").toLowerCase();
- if(!["xlsx","xls","csv","tsv"].includes(ext))throw new Error(msg("Тек XLSX, XLS, CSV.","Только XLSX, XLS, CSV."));
+ if(!["docx","xlsx","xls","csv","tsv"].includes(ext))throw new Error(msg("DOCX, XLSX, XLS немесе CSV жүктеңіз.","Загрузите DOCX, XLSX, XLS или CSV."));
  if(file.size>12*1024*1024)throw new Error(msg("Файл 12 МБ-тан үлкен.","Файл превышает 12 МБ."));
  const buffer=await file.arrayBuffer();
+ if(ext==="docx")return parseDOCX(buffer,file.name);
  if(ext==="csv"||ext==="tsv"){
   let decoded=new TextDecoder("utf-8").decode(buffer);
   if(decoded.includes("\uFFFD")){try{decoded=new TextDecoder("windows-1251").decode(buffer)}catch{}}
@@ -100,7 +172,8 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(entries));return tru
 function notify(text){$("ktpStatus").textContent=text}
 function refresh(){
  const box=$("ktpTopicSelect"),search=clean($("ktpSearch").value),grade=$("gradeInput").value,subject=$("subjectInput").value;
- filteredEntries=entries.filter(x=>(!x.grade||x.grade===grade)&&(!x.subject||x.subject===subject)&&(!search||clean(x.title+" "+x.goal).includes(search))).slice(0,700);
+ const byLanguage=entries.some(x=>x.locale=== (ru()?"ru":"kk"));
+ filteredEntries=entries.filter(x=>(!byLanguage||!x.locale||x.locale===(ru()?"ru":"kk"))&&(!x.grade||x.grade===grade)&&(!x.subject||x.subject===subject)&&(!search||clean(x.title+" "+x.goal).includes(search))).slice(0,900);
  box.textContent="";
  const placeholder=document.createElement("option");placeholder.value="";
  placeholder.textContent=entries.length?msg("КТЖ бойынша сабақ таңдаңыз","Выберите тему из КТП"):msg("КТЖ файлын жүктеңіз","Загрузите файл КТП");box.append(placeholder);
@@ -119,6 +192,7 @@ function select(){
  $("goalInput").value=item.goal||"";
  $("factsInput").value=""; // never reuse unrelated historical claims
  for(const id of ["topicInput","goalInput","factsInput"])$(id).dispatchEvent(new Event("input",{bubbles:true}));
+ window.dispatchEvent(new CustomEvent("tarih:ktp-selected",{detail:item}));
  notify(msg("Тақырып пен оқу мақсаты КТЖ-дан алынды.","Тема и цель обучения взяты из КТП."));
 }
 async function upload(files){
@@ -150,6 +224,6 @@ function init(){
  document.querySelectorAll("[data-lang]").forEach(el=>el.addEventListener("click",()=>setTimeout(refresh,0)));
  refresh();
 }
-window.TarihKTP={parseCSV,parseRows,findHeader,refresh};
+window.TarihKTP={parseCSV,parseRows,findHeader,decodeWordTable,refresh};
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
