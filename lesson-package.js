@@ -102,7 +102,7 @@ function gameQuestions(d){
  while(vals.length<4)vals.push(d.topic+" — "+String(vals.length+1));
  vals=vals.slice(0,4);
  return vals.map((val,i)=>{
-  let order=[0,1,2,3].map(j=>(j+i+1)%4);
+  const order=[2,0,3,1];
   return {q:label(d,"Сабақ материалындағы "+(i+1)+"-деректі анықтаңыз.","Найдите факт №"+(i+1)+" из материалов урока."),options:order.map(j=>vals[j]),answer:order.indexOf(i)};
  });
 }
