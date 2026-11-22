@@ -11,7 +11,7 @@ const VALUES={
  patriot:{kk:"Тәуелсіздік және отаншылдық",ru:"Независимость и патриотизм"},
  unity:{kk:"Бірлік және ынтымақ",ru:"Единство и солидарность"},
  justice:{kk:"Әділдік және жауапкершілік",ru:"Справедливость и ответственность"},
- law:{kk:"Заң және тәртіп",ru:"Закон и порядок"},
+ law:{kk:"Заң мен тәртіп",ru:"Закон и порядок"},
  work:{kk:"Еңбекқорлық және кәсіби біліктілік",ru:"Трудолюбие и профессионализм"},
  create:{kk:"Жасампаздық және жаңашылдық",ru:"Созидательность и новаторство"}
 };
@@ -174,25 +174,36 @@ function worksheet(d){
  '<p class="lesson-muted">'+label(d,"Критерийлер — 10 балдық үлгі. Оқу мақсаты мен нақты тапсырмаға бейімдеу қажет.","Критерии — шаблон на 10 баллов. Адаптируйте к цели обучения и фактическому заданию.")+'</p></article>';
 }
 function gameQuestions(d){
- let vals=d.facts.filter(Boolean);
- const topic=label(d,"Тақырып","Тема")+": "+d.topic;
- const goal=label(d,"Мақсат","Цель")+": "+(d.goal||d.topic);
- const value=label(d,"Құндылық","Ценность")+": "+valueName(d);
- for(const x of [topic,goal,value])if(vals.length<4&&!vals.includes(x))vals.push(x);
- while(vals.length<4)vals.push(d.topic+" — "+String(vals.length+1));
- vals=vals.slice(0,4);
- return vals.map((val,i)=>{
-  const order=[2,0,3,1];
-  return {q:label(d,"Сабақ материалындағы "+(i+1)+"-деректі анықтаңыз.","Найдите факт №"+(i+1)+" из материалов урока."),options:order.map(j=>vals[j]),answer:order.indexOf(i)};
+ // Questions are derived only from facts supplied by the teacher. No invented historical answers.
+ const source=d.facts.map(raw=>{
+  const pieces=raw.split(/\s+[—–-]\s+|:\s+/);
+  return {raw,term:(pieces[0]||raw).trim(),description:pieces.length>=2?pieces.slice(1).join(" — ").trim():""};
+ }).filter(item=>item.raw&&item.term).slice(0,8);
+ if(source.length<3)return[];
+ const selected=source.slice(0,Math.min(5,source.length));
+ return selected.map((item,i)=>{
+  const pool=[item,...source.filter(x=>x.raw!==item.raw)].slice(0,4);
+  const options=pool.map(x=>x.term);
+  const correct=options.indexOf(item.term);
+  const shift=(i+1)%options.length;
+  const shuffled=options.slice(shift).concat(options.slice(0,shift));
+  const actual=shuffled.indexOf(item.term);
+  return {
+   q:item.description?
+      label(d,"«"+item.description+"» сипаттамасына сәйкес келетін тарихи атауды таңдаңыз.","Выберите историческое понятие по описанию «"+item.description+"»."):
+      label(d,"Сабақта берілген "+(i+1)+"-деректі белгілеңіз.","Укажите факт №"+(i+1)+" из материала урока."),
+   options:shuffled,answer:actual};
  });
 }
 function gameIntro(d){
  return '<article class="lesson-document"><h2>'+label(d,"Қорытынды ойын: Деректерді сәйкестендір","Итоговая игра: Сопоставь факты")+'</h2>'+
+ '<p class="lesson-muted">'+(d.facts.length<3?label(d,"Толық ойын үшін кемінде үш тексерілген тарихи дерек енгізіңіз.","Для полноценной игры добавьте минимум три проверенных исторических факта."):"")+'</p>'+
  '<p class="lesson-muted">'+label(d,"Ойын өзіңіз енгізген фактілердің ретін тексереді. Тарихи мазмұн бойынша сұрақтарды мұғалім өңдей алады.","Игра проверяет соответствие фактов из введённого материала. Педагог может изменить вопросы по содержанию.")+'</p>'+
  '<div id="packageQuiz" class="lesson-game"></div></article>';
 }
 function wireGame(root,qs,l){
  if(!root)return;
+ if(!qs.length){root.textContent=l==="ru"?"Добавьте минимум три проверенных исторических факта для создания вопросов.":"Ойын сұрақтары үшін кемінде үш тексерілген тарихи дерек енгізіңіз.";return}
  let n=0,score=0;
  const title=l==="ru"?"Вопрос":"Сұрақ",correct=l==="ru"?"Верно!":"Дұрыс!",wrong=l==="ru"?"Неверно":"Қате",next=l==="ru"?"Следующий →":"Келесі →",finish=l==="ru"?"Готово!":"Аяқталды!",again=l==="ru"?"Начать снова":"Қайта бастау";
  function show(){
