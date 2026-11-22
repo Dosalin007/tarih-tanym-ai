@@ -7,7 +7,7 @@
 <meta name="description" content="Tarih Ustaz AI — тарих мұғаліміне слайд, инфографика және тарихи фотоиллюстрацияны сайтта жасап, PNG, JPG, HTML және PDF форматында сақтауға арналған шеберхана.">
 <title>Tarih Ustaz AI | Цифрлық шеберхана</title>
 <link rel="stylesheet" href="app.css?v=20261123b"><link rel="stylesheet" href="ktp.css?v=20261123final1"><link rel="stylesheet" href="package.css?v=20261123final1">
-<script src="app.js?v=20261123catalog2" defer></script><script src="ktp.js?v=20261123catalog2" defer></script><script src="lesson-package.js?v=20261123final1" defer></script>
+<script src="app.js?v=20261123catalog2" defer></script><script src="ktp.js?v=20261123catalog3" defer></script><script src="lesson-package.js?v=20261123final1" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -89,7 +89,7 @@
          <label><span data-kk="Тақырыпты іздеу" data-ru="Поиск темы">Тақырыпты іздеу</span><input type="search" id="ktpSearch" placeholder="Тақырып атауы / Название темы" autocomplete="off"></label>
          <label><span data-kk="Дайын КТЖ-дағы сабақ" data-ru="Урок из готового КТП">Дайын КТЖ-дағы сабақ</span><select id="ktpTopicSelect" disabled><option data-kk="Сабақтар жүктелуде..." data-ru="Загрузка уроков...">Сабақтар жүктелуде...</option></select></label>
         </div>
-        <div class="ktp-foot"><span id="ktpStatus" role="status" aria-live="polite" data-kk="Дайын тақырыптар ашылуда. Өз КТЖ файлын тек қажет болса қосыңыз." data-ru="Загрузка готовых тем. Свой файл КТП добавляйте только при необходимости.">Дайын тақырыптар ашылуда. Өз КТЖ файлын тек қажет болса қосыңыз.</span><button type="button" id="ktpClear" class="ktp-clear" data-kk="Жеке КТЖ-ны тазалау" data-ru="Удалить свой КТП">Жеке КТЖ-ны тазалау</button></div>
+        <div class="ktp-foot"><span id="ktpStatus" role="status" aria-live="polite" data-kk="Дайын тақырыптар ашылуда. Өз КТЖ файлын тек қажет болса қосыңыз." data-ru="Загрузка готовых тем. Свой файл КТП добавляйте только при необходимости.">Дайын тақырыптар ашылуда. Өз КТЖ файлын тек қажет болса қосыңыз.</span><a class="ktp-go-package" href="#lessonPackage" data-kk="Сабақ пакетін жасау →" data-ru="Создать комплект урока →">Сабақ пакетін жасау →</a><button type="button" id="ktpClear" class="ktp-clear" data-kk="Жеке КТЖ-ны тазалау" data-ru="Удалить свой КТП">Жеке КТЖ-ны тазалау</button></div>
        </div>
        <label><span data-kk="Таңдалған тақырып (қажет болса түзетіңіз)" data-ru="Выбранная тема (при необходимости измените)">Таңдалған тақырып (қажет болса түзетіңіз)</span><input id="topicInput" maxlength="300" placeholder="КТЖ тізімінен таңдаңыз / Выберите из КТП" required></label>
        
