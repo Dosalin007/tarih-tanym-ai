@@ -266,8 +266,8 @@ function select(){
  for(const id of ["topicInput","goalInput","factsInput"])
   $(id).dispatchEvent(new Event("input",{bubbles:true}));
  window.dispatchEvent(new CustomEvent("tarih:ktp-selected",{detail:item}));
- notify(msg("Тақырып пен оқу мақсаты дайын. Енді «Барлығын жасау» батырмасын басыңыз.",
-            "Тема и цель обучения заполнены. Нажмите «Создать весь комплект»."));
+ notify(msg("Тақырып пен оқу мақсаты дайын. Құралды таңдап, «Жасау» басыңыз.",
+            "Тема и цель обучения заполнены. Выберите инструмент и нажмите «Создать»."));
 }
 async function upload(files){
  if(!files||!files.length)return;
