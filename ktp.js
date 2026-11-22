@@ -87,7 +87,7 @@ function mammothLibrary(){
  return mammothLoading;
 }
 function tableCells(tr){
- return [...tr.children].filter(x=>/^(TD|TH)$/.test(x.tagName)).map(x=>val(x.textContent));
+ return [...tr.children].filter(x=>/^(TD|TH)$/.test(x.tagName)).map(x=>{const paras=[...x.querySelectorAll("p")].map(p=>val(p.textContent)).filter(Boolean);return val(paras.length?paras.join("; "):x.textContent)});
 }
 function decodeWordTable(table,file,index){
  const hint=TABLE_HINTS[index];
