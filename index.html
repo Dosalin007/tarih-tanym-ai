@@ -6,15 +6,15 @@
 <meta name="theme-color" content="#123448">
 <meta name="description" content="Tarih Ustaz AI — тарих мұғаліміне слайд, инфографика және тарихи фотоиллюстрацияны сайтта жасап, PNG, JPG, HTML және PDF форматында сақтауға арналған шеберхана.">
 <title>Tarih Ustaz AI | Цифрлық шеберхана</title>
-<link rel="stylesheet" href="app.css?v=20261123b"><link rel="stylesheet" href="ktp.css?v=20261123b">
-<script src="app.js?v=20261123b" defer></script><script src="ktp.js?v=20261123b" defer></script>
+<link rel="stylesheet" href="app.css?v=20261123b"><link rel="stylesheet" href="ktp.css?v=20261123b"><link rel="stylesheet" href="package.css?v=20261123c">
+<script src="app.js?v=20261123b" defer></script><script src="ktp.js?v=20261123b" defer></script><script src="lesson-package.js?v=20261123c" defer></script>
 </head>
 <body>
 <header class="site-header">
  <div class="shell header-inner">
   <a href="#home" class="brand" aria-label="Tarih Ustaz AI"><span class="brand-symbol">T</span><span><strong>Tarih Ustaz AI</strong><small data-kk="Тарих мұғалімінің цифрлық шеберханасы" data-ru="Цифровая мастерская учителя истории">Тарих мұғалімінің цифрлық шеберханасы</small></span></a>
   <nav class="main-nav" aria-label="Сайт мәзірі">
-   <a href="#studio" data-kk="Шеберхана" data-ru="Мастерская">Шеберхана</a>
+   <a href="#studio" data-kk="Шеберхана" data-ru="Мастерская">Шеберхана</a><a href="#lessonPackage" data-kk="Сабақ пакеті" data-ru="Комплект урока">Сабақ пакеті</a>
    <a href="#library" data-kk="Менің материалдарым" data-ru="Мои материалы">Менің материалдарым</a>
   </nav>
   <div class="language-switch" aria-label="Тіл таңдау">
@@ -119,6 +119,55 @@ XV ғасыр — құрылу кезеңі
    </div>
   </div>
  </section>
+<section class="lesson-package-section" id="lessonPackage">
+ <div class="shell">
+  <div class="section-intro">
+   <span class="eyebrow dark" data-kk="ТӨРТ ҚАДАМ • БІР ТАҚЫРЫП" data-ru="ЧЕТЫРЕ ШАГА • ОДНА ТЕМА">ТӨРТ ҚАДАМ • БІР ТАҚЫРЫП</span>
+   <h2 data-kk="Толық сабақ пакеті" data-ru="Полный комплект урока">Толық сабақ пакеті</h2>
+   <p data-kk="КТЖ-дан тақырыпты таңдаңыз. ҚМЖ, түсіндірме слайд пен инфографика, дескрипторлы жұмыс парағы және қорытынды ойын бірден әзірленеді." data-ru="Выберите тему из КТП. КСП, объясняющие слайды и инфографика, рабочий лист с дескрипторами и итоговая игра собираются в один комплект.">КТЖ-дан тақырыпты таңдаңыз. ҚМЖ, түсіндірме слайд пен инфографика, дескрипторлы жұмыс парағы және қорытынды ойын бірден әзірленеді.</p>
+  </div>
+  <div class="package-steps">
+   <div><span>01</span><strong data-kk="ҚМЖ" data-ru="КСП">ҚМЖ</strong><small data-kk="Құндылықпен" data-ru="С ценностями">Құндылықпен</small></div>
+   <div><span>02</span><strong data-kk="Түсіндірме" data-ru="Объяснение">Түсіндірме</strong><small data-kk="Слайд + инфографика" data-ru="Слайды + инфографика">Слайд + инфографика</small></div>
+   <div><span>03</span><strong data-kk="Жұмыс парағы" data-ru="Рабочий лист">Жұмыс парағы</strong><small data-kk="Дескрипторлар" data-ru="Дескрипторы">Дескрипторлар</small></div>
+   <div><span>04</span><strong data-kk="Қорытынды ойын" data-ru="Итоговая игра">Қорытынды ойын</strong><small data-kk="Интерактивті тест" data-ru="Интерактивный тест">Интерактивті тест</small></div>
+  </div>
+  <div class="package-setup">
+   <div class="package-setup-title"><strong data-kk="Сабақ параметрлері" data-ru="Параметры урока">Сабақ параметрлері</strong><span data-kk="Тақырып пен мақсат жоғарыдағы редактордан және КТЖ-дан алынады." data-ru="Тема и цель берутся из редактора и КТП выше.">Тақырып пен мақсат жоғарыдағы редактордан және КТЖ-дан алынады.</span></div>
+   <div class="package-controls">
+    <label><span data-kk="Құндылық" data-ru="Ценность">Құндылық</span>
+     <select id="packageValue">
+      <option value="patriot" data-kk="Тәуелсіздік және отаншылдық" data-ru="Независимость и патриотизм">Тәуелсіздік және отаншылдық</option>
+      <option value="unity" data-kk="Бірлік және ынтымақ" data-ru="Единство и солидарность">Бірлік және ынтымақ</option>
+      <option value="justice" data-kk="Әділдік және жауапкершілік" data-ru="Справедливость и ответственность">Әділдік және жауапкершілік</option>
+      <option value="law" data-kk="Заң және тәртіп" data-ru="Закон и порядок">Заң және тәртіп</option>
+      <option value="work" data-kk="Еңбекқорлық және кәсіби біліктілік" data-ru="Трудолюбие и профессионализм">Еңбекқорлық және кәсіби біліктілік</option>
+      <option value="create" data-kk="Жасампаздық және жаңашылдық" data-ru="Созидательность и новаторство">Жасампаздық және жаңашылдық</option>
+     </select>
+    </label>
+    <label><span data-kk="Сабақ ұзақтығы" data-ru="Длительность урока">Сабақ ұзақтығы</span><select id="packageDuration"><option value="45">45 мин</option><option value="40">40 мин</option></select></label>
+    <button type="button" class="package-create" id="packageCreate" data-kk="✦ Барлығын жасау" data-ru="✦ Создать весь комплект">✦ Барлығын жасау</button>
+   </div>
+   <div class="package-progress" id="packageProgress" role="status" aria-live="polite" hidden><span class="package-spinner" aria-hidden="true"></span><strong id="packageProgressText" data-kk="Өңделуде..." data-ru="Обрабатывается...">Өңделуде...</strong></div>
+   <p class="package-disclaimer" data-kk="Бұл нұсқа материалды сайттың өзінде құрастырады. Жеке GPT-боттар автоматты қосылмаған. Тарихи деректер мен оқу мақсаттарын мұғалім тексереді." data-ru="Эта версия формирует материалы на сайте. Личные GPT-боты автоматически не подключены. Исторические факты и цели обучения проверяет учитель.">Бұл нұсқа материалды сайттың өзінде құрастырады. Жеке GPT-боттар автоматты қосылмаған. Тарихи деректер мен оқу мақсаттарын мұғалім тексереді.</p>
+  </div>
+  <div id="packageResult" class="package-result" hidden>
+   <div class="package-result-head"><div><span class="eyebrow dark" data-kk="ДАЙЫН ПАКЕТ" data-ru="ГОТОВЫЙ КОМПЛЕКТ">ДАЙЫН ПАКЕТ</span><h3 id="packageTitle">Сабақ пакеті</h3></div><div class="package-result-actions">
+    <button type="button" id="packageCopyAll" data-kk="Барлығын көшіру" data-ru="Копировать всё">Барлығын көшіру</button>
+    <button type="button" id="packageDownload" class="package-download" data-kk="↓ HTML жүктеу" data-ru="↓ Скачать HTML">↓ HTML жүктеу</button>
+    <button type="button" id="packagePrint" data-kk="PDF / Басып шығару" data-ru="PDF / Печать">PDF / Басып шығару</button>
+   </div></div>
+   <nav class="package-tabs" aria-label="Сабақ кезеңдері">
+    <button type="button" data-package-tab="qmj" class="active" aria-selected="true">01 · ҚМЖ</button>
+    <button type="button" data-package-tab="explain" aria-selected="false" data-kk="02 · Түсіндірме" data-ru="02 · Объяснение">02 · Түсіндірме</button>
+    <button type="button" data-package-tab="sheet" aria-selected="false" data-kk="03 · Жұмыс парағы" data-ru="03 · Рабочий лист">03 · Жұмыс парағы</button>
+    <button type="button" data-package-tab="game" aria-selected="false" data-kk="04 · Ойын" data-ru="04 · Игра">04 · Ойын</button>
+   </nav>
+   <div id="packageOutput" class="package-output"></div>
+   <div class="package-bottom"><button type="button" id="packageCopySection" data-kk="Осы бөлімді көшіру" data-ru="Копировать раздел">Осы бөлімді көшіру</button><span id="packageNotice" aria-live="polite"></span></div>
+  </div>
+ </div>
+</section>
  <section id="library" class="library-section">
   <div class="shell"><div class="section-intro"><span class="eyebrow dark" data-kk="ОСЫ БРАУЗЕРДЕ" data-ru="В ЭТОМ БРАУЗЕРЕ">ОСЫ БРАУЗЕРДЕ</span><h2 data-kk="Менің материалдарым" data-ru="Мои материалы">Менің материалдарым</h2><p data-kk="Соңғы 8 жұмыс сақталады. Қайта ашып, өңдеп, жүктей аласыз." data-ru="Хранятся последние 8 работ. Можно открыть, изменить и скачать.">Соңғы 8 жұмыс сақталады. Қайта ашып, өңдеп, жүктей аласыз.</p></div><div class="library-grid" id="libraryGrid"></div></div>
  </section>
