@@ -73,3 +73,18 @@
 @media(max-width:820px){.package-steps{grid-template-columns:repeat(2,1fr)}.package-controls{grid-template-columns:1fr 1fr}.package-create{grid-column:1/-1}.lesson-slide-set{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.lesson-package-section{padding:53px 0}.package-steps{gap:9px}.package-steps>div{padding:12px}.package-controls{display:flex;flex-direction:column;align-items:stretch}.package-controls label{width:100%}.package-tabs{grid-template-columns:1fr 1fr}.package-tabs button{font-size:11px;padding:11px 4px}.package-output{padding:11px;overflow-x:auto}.lesson-slide-set,.lesson-fact-grid,.lesson-game .game-options{grid-template-columns:1fr}.lesson-document table{font-size:10px}.lesson-document td,.lesson-document th{padding:5px}}
 @media print{body>*:not(main){display:none!important}.lesson-package-section{padding:0;background:#fff}.package-setup,.package-tabs,.package-result-head,.package-bottom{display:none}.package-output{padding:0}.lesson-document{font-size:11px}.lesson-document table{font-size:10px}}
+
+/* Curriculum-linked official-form QMJ metadata and value calendar */
+.package-meta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid #deebe7}
+.package-meta-grid label{display:flex;flex-direction:column;gap:6px;color:#52717a;font-size:11px;font-weight:800;min-width:0}
+.package-meta-grid input{width:100%;min-width:0;border:1px solid #cdded9;border-radius:8px;height:42px;padding:8px 12px;font:600 12px Manrope,Arial,sans-serif;color:#23485a;background:#fff}
+.package-meta-grid .meta-wide{grid-column:span 3}
+.package-value-hint{font-size:11px;line-height:1.65;color:#256f75;background:#eef8f5;border-left:3px solid #1e878a;padding:9px 13px;border-radius:0 8px 8px 0;margin:14px 0 0}
+.lesson-document .rubric-total{font-weight:850;border:1px solid #bfdfd9;border-radius:8px;color:#1b6574;background:#f1f8f6;padding:8px 12px;display:inline-block}
+.lesson-document .qmj-source{font-size:10px;color:#748b91}
+.lesson-document table caption{font-size:13px;font-weight:850;text-align:left;margin:8px 0;color:#1b4c5a}
+.lesson-document .five-minute-activity{background:#f0f7f4;border-left:4px solid #207781;border-radius:8px;padding:12px 14px;margin:10px 0}
+.lesson-document .five-minute-activity strong{color:#1c5865}
+.lesson-document td:first-child{font-weight:700}
+@media(max-width:820px){.package-meta-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.package-meta-grid .meta-wide{grid-column:span 2}}
+@media(max-width:550px){.package-meta-grid{grid-template-columns:1fr}.package-meta-grid .meta-wide{grid-column:auto}}
