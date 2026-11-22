@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#123448">
 <meta name="description" content="Tarih Ustaz AI — тарих мұғаліміне слайд, инфографика және тарихи фотоиллюстрацияны сайтта жасап, PNG, JPG, HTML және PDF форматында сақтауға арналған шеберхана.">
 <title>Tarih Ustaz AI | Цифрлық шеберхана</title>
-<link rel="stylesheet" href="app.css?v=20261123a">
-<script src="app.js?v=20261123a" defer></script>
+<link rel="stylesheet" href="app.css?v=20261123b"><link rel="stylesheet" href="ktp.css?v=20261123b">
+<script src="app.js?v=20261123b" defer></script><script src="ktp.js?v=20261123b" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -71,6 +71,19 @@
     <div class="studio-body">
       <form id="editorForm" class="editor-fields" novalidate>
        <div class="editor-section-top"><h3 data-kk="Материал мазмұны" data-ru="Содержание материала">Материал мазмұны</h3><span data-kk="Өңделетін үлгі" data-ru="Редактируемый шаблон">Өңделетін үлгі</span></div>
+       <div class="ktp-import" id="ktpImport">
+        <div class="ktp-heading">
+         <div><span class="ktp-kicker" data-kk="КТЖ / КТП" data-ru="КТП / КТЖ">КТЖ / КТП</span>
+         <strong data-kk="Жоспардан тақырып таңдаңыз" data-ru="Выберите тему из готового плана">Жоспардан тақырып таңдаңыз</strong>
+         <small data-kk="КТЖ файлын бір рет жүктеңіз — тақырып пен оқу мақсаты автоматты толтырылады." data-ru="Загрузите КТП один раз — тема и цель обучения заполнятся автоматически.">КТЖ файлын бір рет жүктеңіз — тақырып пен оқу мақсаты автоматты толтырылады.</small></div>
+         <label class="ktp-file"><span data-kk="КТЖ жүктеу" data-ru="Загрузить КТП">КТЖ жүктеу</span><input id="ktpFileInput" type="file" accept=".xlsx,.xls,.csv,.tsv" multiple></label>
+        </div>
+        <div class="ktp-controls">
+         <label><span data-kk="Тақырыпты іздеу" data-ru="Поиск темы">Тақырыпты іздеу</span><input type="search" id="ktpSearch" placeholder="Тақырып атауы / Название темы" autocomplete="off"></label>
+         <label><span data-kk="КТЖ-дағы тақырып" data-ru="Тема по КТП">КТЖ-дағы тақырып</span><select id="ktpTopicSelect" disabled><option data-kk="Алдымен КТЖ файлын жүктеңіз" data-ru="Сначала загрузите файл КТП">Алдымен КТЖ файлын жүктеңіз</option></select></label>
+        </div>
+        <div class="ktp-foot"><span id="ktpStatus" role="status" aria-live="polite" data-kk="КТЖ мәліметі бұл браузерде сақталады; серверге жіберілмейді." data-ru="Данные КТП сохраняются в браузере и не передаются на сервер.">КТЖ мәліметі бұл браузерде сақталады; серверге жіберілмейді.</span><button type="button" id="ktpClear" class="ktp-clear" data-kk="КТЖ-ны тазалау" data-ru="Очистить КТП">КТЖ-ны тазалау</button></div>
+       </div>
        <label><span data-kk="Тақырып" data-ru="Тема">Тақырып</span><input id="topicInput" maxlength="130" value="Қазақ хандығының құрылуы" required></label>
        <div class="field-pair">
         <label><span data-kk="Пән" data-ru="Предмет">Пән</span><select id="subjectInput"><option value="kaz" data-kk="Қазақстан тарихы" data-ru="История Казахстана">Қазақстан тарихы</option><option value="world" data-kk="Дүниежүзі тарихы" data-ru="Всемирная история">Дүниежүзі тарихы</option></select></label>
