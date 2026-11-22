@@ -150,22 +150,28 @@ function explain(d){
  '<p class="lesson-muted">'+label(d,"Фото дереккөздері: Wikimedia Commons (CentrAsia, Ninaras, Alexandr frolov). CC0 / CC BY-SA 4.0.","Источники фото: Wikimedia Commons (CentrAsia, Ninaras, Alexandr frolov). CC0 / CC BY-SA 4.0.")+'</p></article>';
 }
 function worksheet(d){
- const base=d.facts.length?d.facts.join("; "):label(d,"Деректерді сабақтан алыңыз","Возьмите сведения из урока");
+ const data=d.facts.length?d.facts.join("; "):label(d,"КТЖ тақырыбына сәйкес тарихи деректерді енгізіңіз","Добавьте исторические факты по выбранной теме КТП");
  const tasks=[
- {title:label(d,"1-тапсырма. Тарихи ұғымдар","Задание 1. Исторические понятия"),description:label(d,"Тақырыпқа қатысты екі маңызды ұғымды анықтап, түсіндіріңіз.","Определите и объясните два ключевых понятия по теме."),
- desc:[label(d,"Екі тарихи ұғымды анықтайды","Выделяет два исторических понятия"),label(d,"Ұғымдардың мағынасын түсіндіреді","Объясняет их значение")]},
- {title:label(d,"2-тапсырма. Себеп пен салдар","Задание 2. Причины и следствия"),description:label(d,"Оқиғаның екі себебі мен бір салдарын жазыңыз. Жауапты тарихи дәлелмен негіздеңіз.","Назовите две причины и одно следствие события. Подкрепите ответ историческими аргументами."),
- desc:[label(d,"Екі себепті атайды","Называет две причины"),label(d,"Бір салдарды тарихи дерекпен негіздейді","Обосновывает одно следствие историческим фактом")]},
- {title:label(d,"3-тапсырма. Талдау","Задание 3. Анализ"),description:label(d,"Тарихи деректі немесе өзіңіз зерттеген мәліметті пайдаланып, оқиғаның маңызы туралы қорытынды жасаңыз.","Используя исторический источник или изученные сведения, сделайте вывод о значении события."),
- desc:[label(d,"Деректі орынды пайдаланады","Уместно использует факт"),label(d,"Негізделген қорытынды жасайды","Формулирует обоснованный вывод")]}
+  {pts:2,title:label(d,"1-тапсырма. Тарихи ұғымдар","Задание 1. Исторические понятия"),
+   text:label(d,"Тақырыпқа қатысты екі ұғымды анықтаңыз. Мағынасын қысқаша жазыңыз.","Назовите два понятия по теме и кратко объясните их смысл."),
+   desc:[[label(d,"Екі тарихи ұғымды дұрыс анықтайды","Правильно называет два исторических понятия"),1],[label(d,"Түсінігін қысқаша сипаттайды","Кратко объясняет их смысл"),1]]},
+  {pts:4,title:label(d,"2-тапсырма. Себеп пен салдар","Задание 2. Причины и следствия"),
+   text:label(d,"Оқиғаның екі себебі мен екі салдарын көрсетіңіз. Әр тұжырымды сабақ деректерімен байланыстырыңыз.","Укажите две причины и два следствия события, связывая их с материалом урока."),
+   desc:[[label(d,"Бірінші себепті көрсетеді","Определяет первую причину"),1],[label(d,"Екінші себепті көрсетеді","Определяет вторую причину"),1],[label(d,"Бірінші салдарды түсіндіреді","Объясняет первое следствие"),1],[label(d,"Екінші салдарды түсіндіреді","Объясняет второе следствие"),1]]},
+  {pts:4,title:label(d,"3-тапсырма. Тарихи маңызы","Задание 3. Историческое значение"),
+   text:label(d,"Тарихи оқиғаның маңызын екі дәлелмен негіздеп, салыстыру арқылы қорытынды жасаңыз.","Обоснуйте историческое значение двумя аргументами и сформулируйте вывод на основе сравнения."),
+   desc:[[label(d,"Бірінші дәлел келтіреді","Приводит первый аргумент"),1],[label(d,"Екінші дәлел келтіреді","Приводит второй аргумент"),1],[label(d,"Дәлелдерді салыстырады","Сравнивает аргументы"),1],[label(d,"Негізделген қорытынды жасайды","Формулирует обоснованный вывод"),1]]}
  ];
- return '<article class="lesson-document"><h2>'+label(d,"Жұмыс парағы және бағалау дескрипторлары","Рабочий лист и дескрипторы оценивания")+'</h2>'+
- '<p><b>'+label(d,"Тақырып","Тема")+':</b> '+editing(d.topic)+' • '+esc(d.grade)+' '+label(d,"сынып","класс")+'</p>'+
+ return '<article class="lesson-document"><h2>'+label(d,"Жұмыс парағы және 10 балдық дескрипторлар","Рабочий лист и дескрипторы на 10 баллов")+'</h2>'+
+ '<p><b>'+label(d,"Тақырып","Тема")+':</b> '+editing(d.topic)+' · '+esc(d.grade)+' '+label(d,"сынып","класс")+'</p>'+
  '<p><b>'+label(d,"Оқу мақсаты","Цель обучения")+':</b> '+editing(d.goal||"—")+'</p>'+
- '<p class="lesson-chip">'+label(d,"Жалпы балл: 6","Всего баллов: 6")+'</p>'+
- '<p class="lesson-muted">'+label(d,"Сабақта қолданылатын деректер","Материалы для работы")+': '+esc(base)+'</p>'+
- tasks.map(x=>'<div class="lesson-task"><h3>'+esc(x.title)+'</h3><p>'+editing(x.description)+'</p><div class="lesson-answer-lines"></div><div class="lesson-answer-lines"></div><b>'+label(d,"Дескрипторлар (2 балл)","Дескрипторы (2 балла)")+':</b><ul>'+x.desc.map(y=>'<li>'+editing(y)+' — 1 '+label(d,"балл","балл")+'</li>').join("")+'</ul></div>').join("")+
- '<p class="lesson-muted">'+label(d,"Дескрипторлар — ұсынылатын үлгі, оларды оқу мақсатына сәйкестендіріңіз.","Дескрипторы предложены как образец; адаптируйте их к цели обучения.")+'</p></article>';
+ '<p class="rubric-total">'+label(d,"Жалпы 10 балл: 2 + 4 + 4","Всего 10 баллов: 2 + 4 + 4")+'</p>'+
+ '<p class="lesson-muted">'+label(d,"Мұғалім ұсынған тексерілген деректер","Проверенные педагогом сведения")+': '+esc(data)+'</p>'+
+ tasks.map(item=>'<div class="lesson-task"><h3>'+esc(item.title)+' · '+item.pts+' '+label(d,"балл","балла")+'</h3><p>'+editing(item.text)+'</p>'+
+ '<div class="lesson-answer-lines"></div><div class="lesson-answer-lines"></div><b>'+label(d,"Дескрипторлар","Дескрипторы")+':</b><ul>'+
+ item.desc.map(([desc,points])=>'<li>'+editing(desc)+' — '+points+' '+label(d,"балл","балл")+'</li>').join("")+
+ '</ul></div>').join("")+
+ '<p class="lesson-muted">'+label(d,"Критерийлер — 10 балдық үлгі. Оқу мақсаты мен нақты тапсырмаға бейімдеу қажет.","Критерии — шаблон на 10 баллов. Адаптируйте к цели обучения и фактическому заданию.")+'</p></article>';
 }
 function gameQuestions(d){
  let vals=d.facts.filter(Boolean);
@@ -291,6 +297,26 @@ function init(){
  $("packageCopySection").addEventListener("click",()=>copyText(active));
  $("packageDownload").addEventListener("click",download);
  $("packagePrint").addEventListener("click",print);
+ const date=$("packageDate");
+ if(date){
+  if(!date.value){const today=new Date();const yyyy=today.getFullYear(),mm=String(today.getMonth()+1).padStart(2,"0"),dd=String(today.getDate()).padStart(2,"0");date.value=yyyy+"-"+mm+"-"+dd;}
+  date.addEventListener("change",updateDateValue);
+ }
+ window.addEventListener("tarih:ktp-selected",event=>{
+  const item=event.detail||{};
+  if(item.section)$("packageSection").value=item.section;
+  if(item.date){
+   const m=/^(\d{1,2})[.\/-](\d{1,2})(?:[.\/-](\d{2,4}))?$/.exec(item.date);
+   if(m){
+    const year=m[3]?Number(m[3].length===2?"20"+m[3]:m[3]):Number(m[2])>=9?2026:2027;
+    if(year>2000&&year<2100){$("packageDate").value=year+"-"+m[2].padStart(2,"0")+"-"+m[1].padStart(2,"0");}
+   }
+  }
+  updateDateValue();
+ });
+ $("packageValue").addEventListener("change",updateDateValue);
+ updateDateValue();
+
 }
 window.TarihLessonPackage={qmj,explain,worksheet,gameQuestions};
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
