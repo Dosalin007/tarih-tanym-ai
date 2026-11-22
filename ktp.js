@@ -167,63 +167,156 @@ async function readFile(file){
  }
  return found.slice(0,MAX);
 }
-function saved(){try{const arr=JSON.parse(localStorage.getItem(KEY)||"[]");return Array.isArray(arr)?arr.filter(x=>x&&x.title).slice(0,MAX):[]}catch{return[]}}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(entries));return true}catch{return false}}
+
+const BUILTIN_PREFIX="data/ktp-2026-2027-";
+const bundled={kk:null,ru:null},promises={kk:null,ru:null};
+let imported=[];
+function saved(){
+ try{
+  const arr=JSON.parse(localStorage.getItem(KEY)||"[]");
+  return Array.isArray(arr)?arr.filter(x=>x&&x.title).slice(0,MAX):[];
+ }catch{return []}
+}
+function save(){
+ try{localStorage.setItem(KEY,JSON.stringify(imported));return true}
+ catch{return false}
+}
 function notify(text){$("ktpStatus").textContent=text}
+function fromBundle(row,i,language){
+ if(!row||!row.t||!row.g||!row.s)return null;
+ return {
+  title:val(row.t),goal:val(row.o),grade:val(row.g),subject:val(row.s),
+  date:val(row.d),section:val(row.b),quarter:val(row.q),
+  source:"Tarih Ustaz AI • 2026–2027",sheet:"КТЖ / КТП",order:val(row.n),
+  locale:language,row:i+1,builtin:true
+ };
+}
+async function loadBuiltin(language){
+ if(bundled[language])return bundled[language];
+ if(promises[language])return promises[language];
+ notify(msg("2026–2027 КТЖ тақырыптары жүктелуде...","Загрузка тем КТП за 2026–2027 год..."));
+ promises[language]=(async()=>{
+  const url=BUILTIN_PREFIX+language+".json?v=20261123catalog2";
+  const response=await fetch(url,{cache:"default"});
+  if(!response.ok)throw Error("HTTP "+response.status);
+  const rows=await response.json();
+  if(!Array.isArray(rows)||rows.length<800)throw Error("Incomplete built-in curriculum");
+  bundled[language]=rows.map((x,i)=>fromBundle(x,i,language)).filter(Boolean);
+  refresh();
+  return bundled[language];
+ })().catch(error=>{
+  console.error("Cannot load KTP catalogue:",error);
+  notify(msg("Дайын КТЖ базасы ашылмады. Интернетті тексеріңіз немесе өз Word файлыңызды жүктеңіз.",
+             "Готовый каталог КТП недоступен. Проверьте интернет или загрузите свой файл Word."));
+  return [];
+ }).finally(()=>{promises[language]=null});
+ return promises[language];
+}
+function availableEntries(){
+ const l=ru()?"ru":"kk";
+ const custom=imported.filter(x=>!x.locale||x.locale===l);
+ return [...(bundled[l]||[]),...custom];
+}
 function refresh(){
- const box=$("ktpTopicSelect"),search=clean($("ktpSearch").value),grade=$("gradeInput").value,subject=$("subjectInput").value;
- const byLanguage=entries.some(x=>x.locale=== (ru()?"ru":"kk"));
- filteredEntries=entries.filter(x=>(!byLanguage||!x.locale||x.locale===(ru()?"ru":"kk"))&&(!x.grade||x.grade===grade)&&(!x.subject||x.subject===subject)&&(!search||clean(x.title+" "+x.goal).includes(search))).slice(0,900);
+ const box=$("ktpTopicSelect"),
+       search=clean($("ktpSearch").value),
+       grade=$("gradeInput").value,
+       subject=$("subjectInput").value,
+       language=ru()?"ru":"kk";
+ entries=availableEntries();
+ filteredEntries=entries.filter(x=>
+    (!x.grade||x.grade===grade)&&
+    (!x.subject||x.subject===subject)&&
+    (!search||clean(x.title+" "+x.goal+" "+x.section).includes(search))
+ ).slice(0,900);
  box.textContent="";
- const placeholder=document.createElement("option");placeholder.value="";
- placeholder.textContent=entries.length?msg("КТЖ бойынша сабақ таңдаңыз","Выберите тему из КТП"):msg("КТЖ файлын жүктеңіз","Загрузите файл КТП");box.append(placeholder);
+ const placeholder=document.createElement("option");
+ placeholder.value="";
+ placeholder.textContent=filteredEntries.length?
+   msg("КТЖ-дағы сабақты таңдаңыз","Выберите урок из КТП"):
+   (!bundled[language]&&!imported.length?
+    msg("Тақырыптар жүктелуде...","Темы загружаются..."):
+    msg("Осы пән/сынып бойынша тақырып жоқ","Тем для этого предмета и класса нет"));
+ box.append(placeholder);
  filteredEntries.forEach((item,i)=>{
-  const o=document.createElement("option");o.value=String(i);
-  o.textContent=(item.order?item.order+" · ":"")+item.title+(item.goal?" — "+item.goal.slice(0,44):"");
-  box.append(o);
+  const opt=document.createElement("option");
+  opt.value=String(i);
+  opt.textContent=(item.order?"№"+item.order+" · ":"")+(item.date?item.date+" · ":"")+item.title;
+  box.append(opt);
  });
- box.disabled=!filteredEntries.length;box.value="";
- if(entries.length)notify(msg("КТЖ: "+entries.length+" тақырып. Сүзгіден "+filteredEntries.length+" сабақ өтті.","КТП: "+entries.length+" тем. Подходят "+filteredEntries.length+" уроков."));
+ box.disabled=!filteredEntries.length;
+ box.value="";
+ if(bundled[language]){
+  notify(msg("Дайын КТЖ: "+bundled[language].length+" сабақ. "+grade+"-сынып бойынша "+filteredEntries.length+" тақырып таңдауға болады.",
+             "Готовый КТП: "+bundled[language].length+" уроков. Для "+grade+" класса доступно "+filteredEntries.length+" тем."));
+ }else if(imported.length){
+  notify(msg("Жеке КТЖ-дан "+filteredEntries.length+" тақырып табылды.",
+             "Из загруженного КТП найдено тем: "+filteredEntries.length+"."));
+ }
 }
 function select(){
- const v=$("ktpTopicSelect").value;if(v==="")return;
- const item=filteredEntries[Number(v)];if(!item)return;
+ const idx=$("ktpTopicSelect").value;
+ if(idx==="")return;
+ const item=filteredEntries[Number(idx)];
+ if(!item)return;
  $("topicInput").value=item.title;
  $("goalInput").value=item.goal||"";
- $("factsInput").value=""; // never reuse unrelated historical claims
- for(const id of ["topicInput","goalInput","factsInput"])$(id).dispatchEvent(new Event("input",{bubbles:true}));
+ // Do not repeat historical facts from another selected topic.
+ $("factsInput").value="";
+ for(const id of ["topicInput","goalInput","factsInput"])
+  $(id).dispatchEvent(new Event("input",{bubbles:true}));
  window.dispatchEvent(new CustomEvent("tarih:ktp-selected",{detail:item}));
- notify(msg("Тақырып пен оқу мақсаты КТЖ-дан алынды.","Тема и цель обучения взяты из КТП."));
+ notify(msg("Тақырып пен оқу мақсаты дайын. Енді «Барлығын жасау» батырмасын басыңыз.",
+            "Тема и цель обучения заполнены. Нажмите «Создать весь комплект»."));
 }
 async function upload(files){
  if(!files||!files.length)return;
- $("ktpFileInput").disabled=true;notify(msg("КТЖ өңделуде...","Обработка КТП..."));
+ $("ktpFileInput").disabled=true;
+ notify(msg("Жеке КТЖ файлы өңделуде...","Обработка вашего файла КТП..."));
  let count=0,errors=[];
  for(const file of Array.from(files).slice(0,12)){
   try{
    const data=await readFile(file);
-   if(!data.length){errors.push(file.name+": "+msg("«Тақырып» бағаны табылмады","Не найден столбец «Тема»"));continue}
-   entries=entries.filter(x=>x.source!==file.name);
-   const uniq=new Map();
-   [...entries,...data].forEach(x=>uniq.set([x.source,x.sheet,x.row,x.title].join("|"),x));
-   entries=[...uniq.values()].slice(0,MAX);
+   if(!data.length){
+    errors.push(file.name+": "+msg("«Тақырып» бағаны табылмады","Не найден столбец «Тема»"));
+    continue;
+   }
+   imported=imported.filter(x=>x.source!==file.name);
+   const unique=new Map();
+   [...imported,...data].forEach(x=>unique.set([x.source,x.sheet,x.row,x.title].join("|"),x));
+   imported=[...unique.values()].slice(0,MAX);
    count+=data.length;
-  }catch(err){errors.push(file.name+": "+err.message)}
+  }catch(error){errors.push(file.name+": "+error.message)}
  }
- $("ktpFileInput").disabled=false;$("ktpFileInput").value="";
- const savedOK=save();refresh();
- notify((count?msg(count+" сабақ жүктелді.","Загружено уроков: "+count)+ (savedOK?"":" "+msg("Жадыға сақталмады.","Не сохранено в браузере.")):"")+ (errors.length?" "+errors.slice(0,2).join(" · "):""));
+ $("ktpFileInput").disabled=false;
+ $("ktpFileInput").value="";
+ const savedOK=save();
+ refresh();
+ notify((count?
+  msg(count+" сабақ жеке КТЖ-дан қосылды.","Добавлено уроков из вашего КТП: "+count)+
+  (savedOK?"":msg(" (Браузерде сақтау мүмкін болмады.)"," (Не удалось сохранить в браузере.)"))
+  :"")+(errors.length?" "+errors.slice(0,2).join(" · "):""));
 }
 function init(){
- entries=saved();
+ imported=saved();
  $("ktpFileInput").addEventListener("change",e=>upload(e.target.files));
  $("ktpSearch").addEventListener("input",refresh);
  $("ktpTopicSelect").addEventListener("change",select);
  ["gradeInput","subjectInput"].forEach(id=>$(id).addEventListener("change",refresh));
- $("ktpClear").addEventListener("click",()=>{entries=[];try{localStorage.removeItem(KEY)}catch{}$("ktpSearch").value="";refresh();notify(msg("КТЖ тазаланды.","КТП очищено."))});
- document.querySelectorAll("[data-lang]").forEach(el=>el.addEventListener("click",()=>setTimeout(refresh,0)));
+ $("ktpClear").addEventListener("click",()=>{
+  imported=[];
+  try{localStorage.removeItem(KEY)}catch{}
+  $("ktpSearch").value="";
+  refresh();
+  notify(msg("Жеке жүктелген КТЖ тазаланды. 2026–2027 дайын тізімі сақталады.",
+             "Ваш загруженный КТП удалён. Готовый каталог 2026–2027 сохранён."));
+ });
+ document.querySelectorAll("[data-lang]").forEach(button=>button.addEventListener("click",()=>{
+  setTimeout(()=>{refresh();loadBuiltin(ru()?"ru":"kk")},0);
+ }));
  refresh();
+ loadBuiltin(ru()?"ru":"kk");
 }
-window.TarihKTP={parseCSV,parseRows,findHeader,decodeWordTable,refresh};
+window.TarihKTP={parseCSV,parseRows,findHeader,decodeWordTable,refresh,loadBuiltin,availableEntries};
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();
