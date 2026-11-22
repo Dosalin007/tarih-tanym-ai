@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#123448">
 <meta name="description" content="Tarih Ustaz AI — тарих мұғаліміне слайд, инфографика және тарихи фотоиллюстрацияны сайтта жасап, PNG, JPG, HTML және PDF форматында сақтауға арналған шеберхана.">
 <title>Tarih Ustaz AI | Цифрлық шеберхана</title>
-<link rel="stylesheet" href="app.css?v=20261123b"><link rel="stylesheet" href="ktp.css?v=20261123b"><link rel="stylesheet" href="package.css?v=20261123c">
-<script src="app.js?v=20261123b" defer></script><script src="ktp.js?v=20261123b" defer></script><script src="lesson-package.js?v=20261123c" defer></script>
+<link rel="stylesheet" href="app.css?v=20261123b"><link rel="stylesheet" href="ktp.css?v=20261123d"><link rel="stylesheet" href="package.css?v=20261123d">
+<script src="app.js?v=20261123d" defer></script><script src="ktp.js?v=20261123d" defer></script><script src="lesson-package.js?v=20261123d" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -75,8 +75,8 @@
         <div class="ktp-heading">
          <div><span class="ktp-kicker" data-kk="КТЖ / КТП" data-ru="КТП / КТЖ">КТЖ / КТП</span>
          <strong data-kk="Жоспардан тақырып таңдаңыз" data-ru="Выберите тему из готового плана">Жоспардан тақырып таңдаңыз</strong>
-         <small data-kk="КТЖ файлын бір рет жүктеңіз — тақырып пен оқу мақсаты автоматты толтырылады." data-ru="Загрузите КТП один раз — тема и цель обучения заполнятся автоматически.">КТЖ файлын бір рет жүктеңіз — тақырып пен оқу мақсаты автоматты толтырылады.</small></div>
-         <label class="ktp-file"><span data-kk="КТЖ жүктеу" data-ru="Загрузить КТП">КТЖ жүктеу</span><input id="ktpFileInput" type="file" accept=".xlsx,.xls,.csv,.tsv" multiple></label>
+         <small data-kk="Word немесе Excel КТЖ-ны бір рет жүктеңіз — тақырып пен оқу мақсаты автоматты толтырылады." data-ru="Загрузите КТП в Word или Excel — тема и цель обучения заполнятся автоматически.">КТЖ файлын бір рет жүктеңіз — тақырып пен оқу мақсаты автоматты толтырылады.</small></div>
+         <label class="ktp-file"><span data-kk="КТЖ жүктеу" data-ru="Загрузить КТП">КТЖ жүктеу</span><input id="ktpFileInput" type="file" accept=".docx,.xlsx,.xls,.csv,.tsv" multiple></label>
         </div>
         <div class="ktp-controls">
          <label><span data-kk="Тақырыпты іздеу" data-ru="Поиск темы">Тақырыпты іздеу</span><input type="search" id="ktpSearch" placeholder="Тақырып атауы / Название темы" autocomplete="off"></label>
@@ -86,7 +86,10 @@
        </div>
        <label><span data-kk="Тақырып" data-ru="Тема">Тақырып</span><input id="topicInput" maxlength="130" value="Қазақ хандығының құрылуы" required></label>
        <div class="field-pair">
-        <label><span data-kk="Пән" data-ru="Предмет">Пән</span><select id="subjectInput"><option value="kaz" data-kk="Қазақстан тарихы" data-ru="История Казахстана">Қазақстан тарихы</option><option value="world" data-kk="Дүниежүзі тарихы" data-ru="Всемирная история">Дүниежүзі тарихы</option></select></label>
+        <label><span data-kk="Пән" data-ru="Предмет">Пән</span><select id="subjectInput"><option value="kaz" data-kk="Қазақстан тарихы" data-ru="История Казахстана">Қазақстан тарихы</option><option value="world" data-kk="Дүниежүзі тарихы" data-ru="Всемирная история">Дүниежүзі тарихы</option>
+<option value="law" data-kk="Құқық негіздері" data-ru="Основы права">Құқық негіздері</option>
+<option value="constitution" data-kk="Конституция негіздері" data-ru="Основы Конституции">Конституция негіздері</option>
+<option value="order" data-kk="Заң және тәртіп" data-ru="Закон и порядок">Заң және тәртіп</option></select></label>
         <label><span data-kk="Сынып" data-ru="Класс">Сынып</span><select id="gradeInput"><option>5</option><option>6</option><option selected>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></label>
        </div>
        <label><span data-kk="Оқу мақсаты / негізгі ой" data-ru="Цель урока / основная мысль">Оқу мақсаты / негізгі ой</span><textarea id="goalInput" rows="3" maxlength="550">Қазақ хандығының құрылу себептері мен тарихи маңызын түсіндіру.</textarea></label>
@@ -145,10 +148,20 @@ XV ғасыр — құрылу кезеңі
       <option value="create" data-kk="Жасампаздық және жаңашылдық" data-ru="Созидательность и новаторство">Жасампаздық және жаңашылдық</option>
      </select>
     </label>
-    <label><span data-kk="Сабақ ұзақтығы" data-ru="Длительность урока">Сабақ ұзақтығы</span><select id="packageDuration"><option value="45">45 мин</option><option value="40">40 мин</option></select></label>
+    <label><span data-kk="Сабақ ұзақтығы" data-ru="Длительность урока">Сабақ ұзақтығы</span><select id="packageDuration"><option value="40" selected>40 мин</option><option value="45">45 мин</option></select></label>
     <button type="button" class="package-create" id="packageCreate" data-kk="✦ Барлығын жасау" data-ru="✦ Создать весь комплект">✦ Барлығын жасау</button>
    </div>
-   <div class="package-progress" id="packageProgress" role="status" aria-live="polite" hidden><span class="package-spinner" aria-hidden="true"></span><strong id="packageProgressText" data-kk="Өңделуде..." data-ru="Обрабатывается...">Өңделуде...</strong></div>
+   <div class="package-meta-grid">
+    <label><span data-kk="Мектеп атауы" data-ru="Школа">Мектеп атауы</span><input id="packageSchool" type="text" maxlength="170" placeholder="Мектеп / Школа"></label>
+    <label><span data-kk="Педагог" data-ru="Учитель">Педагог</span><input id="packageTeacher" type="text" maxlength="140" placeholder="Тегі, аты / ФИО"></label>
+    <label><span data-kk="Сабақ күні" data-ru="Дата урока">Сабақ күні</span><input id="packageDate" type="date"></label>
+    <label><span data-kk="КТЖ бөлімі" data-ru="Раздел КТП">КТЖ бөлімі</span><input id="packageSection" type="text" maxlength="220" placeholder="Бөлім / Раздел"></label>
+    <label><span data-kk="Қатысқандар" data-ru="Присутствуют">Қатысқандар</span><input id="packagePresent" type="number" min="0" max="60" placeholder="—"></label>
+    <label><span data-kk="Қатыспағандар" data-ru="Отсутствуют">Қатыспағандар</span><input id="packageAbsent" type="number" min="0" max="60" placeholder="—"></label>
+    <label class="meta-wide"><span data-kk="Апта дәйексөзі (нақты мәтінін енгізіңіз)" data-ru="Цитата недели (введите точный текст)">Апта дәйексөзі (нақты мәтінін енгізіңіз)</span><input id="packageQuote" type="text" maxlength="250" placeholder="Аптаның ресми дәйексөзі / Цитата недели"></label>
+  </div>
+  <p class="package-value-hint" id="packageValueHint" aria-live="polite"></p>
+  <div class="package-progress" id="packageProgress" role="status" aria-live="polite" hidden><span class="package-spinner" aria-hidden="true"></span><strong id="packageProgressText" data-kk="Өңделуде..." data-ru="Обрабатывается...">Өңделуде...</strong></div>
    <p class="package-disclaimer" data-kk="Бұл нұсқа материалды сайттың өзінде құрастырады. Жеке GPT-боттар автоматты қосылмаған. Тарихи деректер мен оқу мақсаттарын мұғалім тексереді." data-ru="Эта версия формирует материалы на сайте. Личные GPT-боты автоматически не подключены. Исторические факты и цели обучения проверяет учитель.">Бұл нұсқа материалды сайттың өзінде құрастырады. Жеке GPT-боттар автоматты қосылмаған. Тарихи деректер мен оқу мақсаттарын мұғалім тексереді.</p>
   </div>
   <div id="packageResult" class="package-result" hidden>
