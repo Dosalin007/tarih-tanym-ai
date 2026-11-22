@@ -120,6 +120,7 @@ document.querySelectorAll('[data-set-lang]').forEach(btn=>btn.addEventListener('
 $('mobileMenu').addEventListener('click',()=>{const n=$('mainNav');n.classList.toggle('open');$('mobileMenu').setAttribute('aria-expanded',String(n.classList.contains('open')))});
 $('mainNav').addEventListener('click',e=>{if(e.target.closest('a')){$('mainNav').classList.remove('open');$('mobileMenu').setAttribute('aria-expanded','false')}});
 document.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>setTool(b.dataset.tool)));
+document.querySelectorAll('[data-go-tool]').forEach(link=>link.addEventListener('click',()=>{setTool(link.dataset.goTool)}));
 ['subject','grade','topic','objective','facts','materialLanguage'].forEach(id=>$(id).addEventListener('input',()=>{if(id==='materialLanguage')setLanguage($(id).value);else render()}));
 $('questionList').addEventListener('input',e=>{let x=e.target;let i=Number(x.dataset.qi);if(!Number.isInteger(i)||!questions[i])return;if(x.dataset.field==='q')questions[i].q=x.value;else if(x.dataset.field==='option')questions[i].options[Number(x.dataset.oi)]=x.value;else if(x.dataset.field==='correct')questions[i].correct=Number(x.value);render()});
 $('questionList').addEventListener('change',e=>{let x=e.target;if(x.dataset.field==='correct'){questions[Number(x.dataset.qi)].correct=Number(x.value);render()}});
