@@ -7,7 +7,7 @@
 <meta name="description" content="Tarih Ustaz AI — тарих мұғаліміне слайд, инфографика және тарихи фотоиллюстрацияны сайтта жасап, PNG, JPG, HTML және PDF форматында сақтауға арналған шеберхана.">
 <title>Tarih Ustaz AI | Цифрлық шеберхана</title>
 <link rel="stylesheet" href="app.css?v=20261123b"><link rel="stylesheet" href="ktp.css?v=20261123final1"><link rel="stylesheet" href="package.css?v=20261123final1">
-<script src="app.js?v=20261123final1" defer></script><script src="ktp.js?v=20261123final1" defer></script><script src="lesson-package.js?v=20261123final1" defer></script>
+<script src="app.js?v=20261123catalog2" defer></script><script src="ktp.js?v=20261123catalog2" defer></script><script src="lesson-package.js?v=20261123final1" defer></script>
 </head>
 <body>
 <header class="site-header">
@@ -71,20 +71,6 @@
     <div class="studio-body">
       <form id="editorForm" class="editor-fields" novalidate>
        <div class="editor-section-top"><h3 data-kk="Материал мазмұны" data-ru="Содержание материала">Материал мазмұны</h3><span data-kk="Өңделетін үлгі" data-ru="Редактируемый шаблон">Өңделетін үлгі</span></div>
-       <div class="ktp-import" id="ktpImport">
-        <div class="ktp-heading">
-         <div><span class="ktp-kicker" data-kk="КТЖ / КТП" data-ru="КТП / КТЖ">КТЖ / КТП</span>
-         <strong data-kk="Жоспардан тақырып таңдаңыз" data-ru="Выберите тему из готового плана">Жоспардан тақырып таңдаңыз</strong>
-         <small data-kk="Word немесе Excel КТЖ-ны бір рет жүктеңіз — тақырып пен оқу мақсаты автоматты толтырылады." data-ru="Загрузите КТП в Word или Excel — тема и цель обучения заполнятся автоматически.">КТЖ файлын бір рет жүктеңіз — тақырып пен оқу мақсаты автоматты толтырылады.</small></div>
-         <label class="ktp-file"><span data-kk="КТЖ жүктеу" data-ru="Загрузить КТП">КТЖ жүктеу</span><input id="ktpFileInput" type="file" accept=".docx,.xlsx,.xls,.csv,.tsv" multiple></label>
-        </div>
-        <div class="ktp-controls">
-         <label><span data-kk="Тақырыпты іздеу" data-ru="Поиск темы">Тақырыпты іздеу</span><input type="search" id="ktpSearch" placeholder="Тақырып атауы / Название темы" autocomplete="off"></label>
-         <label><span data-kk="КТЖ-дағы тақырып" data-ru="Тема по КТП">КТЖ-дағы тақырып</span><select id="ktpTopicSelect" disabled><option data-kk="Алдымен КТЖ файлын жүктеңіз" data-ru="Сначала загрузите файл КТП">Алдымен КТЖ файлын жүктеңіз</option></select></label>
-        </div>
-        <div class="ktp-foot"><span id="ktpStatus" role="status" aria-live="polite" data-kk="КТЖ мәліметі бұл браузерде сақталады; серверге жіберілмейді." data-ru="Данные КТП сохраняются в браузере и не передаются на сервер.">КТЖ мәліметі бұл браузерде сақталады; серверге жіберілмейді.</span><button type="button" id="ktpClear" class="ktp-clear" data-kk="КТЖ-ны тазалау" data-ru="Очистить КТП">КТЖ-ны тазалау</button></div>
-       </div>
-       <label><span data-kk="Тақырып" data-ru="Тема">Тақырып</span><input id="topicInput" maxlength="130" value="Қазақ хандығының құрылуы" required></label>
        <div class="field-pair">
         <label><span data-kk="Пән" data-ru="Предмет">Пән</span><select id="subjectInput"><option value="kaz" data-kk="Қазақстан тарихы" data-ru="История Казахстана">Қазақстан тарихы</option><option value="world" data-kk="Дүниежүзі тарихы" data-ru="Всемирная история">Дүниежүзі тарихы</option>
 <option value="law" data-kk="Құқық негіздері" data-ru="Основы права">Құқық негіздері</option>
@@ -92,11 +78,23 @@
 <option value="order" data-kk="Заң және тәртіп" data-ru="Закон и порядок">Заң және тәртіп</option></select></label>
         <label><span data-kk="Сынып" data-ru="Класс">Сынып</span><select id="gradeInput"><option>5</option><option>6</option><option selected>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></label>
        </div>
-       <label><span data-kk="Оқу мақсаты / негізгі ой" data-ru="Цель урока / основная мысль">Оқу мақсаты / негізгі ой</span><textarea id="goalInput" rows="3" maxlength="550">Қазақ хандығының құрылу себептері мен тарихи маңызын түсіндіру.</textarea></label>
-       <label><span data-kk="Тарихи деректер (әр жолға бір дерек)" data-ru="Исторические факты (по одному в строке)">Тарихи деректер (әр жолға бір дерек)</span><textarea id="factsInput" rows="5" maxlength="1500">Керей мен Жәнібек — хандықтың негізін қалаушылар
-XV ғасыр — құрылу кезеңі
-Моғолстан — тарихи қоныс аударған аймақ
-1465–1466 жж. — дәстүрлі шамаланған мерзім</textarea></label>
+       <div class="ktp-import" id="ktpImport">
+        <div class="ktp-heading">
+         <div><span class="ktp-kicker" data-kk="КТЖ / КТП" data-ru="КТП / КТЖ">КТЖ / КТП</span>
+         <strong data-kk="2026–2027 КТЖ-дан тақырып таңдаңыз" data-ru="Выберите тему из КТП 2026–2027">2026–2027 КТЖ-дан тақырып таңдаңыз</strong>
+         <small data-kk="Барлық тақырып дайын: пән мен сыныпты таңдап, сабақ атауын басыңыз. Файл жүктеу міндетті емес." data-ru="Все темы уже загружены: выберите предмет, класс и урок. Загружать файл не нужно.">Барлық тақырып дайын: пән мен сыныпты таңдап, сабақ атауын басыңыз. Файл жүктеу міндетті емес.</small></div>
+         <label class="ktp-file"><span data-kk="Өз КТЖ-ңызды жүктеу (қосымша)" data-ru="Загрузить свой КТП (дополнительно)">Өз КТЖ-ңызды жүктеу (қосымша)</span><input id="ktpFileInput" type="file" accept=".docx,.xlsx,.xls,.csv,.tsv" multiple></label>
+        </div>
+        <div class="ktp-controls">
+         <label><span data-kk="Тақырыпты іздеу" data-ru="Поиск темы">Тақырыпты іздеу</span><input type="search" id="ktpSearch" placeholder="Тақырып атауы / Название темы" autocomplete="off"></label>
+         <label><span data-kk="Дайын КТЖ-дағы сабақ" data-ru="Урок из готового КТП">Дайын КТЖ-дағы сабақ</span><select id="ktpTopicSelect" disabled><option data-kk="Сабақтар жүктелуде..." data-ru="Загрузка уроков...">Сабақтар жүктелуде...</option></select></label>
+        </div>
+        <div class="ktp-foot"><span id="ktpStatus" role="status" aria-live="polite" data-kk="Дайын тақырыптар ашылуда. Өз КТЖ файлын тек қажет болса қосыңыз." data-ru="Загрузка готовых тем. Свой файл КТП добавляйте только при необходимости.">Дайын тақырыптар ашылуда. Өз КТЖ файлын тек қажет болса қосыңыз.</span><button type="button" id="ktpClear" class="ktp-clear" data-kk="Жеке КТЖ-ны тазалау" data-ru="Удалить свой КТП">Жеке КТЖ-ны тазалау</button></div>
+       </div>
+       <label><span data-kk="Таңдалған тақырып (қажет болса түзетіңіз)" data-ru="Выбранная тема (при необходимости измените)">Таңдалған тақырып (қажет болса түзетіңіз)</span><input id="topicInput" maxlength="300" placeholder="КТЖ тізімінен таңдаңыз / Выберите из КТП" required></label>
+       
+       <label><span data-kk="Оқу мақсаты / негізгі ой" data-ru="Цель урока / основная мысль">Оқу мақсаты / негізгі ой</span><textarea id="goalInput" rows="3" maxlength="1500" placeholder="КТЖ-дан автоматты толтырылады / Заполняется из КТП"></textarea></label>
+       <label><span data-kk="Тарихи деректер (әр жолға бір дерек)" data-ru="Исторические факты (по одному в строке)">Тарихи деректер (әр жолға бір дерек)</span><textarea id="factsInput" rows="5" maxlength="1500" placeholder="Тарихи деректерді қажет болса енгізіңіз / Дополнительные факты"></textarea></label>
        <div class="field-pair">
         <label><span data-kk="Фотосурет" data-ru="Фотография">Фотосурет</span><select id="imageSelect"><option value="auto" data-kk="Бөлімге сай сурет" data-ru="По типу материала">Бөлімге сай сурет</option><option value="arch" data-kk="Түркістан кесенесі" data-ru="Мавзолей в Туркестане">Түркістан кесенесі</option><option value="rock" data-kk="Таңбалы петроглифтері" data-ru="Петроглифы Тамгалы">Таңбалы петроглифтері</option><option value="yurt" data-kk="Қазақ киіз үйі" data-ru="Казахская юрта">Қазақ киіз үйі</option></select></label>
         <label class="file-label"><span data-kk="Өз суретіңіз" data-ru="Своё изображение">Өз суретіңіз</span><input id="uploadInput" type="file" accept="image/jpeg,image/png,image/webp" aria-label="Фото жүктеу"><small data-kk="JPG / PNG / WebP, 2 МБ дейін" data-ru="JPG / PNG / WebP, до 2 МБ">JPG / PNG / WebP, 2 МБ дейін</small></label>
