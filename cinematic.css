@@ -92,3 +92,20 @@ border-bottom:5px solid #d6a669;display:flex;align-items:flex-end;justify-conten
 @media(max-width:920px){.editor-panel{grid-template-columns:1fr}.slides-preview.premium{min-height:0}.slide-body h3{font-size:clamp(24px,5vw,46px)}.slide-story .slide-body h3{font-size:clamp(22px,4vw,36px)}.slide-fact span{font-size:clamp(11px,2.1vw,16px)}.slide-subtitle{font-size:clamp(11px,2vw,17px)}}
 @media(max-width:620px){.visual-style-toolbar{padding:12px}.style-options{width:100%}.style-option{flex:1;padding:9px 7px;font-size:11px}.editor-illustration{height:135px}.preview-live{font-size:9px}.slides-preview.premium{border-width:4px}.slides-preview.premium:after{width:37px;height:37px;left:15px;top:10px}.slide-body{gap:5px;left:8%;top:12%;bottom:13%;width:75%}.slide-body h3{font-size:clamp(17px,5.3vw,26px)}.slide-story .slide-body h3{font-size:clamp(15px,4.4vw,23px)}.slide-eyebrow{font-size:8px}.slide-subtitle{font-size:9px}.slide-facts{gap:4px}.slide-fact{padding:4px 5px;gap:4px}.slide-fact em{font-size:12px;flex-basis:17px}.slide-fact span{font-size:8px}.slide-medallion{width:29px;height:29px;font-size:17px}.slide-footer{font-size:6px;padding-top:3px}.info-photo-header{height:130px}.info-photo-title h3{font-size:20px}.info-content{padding:12px}.infographic.premium .info-point{padding:7px;gap:5px}.infographic.premium .info-point p{font-size:10px}.infographic.premium .info-point b{min-width:25px;min-height:25px;font-size:12px}.info-objective{font-size:11px}}
 @media print{.slides-preview.premium{page-break-after:always;break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}.slideshow-sheet .slides-preview.premium{margin:0!important}.slide-thumbnails,.visual-style-toolbar,.preview-live{display:none!important}}
+
+
+.quiz-preview.premium{padding:0;min-height:0;background:#fffaf0;border:1px solid #d0ad79}
+.quiz-banner{height:150px;overflow:hidden;position:relative;background:#133a4b;border-bottom:5px solid #d1a46e}
+.quiz-banner img{width:100%;height:100%;object-fit:cover;display:block}
+.quiz-banner:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#0c3048bd,transparent)}
+.quiz-banner span{position:absolute;z-index:2;left:22px;bottom:12px;color:#ffe4b2;font:bold 17px Georgia,serif;text-shadow:0 2px 5px #000}
+.quiz-content{padding:20px}
+.quiz-preview.premium .question{border:1px solid #ded0b5;border-radius:10px;padding:14px;background:#fff;box-shadow:0 3px 0 #e7dac5}
+.quiz-preview.premium button#checkQuiz{border-radius:8px;background:#11435a;color:#fff1d0}
+.game-stage.premium{position:relative;min-height:395px}
+.game-stage.premium .game-card{padding:19px 22px 24px;max-width:480px;width:92%;transform:rotateY(-5deg) rotateX(3deg);box-shadow:17px 18px 0 #041725aa;border-radius:17px;overflow:hidden}
+.game-hero-img{width:calc(100% + 44px);height:145px;margin:-19px -22px 12px;display:block;object-fit:cover;border-bottom:4px solid #d9b073}
+.game-stage.premium .game-card h3{font-size:clamp(20px,2.2vw,28px);margin:9px 0}
+.game-stage.premium .game-card p{font-size:12px;line-height:1.5;margin:0 0 13px}
+.game-stage.premium .game-card .pill-btn{font-size:11px}
+@media(max-width:620px){.quiz-banner{height:105px}.game-stage.premium .game-card{padding:14px}.game-hero-img{height:105px;width:calc(100% + 28px);margin:-14px -14px 10px}}
