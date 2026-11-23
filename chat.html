@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#111d2c">
+<title>Tarih Tanym AI · Чат-помощник</title>
+<link rel="stylesheet" href="bots.css?v=20261123d">
+<style>
+.chat-wrap{max-width:980px;margin:20px auto 60px}
+.chat-heading{margin-bottom:16px}.chat-heading h1{font-size:clamp(28px,5vw,42px);letter-spacing:-.05em;margin:8px 0}.chat-heading p{color:#647589;line-height:1.6;font-size:14px}
+.chat-layout{display:grid;grid-template-columns:270px 1fr;gap:16px}
+.chat-panel{border:1px solid #e2e5e4;background:#fff;border-radius:20px;padding:20px;box-shadow:0 5px 22px #233b4912}
+.chat-panel h2{font-size:16px;margin:0 0 14px}
+.bot-choice{width:100%;text-align:left;background:#f5f7f6;border:1px solid #e2e7e6;border-radius:12px;padding:13px;margin-bottom:9px;cursor:pointer;color:#27394a;line-height:1.4}
+.bot-choice strong,.bot-choice small{display:block}.bot-choice small{font-size:11px;color:#72818d;margin-top:5px}
+.bot-choice[aria-pressed="true"]{border-color:#37758a;background:#ebf4f3}
+.chat-label{display:block;font-size:12px;font-weight:800;color:#3c5967;margin:14px 0 7px}
+.chat-select,.chat-input{width:100%;border:1px solid #cad5d6;border-radius:12px;background:#fff;padding:13px;font:inherit;color:#162b3d}
+.chat-input{min-height:120px;resize:vertical;line-height:1.6}
+.chat-preview{white-space:pre-wrap;overflow-wrap:anywhere;border-radius:12px;background:#f3f6f5;padding:17px;line-height:1.65;font-size:13px;min-height:130px;color:#344c5b}
+.chat-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.chat-button{border:0;border-radius:11px;padding:13px 18px;background:#17485c;color:#fff;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
+.chat-button.secondary{background:#e9eff0;color:#24485b}
+.chat-footnote{font-size:12px;line-height:1.7;color:#617481;margin-top:16px}
+.id-line{font-size:10px;overflow-wrap:anywhere;color:#70838b;margin-top:8px}
+@media(max-width:720px){.chat-layout{grid-template-columns:1fr}.chat-wrap{margin:14px auto 40px}.chat-panel{padding:17px}}
+</style>
+</head>
+<body><div class="page-wrap">
+<header class="site-header wrap"><a class="brand" href="./"><span class="brand-mark">T</span><span class="brand-name">Tarih Tanym <em>AI</em></span></a><a href="./" style="font-weight:700;font-size:13px">← На главную / Басты бет</a></header>
+<main class="wrap chat-wrap">
+<div class="chat-heading"><span class="section-label">TARIH TANYM AI</span><h1>Чат-помощник / Чат көмекшісі</h1><p>Выберите направление, напишите задание и откройте ChatGPT с подготовленным запросом. Ссылки на ваши прежние плагины не требуются.</p></div>
+<div class="chat-layout">
+<aside class="chat-panel"><h2>Мои помощники / Менің көмекшілерім</h2>
+<button type="button" class="bot-choice" data-bot="lesson" aria-pressed="true"><strong>Тарих Ұстаз · ҚМЖ / КСП</strong><small>Рабочие листы, КСП, инфографика</small></button>
+<button type="button" class="bot-choice" data-bot="history" aria-pressed="false"><strong>Помощник по истории Казахстана</strong><small>Темы, объяснения, задания</small></button>
+<button type="button" class="bot-choice" data-bot="academy" aria-pressed="false"><strong>Qazaq Tarih Academy</strong><small>Тесты и подготовка к ЕНТ</small></button>
+<p class="chat-footnote">Указанные помощники — ваши сохранённые названия и идентификаторы проекта. Выбор здесь готовит тематический запрос, но не подключает сам плагин.</p>
+<div id="bot-id" class="id-line"></div>
+</aside>
+<section class="chat-panel"><h2>Подготовить задание</h2>
+<label class="chat-label" for="kind">Тип материала / Материал түрі</label>
+<select id="kind" class="chat-select"><option value="worksheet">Рабочий лист / Жұмыс парағы</option><option value="infographic">Инфографика</option><option value="quiz">Тест / Тест</option><option value="lesson">КСП / ҚМЖ</option><option value="explain">Объяснение темы / Тақырыпты түсіндіру</option><option value="custom">Другое задание / Басқа тапсырма</option></select>
+<label class="chat-label" for="request">Ваш запрос / Сұранысыңыз</label>
+<textarea id="request" class="chat-input" placeholder="Например: история Казахстана, 7 класс, Казахское ханство; 10 заданий с ответами"></textarea>
+<label class="chat-label" for="preview">Готовый запрос в чат</label>
+<div id="preview" class="chat-preview" aria-live="polite"></div>
+<div class="chat-actions"><button type="button" id="open" class="chat-button">Открыть чат ChatGPT ↗</button><button type="button" id="copy" class="chat-button secondary">Копировать запрос</button></div>
+<p id="status" class="chat-footnote" role="status">После перехода проверьте текст запроса и отправьте его в ChatGPT. Для работы потребуется вход в аккаунт.</p>
+</section>
+</div>
+</main><footer class="site-footer wrap"><span>© Tarih Tanym AI</span><span>Образовательная платформа</span></footer></div>
+<script>
+(()=>{
+const bots={
+ lesson:{name:"Тарих Ұстаз · ҚМЖ / КСП",id:"gpt-8c23583c0355e86311a52ff30a4894b4"},
+ history:{name:"Помощник по истории Казахстана",id:"gpt-0fe81d89dc550c42d47118ec9242684c"},
+ academy:{name:"Qazaq Tarih Academy",id:"gpt-86f9986eee3d5cdceab0792015bd581b"}
+};
+const kinds={worksheet:"Создай рабочий лист с заданиями, критериями оценивания и ключом ответов.",infographic:"Подготовь содержание учебной инфографики: проверенные факты, краткие подписи и логичную структуру.",quiz:"Составь тест с вариантами ответов, правильными ответами и пояснениями.",lesson:"Составь краткосрочный план урока (КСП / ҚМЖ) с целями, этапами и оцениванием.",explain:"Объясни учебную тему доступно и подготовь вопросы для закрепления.",custom:"Выполни учебное задание."};
+const buttons=[...document.querySelectorAll("[data-bot]")], kind=document.getElementById("kind"),request=document.getElementById("request"),preview=document.getElementById("preview"),status=document.getElementById("status");
+const getBot=()=>buttons.find(b=>b.getAttribute("aria-pressed")==="true")?.dataset.bot||"lesson";
+const prompt=()=> "Направление: "+bots[getBot()].name+"\n"+kinds[kind.value]+"\nТема и условия: "+(request.value.trim()||"Уточни у меня тему, класс, язык и формат задания.")+"\nУчитывай возраст учащихся. Не выдумывай исторические факты и источники.";
+function render(){preview.textContent=prompt();document.getElementById("bot-id").textContent="ID проекта: "+bots[getBot()].id;}
+buttons.forEach(b=>b.addEventListener("click",()=>{buttons.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
+kind.addEventListener("change",render);request.addEventListener("input",render);
+const selected=new URLSearchParams(location.search).get("bot");if(bots[selected])buttons.find(b=>b.dataset.bot===selected).click();
+document.getElementById("open").addEventListener("click",()=>{window.open("https://chatgpt.com/?q="+encodeURIComponent(prompt()),"_blank","noopener,noreferrer");status.textContent="Открыт ChatGPT с подготовленным запросом (если браузер поддерживает автозаполнение). Это обычный чат, не автоматический запуск плагина.";});
+document.getElementById("copy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(prompt());status.textContent="Запрос скопирован. Вставьте его в ChatGPT.";}catch(_){status.textContent="Не удалось скопировать автоматически. Выделите текст запроса выше.";}});render();
+})();
+</script></body></html>
