@@ -61,3 +61,17 @@ main{flex:1}
 @media(max-width:720px){.wrap{width:min(100% - 30px,540px)}.site-header{height:70px}.hero{min-height:0;border-radius:18px}.hero-copy{padding:35px 28px 39px}.hero-art{right:-185px;opacity:.23}.hero h1{font-size:clamp(33px,7vw,45px)}.hero p{font-size:13px}.bots-section{padding-top:31px}.bot-grid{grid-template-columns:1fr;gap:12px}.bot-card{min-height:0;padding:21px 23px}.card-kicker{margin-top:15px}.card-title{font-size:23px}.card-action{margin-top:22px}.site-footer{flex-direction:column;gap:7px}}
 @media(max-width:390px){.brand-name{font-size:16px}.language-switch button{padding:8px}.eyebrow{font-size:9px;letter-spacing:.11em}.hero-copy{padding-inline:23px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bot-card,.card-arrow{transition:none}}
+
+/* Educational sections: keep original bot links and simple layout */
+.resources-section{padding:36px 0 12px}
+.resources-intro{margin:-4px 0 20px;color:var(--muted);font-size:13px;line-height:1.7}
+.resource-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.resource-card{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:190px;padding:22px;background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 5px 16px #233b4912;transition:transform .2s ease,border-color .2s ease}
+.resource-card:hover{transform:translateY(-3px);border-color:#93b2b5}
+.resource-card:focus-visible{outline:3px solid #be8543;outline-offset:3px}
+.resource-icon{display:grid;place-items:center;width:35px;height:35px;background:#eaf1f0;border-radius:10px;color:#245f70;font-size:22px;font-weight:700}
+.resource-card strong{font-size:17px;letter-spacing:-.02em}
+.resource-card>span:not(.resource-icon):not(.resource-link){font-size:12px;line-height:1.55;color:var(--muted)}
+.resource-link{margin-top:auto;padding-top:6px;color:#1e6175;font-size:12px;font-weight:800}
+@media(max-width:720px){.resource-grid{grid-template-columns:1fr 1fr;gap:10px}.resource-card{min-height:176px;padding:16px}.resources-section{padding-top:30px}}
+@media(max-width:430px){.resource-grid{grid-template-columns:1fr}.resource-card{min-height:0}}
