@@ -1,10 +1,10 @@
 (() => {
   const buttons = [...document.querySelectorAll('.language-switch [data-lang]')];
   const copy = [...document.querySelectorAll('[data-kk][data-ru]')];
-  const titles = { kk: 'Tarih Ustaz AI · Авторлық боттар', ru: 'Tarih Ustaz AI · Авторские боты' };
+  const titles = { kk: 'Tarih Tanym AI · Білім беру платформасы', ru: 'Tarih Tanym AI · Образовательная платформа' };
   const descriptions = {
-    kk: 'Tarih Ustaz AI — тарих мұғалімдеріне арналған авторлық ChatGPT көмекшілері.',
-    ru: 'Tarih Ustaz AI — авторские помощники ChatGPT для учителей истории.'
+    kk: 'Tarih Tanym AI — оқу материалдары мен AI көмекшілеріне арналған білім беру платформасы.',
+    ru: 'Tarih Tanym AI — образовательная платформа с учебными материалами и AI-помощниками.'
   };
 
   function setLanguage(lang) {
