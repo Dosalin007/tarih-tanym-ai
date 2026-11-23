@@ -4,12 +4,12 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#111d2c">
 <title>Tarih Tanym AI · Чат-помощник</title>
-<link rel="stylesheet" href="bots.css?v=20261123d">
+<link rel="stylesheet" href="bots.css?v=20261123e">
 <style>
-.chat-wrap{max-width:980px;margin:20px auto 60px}
+.chat-wrap{max-width:1060px;margin:30px auto 70px}
 .chat-heading{margin-bottom:16px}.chat-heading h1{font-size:clamp(28px,5vw,42px);letter-spacing:-.05em;margin:8px 0}.chat-heading p{color:#647589;line-height:1.6;font-size:14px}
 .chat-layout{display:grid;grid-template-columns:270px 1fr;gap:16px}
-.chat-panel{border:1px solid #e2e5e4;background:#fff;border-radius:20px;padding:20px;box-shadow:0 5px 22px #233b4912}
+.chat-panel{border:1px solid #e2e5e4;background:#fff;border-radius:20px;padding:25px;box-shadow:0 5px 22px #233b4912}
 .chat-panel h2{font-size:16px;margin:0 0 14px}
 .bot-choice{width:100%;text-align:left;background:#f5f7f6;border:1px solid #e2e7e6;border-radius:12px;padding:13px;margin-bottom:9px;cursor:pointer;color:#27394a;line-height:1.4}
 .bot-choice strong,.bot-choice small{display:block}.bot-choice small{font-size:11px;color:#72818d;margin-top:5px}
@@ -29,7 +29,7 @@
 <body><div class="page-wrap">
 <header class="site-header wrap"><a class="brand" href="./"><span class="brand-mark">T</span><span class="brand-name">Tarih Tanym <em>AI</em></span></a><a href="./" style="font-weight:700;font-size:13px">← На главную / Басты бет</a></header>
 <main class="wrap chat-wrap">
-<div class="chat-heading"><span class="section-label">TARIH TANYM AI</span><h1>Чат-помощник / Чат көмекшісі</h1><p>Выберите направление, напишите задание и откройте ChatGPT с подготовленным запросом. Ссылки на ваши прежние плагины не требуются.</p></div>
+<div class="chat-heading"><span class="section-label">TARIH TANYM AI</span><h1>Чат-помощник / Чат көмекшісі</h1><p>Выберите авторского помощника и тип учебного материала. Сервис сформирует подробный запрос для ChatGPT. Сам плагин автоматически не подключается.</p></div>
 <div class="chat-layout">
 <aside class="chat-panel"><h2>Мои помощники / Менің көмекшілерім</h2>
 <button type="button" class="bot-choice" data-bot="lesson" aria-pressed="true"><strong>Тарих Ұстаз · ҚМЖ / КСП</strong><small>Рабочие листы, КСП, инфографика</small></button>
@@ -64,8 +64,8 @@ const prompt=()=> "Направление: "+bots[getBot()].name+"\n"+kinds[kind
 function render(){preview.textContent=prompt();document.getElementById("bot-id").textContent="ID проекта: "+bots[getBot()].id;}
 buttons.forEach(b=>b.addEventListener("click",()=>{buttons.forEach(x=>x.setAttribute("aria-pressed",String(x===b)));render()}));
 kind.addEventListener("change",render);request.addEventListener("input",render);
-const selected=new URLSearchParams(location.search).get("bot");if(bots[selected])buttons.find(b=>b.dataset.bot===selected).click();
-document.getElementById("open").addEventListener("click",()=>{window.open("https://chatgpt.com/?q="+encodeURIComponent(prompt()),"_blank","noopener,noreferrer");status.textContent="Открыт ChatGPT с подготовленным запросом (если браузер поддерживает автозаполнение). Это обычный чат, не автоматический запуск плагина.";});
+const params=new URLSearchParams(location.search);const selected=params.get("bot");if(bots[selected])buttons.find(b=>b.dataset.bot===selected).click();const selectedKind=params.get("kind");if(Object.prototype.hasOwnProperty.call(kinds,selectedKind))kind.value=selectedKind;render();
+document.getElementById("open").addEventListener("click",()=>{window.open("https://chatgpt.com/?q="+encodeURIComponent(prompt()),"_blank","noopener,noreferrer");status.textContent="ChatGPT открыт в новой вкладке. Если запрос не появился автоматически, нажмите «Копировать запрос» и вставьте его. Плагин автоматически не подключается.";});
 document.getElementById("copy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(prompt());status.textContent="Запрос скопирован. Вставьте его в ChatGPT.";}catch(_){status.textContent="Не удалось скопировать автоматически. Выделите текст запроса выше.";}});render();
 })();
 </script></body></html>
