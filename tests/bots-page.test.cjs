@@ -15,6 +15,7 @@ test('home page links only to the three author bots', () => {
   ]);
   assert.equal((html.match(/class="bot-card/g) || []).length, 3);
   assert.equal((html.match(/target="_blank" rel="noopener noreferrer"/g) || []).length, 3);
+  assert.equal((html.match(/class="card-arrow" aria-hidden="true"><svg/g) || []).length, 3);
 });
 
 test('no workshop editor or obsolete scripts load on the home page', () => {

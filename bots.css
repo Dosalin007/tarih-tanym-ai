@@ -52,6 +52,7 @@ main{flex:1}
 .card-description{max-width:300px;color:#687884;font-size:12px;line-height:1.62}
 .card-action{display:flex;justify-content:space-between;align-items:center;width:100%;margin-top:22px;padding-top:17px;border-top:1px solid #e9ebeb;color:var(--accent);font-size:12px;font-weight:800}
 .card-arrow{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:color-mix(in srgb,var(--accent) 9%,white);font-size:18px;line-height:1;transition:transform .2s ease}
+.card-arrow svg{width:17px;height:17px}
 .bot-card:hover .card-arrow{transform:translate(2px,-2px)}
 .access-note{display:flex;align-items:center;gap:8px;margin:18px 0 0;color:#75858b;font-size:11px;line-height:1.6}
 .note-dot{width:6px;height:6px;flex:none;border-radius:50%;background:#d1ac72}
