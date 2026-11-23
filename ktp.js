@@ -130,8 +130,16 @@ async function parseDOCX(buffer,file){
  const converted=await mammoth.convertToHtml({arrayBuffer:buffer},{convertImage:mammoth.images.imgElement(()=>Promise.resolve({src:""}))});
  const dom=new DOMParser().parseFromString(converted.value,"text/html");
  let rows=[],tables=[...dom.querySelectorAll("table")];
- for(let i=0;i<tables.length;i++)rows.push(...decodeWordTable(tables[i],file,i));
+ for(let i=0;i<tables.length;i++){
+  const generic=parseRows([...tables[i].querySelectorAll("tr")].map(tableCells),file,"Кесте / Таблица "+(i+1));
+  rows.push(...(generic.length?generic:decodeWordTable(tables[i],file,i)));
+ }
  return rows.slice(0,MAX);
+}
+
+function withSelection(rows){
+ const grade=$("gradeInput").value,subject=$("subjectInput").value;
+ return rows.map(row=>({...row,grade:row.grade||grade,subject:row.subject||subject}));
 }
 
 function library(){
@@ -151,11 +159,11 @@ async function readFile(file){
  if(!["docx","xlsx","xls","csv","tsv"].includes(ext))throw new Error(msg("DOCX, XLSX, XLS немесе CSV жүктеңіз.","Загрузите DOCX, XLSX, XLS или CSV."));
  if(file.size>12*1024*1024)throw new Error(msg("Файл 12 МБ-тан үлкен.","Файл превышает 12 МБ."));
  const buffer=await file.arrayBuffer();
- if(ext==="docx")return parseDOCX(buffer,file.name);
+ if(ext==="docx")return withSelection(await parseDOCX(buffer,file.name));
  if(ext==="csv"||ext==="tsv"){
   let decoded=new TextDecoder("utf-8").decode(buffer);
   if(decoded.includes("\uFFFD")){try{decoded=new TextDecoder("windows-1251").decode(buffer)}catch{}}
-  return parseRows(parseCSV(decoded),file.name,"");
+  return withSelection(parseRows(parseCSV(decoded),file.name,""));
  }
  const XLSX=await library();
  const book=XLSX.read(buffer,{type:"array",raw:false});
@@ -165,7 +173,7 @@ async function readFile(file){
   found.push(...parseRows(rows,file.name,name));
   if(found.length>=MAX)break;
  }
- return found.slice(0,MAX);
+ return withSelection(found.slice(0,MAX));
 }
 
 const BUILTIN_PREFIX="data/ktp-2026-2027-";
@@ -224,11 +232,19 @@ function refresh(){
        subject=$("subjectInput").value,
        language=ru()?"ru":"kk";
  entries=availableEntries();
- filteredEntries=entries.filter(x=>
+ const matching=entries.filter(x=>
     (!x.grade||x.grade===grade)&&
     (!x.subject||x.subject===subject)&&
     (!search||clean(x.title+" "+x.goal+" "+x.section).includes(search))
- ).slice(0,900);
+ );
+ // The source contains separate dated lessons with the same theme. Offer each
+ // distinct theme once here; the KTP builder still keeps every dated lesson.
+ const seen=new Set();
+ filteredEntries=matching.filter(x=>{
+  const key=[x.grade,x.subject,clean(x.title),clean(x.goal)].join("|");
+  if(seen.has(key))return false;
+  seen.add(key);return true;
+ }).slice(0,900);
  box.textContent="";
  const placeholder=document.createElement("option");
  placeholder.value="";
@@ -241,14 +257,14 @@ function refresh(){
  filteredEntries.forEach((item,i)=>{
   const opt=document.createElement("option");
   opt.value=String(i);
-  opt.textContent=(item.order?"№"+item.order+" · ":"")+(item.date?item.date+" · ":"")+item.title;
+  opt.textContent=item.title;
   box.append(opt);
  });
  box.disabled=!filteredEntries.length;
  box.value="";
  if(bundled[language]){
-  notify(msg("Дайын КТЖ: "+bundled[language].length+" сабақ. "+grade+"-сынып бойынша "+filteredEntries.length+" тақырып таңдауға болады.",
-             "Готовый КТП: "+bundled[language].length+" уроков. Для "+grade+" класса доступно "+filteredEntries.length+" тем."));
+  notify(msg("Дайын КТЖ: "+bundled[language].length+" сабақ. "+grade+"-сынып бойынша "+filteredEntries.length+" әртүрлі тақырып.",
+             "Готовый КТП: "+bundled[language].length+" уроков. Для "+grade+" класса доступно "+filteredEntries.length+" разных тем."));
  }else if(imported.length){
   notify(msg("Жеке КТЖ-дан "+filteredEntries.length+" тақырып табылды.",
              "Из загруженного КТП найдено тем: "+filteredEntries.length+"."));
@@ -296,6 +312,7 @@ async function upload(files){
   msg(count+" сабақ жеке КТЖ-дан қосылды.","Добавлено уроков из вашего КТП: "+count)+
   (savedOK?"":msg(" (Браузерде сақтау мүмкін болмады.)"," (Не удалось сохранить в браузере.)"))
   :"")+(errors.length?" "+errors.slice(0,2).join(" · "):""));
+ window.dispatchEvent(new CustomEvent("tarih:ktp-imported",{detail:{count,errors,savedOK}}));
 }
 function init(){
  imported=saved();
@@ -310,6 +327,7 @@ function init(){
   refresh();
   notify(msg("Жеке жүктелген КТЖ тазаланды. 2026–2027 дайын тізімі сақталады.",
              "Ваш загруженный КТП удалён. Готовый каталог 2026–2027 сохранён."));
+  window.dispatchEvent(new CustomEvent("tarih:ktp-imported",{detail:{count:0,errors:[],cleared:true}}));
  });
  document.querySelectorAll("[data-lang]").forEach(button=>button.addEventListener("click",()=>{
   setTimeout(()=>{refresh();loadBuiltin(ru()?"ru":"kk")},0);
@@ -317,6 +335,7 @@ function init(){
  refresh();
  loadBuiltin(ru()?"ru":"kk");
 }
-window.TarihKTP={parseCSV,parseRows,findHeader,decodeWordTable,refresh,loadBuiltin,availableEntries};
+window.TarihKTP={parseCSV,parseRows,findHeader,decodeWordTable,refresh,loadBuiltin,availableEntries,
+ getEntries:(source,language)=>source==="import"?imported.filter(x=>!x.locale||x.locale===language):bundled[language]||[]};
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();

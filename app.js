@@ -8,16 +8,17 @@ const URLS={
  yurt:"https://upload.wikimedia.org/wikipedia/commons/f/f7/%D0%9A%D0%B0%D0%B7%D0%B0%D1%85%D1%81%D0%BA%D0%B0%D1%8F_%D1%8E%D1%80%D1%82%D0%B0.jpg"
 };
 const PRESETS={slides:"arch",info:"rock",illustration:"yurt",sheet:"rock"};
-const SIZES={slides:[1280,720],info:[1080,1350],illustration:[1280,720],sheet:[1080,1400]};
+const SIZES={slides:[1280,720],info:[1080,1350],illustration:[1280,720],sheet:[1080,1528]};
 const COLORS={
  navy:{bg:"#113247",deep:"#071b2b",accent:"#e7bd81",light:"#e7f1ef",ink:"#14384c"},
  forest:{bg:"#17443f",deep:"#0b2c2c",accent:"#dcbf87",light:"#e8f4e9",ink:"#1c5148"},
  warm:{bg:"#594533",deep:"#2c251e",accent:"#f3c992",light:"#f9eddf",ink:"#604c38"}
 };
 const TEXT={
- kk:{slides:"Слайдтар",info:"Инфографика",illustration:"Иллюстрация",sheet:"Жұмыс парағы",subjectKaz:"Қазақстан тарихы",subjectWorld:"Дүниежүзі тарихы",grade:"сынып",goal:"Сабақтың мақсаты",facts:"Негізгі тарихи деректер",event:"Тарихи дерек",summary:"Қорытынды",review:"Тарихи деректерді мұғалім тексереді",credit:"Көрнекі фотосурет · Wikimedia Commons",uploaded:"Пайдаланушы жүктеген фото",saved:"Материал жасалып, осы браузерде сақталды.",notSaved:"Материал ашылды, бірақ браузерде сақтау мүмкін болмады.",loading:"Сурет дайындалуда...",empty:"Әзірше материал жоқ. Жоғарыдан «Жасау» батырмасын басыңыз.",open:"Ашу",edit:"Өңдеу",remove:"Жою",downloaded:"Файл жүктелді.",failedImage:"Фотосурет жүктелмеді. Материалға градиенттік фон қойылды.",error:"Материалды жасау мүмкін болмады.",large:"Сурет 2 МБ-тан аспауы керек.",file:"JPG, PNG немесе WebP файлын таңдаңыз.",pdf:"Браузердің басып шығару терезесінде «PDF сақтау» таңдаңыз.",slideNames:["Тақырып","Тарихи деректер","Талдау","Қорытынды"]},
- ru:{slides:"Слайды",info:"Инфографика",illustration:"Иллюстрация",sheet:"Рабочий лист",subjectKaz:"История Казахстана",subjectWorld:"Всемирная история",grade:"класс",goal:"Цель урока",facts:"Основные исторические факты",event:"Исторический факт",summary:"Вывод",review:"Исторические сведения проверяет учитель",credit:"Иллюстративное фото · Wikimedia Commons",uploaded:"Фото загружено пользователем",saved:"Материал создан и сохранён в этом браузере.",notSaved:"Материал открыт, но сохранить его в браузере не удалось.",loading:"Подготовка изображения...",empty:"Материалов пока нет. Нажмите «Создать» выше.",open:"Открыть",edit:"Изменить",remove:"Удалить",downloaded:"Файл скачан.",failedImage:"Фото не загрузилось. Использован градиентный фон.",error:"Не удалось создать материал.",large:"Размер изображения не должен превышать 2 МБ.",file:"Выберите JPG, PNG или WebP.",pdf:"В диалоге печати выберите «Сохранить как PDF».",slideNames:["Тема","Исторические факты","Анализ","Вывод"]}
+ kk:{slides:"Слайдтар",info:"Инфографика",illustration:"Иллюстрация",sheet:"Жұмыс парағы",subjectKaz:"Қазақстан тарихы",subjectWorld:"Дүниежүзі тарихы",grade:"сынып",goal:"Сабақтың мақсаты",facts:"Негізгі тарихи деректер",event:"Тарихи дерек",summary:"Қорытынды",review:"Тарихи деректерді мұғалім тексереді",credit:"Көрнекі фотосурет · Wikimedia Commons",uploaded:"Пайдаланушы жүктеген фото",saved:"Материал жасалып, осы браузерде сақталды.",savedWithoutPhoto:"Материал сақталды, бірақ браузер жады толғандықтан жүктелген фото сақталмады.",notSaved:"Материал ашылды, бірақ браузерде сақтау мүмкін болмады.",loading:"Сурет дайындалуда...",empty:"Әзірше материал жоқ. Жоғарыдан «Жасау» батырмасын басыңыз.",open:"Ашу",edit:"Өңдеу",remove:"Жою",downloaded:"Файл жүктелді.",failedImage:"Фотосурет жүктелмеді. Материалға градиенттік фон қойылды.",error:"Материалды жасау мүмкін болмады.",large:"Сурет 2 МБ-тан аспауы керек.",file:"JPG, PNG немесе WebP файлын таңдаңыз.",pdf:"Браузердің басып шығару терезесінде «PDF сақтау» таңдаңыз.",slideNames:["Тақырып","Тарихи деректер","Талдау","Қорытынды"]},
+ ru:{slides:"Слайды",info:"Инфографика",illustration:"Иллюстрация",sheet:"Рабочий лист",subjectKaz:"История Казахстана",subjectWorld:"Всемирная история",grade:"класс",goal:"Цель урока",facts:"Основные исторические факты",event:"Исторический факт",summary:"Вывод",review:"Исторические сведения проверяет учитель",credit:"Иллюстративное фото · Wikimedia Commons",uploaded:"Фото загружено пользователем",saved:"Материал создан и сохранён в этом браузере.",savedWithoutPhoto:"Материал сохранён, но загруженное фото не поместилось в память браузера.",notSaved:"Материал открыт, но сохранить его в браузере не удалось.",loading:"Подготовка изображения...",empty:"Материалов пока нет. Нажмите «Создать» выше.",open:"Открыть",edit:"Изменить",remove:"Удалить",downloaded:"Файл скачан.",failedImage:"Фото не загрузилось. Использован градиентный фон.",error:"Не удалось создать материал.",large:"Размер изображения не должен превышать 2 МБ.",file:"Выберите JPG, PNG или WebP.",pdf:"В диалоге печати выберите «Сохранить как PDF».",slideNames:["Тема","Исторические факты","Анализ","Вывод"]}
 };
+// Keep the old storage key so previously saved materials remain available.
 const KEY="tarih-ustaz-three-tools-v1";
 const state={lang:"kk",mode:"slides",page:0,data:null,photo:null,photoSrc:null,upload:null,library:[],job:0};
 const $t=k=>TEXT[state.lang][k]||k;
@@ -40,6 +41,7 @@ function fillForm(d){
  $("themeInput").value=d.theme||"navy";
  $("uploadInput").value="";
  translate();selectMode(state.mode,false);
+ for(const id of ["subjectInput","gradeInput"])$(id).dispatchEvent(new Event("change",{bubbles:true}));
 }
 function translate(){
  document.documentElement.lang=state.lang;
@@ -48,14 +50,44 @@ function translate(){
  $("previewType").textContent=state.mode==="slides"?"SLIDES / 16:9":state.mode==="info"?"INFOGRAPHIC / 4:5":state.mode==="sheet"?"WORKSHEET / A4":"PHOTO POSTER / 16:9";
  renderLibrary();
 }
+function updateTabs(mode){
+ document.querySelectorAll("[data-mode]").forEach(b=>{
+  const active=b.dataset.mode===mode;
+  b.setAttribute("aria-selected",String(active));b.tabIndex=active?0:-1;
+ });
+}
 function selectMode(mode,preview=true){
+ if(mode==="ktp"){
+  $("studioBody").hidden=true;$("ktpWorkspace").hidden=false;
+  document.querySelector(".workshop-saved").hidden=true;
+  updateTabs(mode);
+  window.TarihKTPBuilder?.show();
+  return;
+ }
  if(!SIZES[mode])return;
  state.mode=mode;state.page=0;
- document.querySelectorAll("[data-mode]").forEach(b=>b.setAttribute("aria-selected",String(b.dataset.mode===mode)));
+ $("studioBody").hidden=false;$("ktpWorkspace").hidden=true;
+ document.querySelector(".workshop-saved").hidden=false;
+ updateTabs(mode);
  $("slideNav").hidden=mode!=="slides";
  $("modalSlideNav").hidden=mode!=="slides";
  $("previewType").textContent=mode==="slides"?"SLIDES / 16:9":mode==="info"?"INFOGRAPHIC / 4:5":mode==="sheet"?"WORKSHEET / A4":"PHOTO POSTER / 16:9";
  if(preview)drawPreview();
+}
+function useLesson(lesson,mode="info"){
+ if(lesson.subject)$("subjectInput").value=lesson.subject;
+ if(lesson.grade)$("gradeInput").value=lesson.grade;
+ $("topicInput").value=lesson.title||"";
+ $("goalInput").value=lesson.goal||"";
+ $("factsInput").value="";
+ for(const id of ["subjectInput","gradeInput"])$(id).dispatchEvent(new Event("change",{bubbles:true}));
+ selectMode(mode);
+ $("studio").scrollIntoView({behavior:"smooth"});
+}
+function requireTopic(){
+ if($("topicInput").value.trim())return true;
+ setStatus(state.lang==="ru"?"Введите тему или выберите урок КТП.":"Тақырып жазыңыз немесе КТЖ сабағын таңдаңыз.");
+ $("topicInput").focus();return false;
 }
 function cover(ctx,img,x,y,w,h){
  const iw=img.naturalWidth||img.width,ih=img.naturalHeight||img.height;
@@ -163,7 +195,7 @@ function drawPoster(ctx,d,img){
 }
 
 function drawWorksheet(ctx,d,img){
- const w=1080,h=1400,c=COLORS[d.theme]||COLORS.navy,T=TEXT[d.lang];
+ const w=1080,h=1528,c=COLORS[d.theme]||COLORS.navy,T=TEXT[d.lang];
  const isRu=d.lang==="ru",fact=d.facts.slice(0,4);
  fill(ctx,0,0,w,h,"#f7faf9");
  fill(ctx,0,0,w,260,c.bg);
@@ -203,10 +235,10 @@ function drawWorksheet(ctx,d,img){
   line(ctx,63,y+190,993,y+190,"#c5d6d2",1);
   font(ctx,15,700);ctx.fillStyle="#2f7a7c";ctx.fillText(x.desc,63,y+209,940);
  });
- fill(ctx,0,1301,w,99,c.bg);
- font(ctx,21,800);ctx.fillStyle="#fff";ctx.fillText("TARIH USTAZ AI",45,1323);
- font(ctx,16,650);ctx.fillStyle="#d2e9e6";ctx.fillText(isRu?"ВСЕГО 10 БАЛЛОВ":"ЖАЛПЫ 10 БАЛЛ",690,1328);
- font(ctx,12,500);ctx.fillStyle="#d0e7e4";ctx.fillText(isRu?"Шаблон. Проверяйте соответствие заданий цели урока.":"Үлгі. Тапсырмаларды оқу мақсатына сәйкестендіріңіз.",45,1362);
+ fill(ctx,0,h-99,w,99,c.bg);
+ font(ctx,21,800);ctx.fillStyle="#fff";ctx.fillText("TARIH USTAZ AI",45,h-77);
+ font(ctx,16,650);ctx.fillStyle="#d2e9e6";ctx.fillText(isRu?"ВСЕГО 10 БАЛЛОВ":"ЖАЛПЫ 10 БАЛЛ",690,h-72);
+ font(ctx,12,500);ctx.fillStyle="#d0e7e4";ctx.fillText(isRu?"Шаблон. Проверяйте соответствие заданий цели урока.":"Үлгі. Тапсырмаларды оқу мақсатына сәйкестендіріңіз.",45,h-38);
 }
 
 function paint(canvas,d,img,page){
@@ -223,12 +255,15 @@ function loadPhoto(src){
  if(cache.has(src))return cache.get(src);
  const p=new Promise(resolve=>{
   const img=new Image();
+  let done=false;
+  const finish=value=>{if(done)return;done=true;clearTimeout(timer);resolve(value)};
+  const timer=setTimeout(()=>finish(null),4500);
   if(!src.startsWith("data:"))img.crossOrigin="anonymous";
   img.onload=()=>{
-   try{const t=document.createElement("canvas");t.width=1;t.height=1;t.getContext("2d").drawImage(img,0,0,1,1);t.toDataURL("image/png");resolve(img)}
-   catch(e){resolve(null)}
+   try{const t=document.createElement("canvas");t.width=1;t.height=1;t.getContext("2d").drawImage(img,0,0,1,1);t.toDataURL("image/png");finish(img)}
+   catch(e){finish(null)}
   };
-  img.onerror=()=>resolve(null);img.src=src;
+  img.onerror=()=>finish(null);img.src=src;
  });
  cache.set(src,p);return p;
 }
@@ -259,7 +294,7 @@ function persist(d){
  const data=[doc,...state.library].slice(0,8);
  if(librarySave(data)){state.library=data;return true}
  const small={...doc,upload:null};
- if(librarySave([small,...state.library].slice(0,8))){state.library=[small,...state.library].slice(0,8);return false}
+ if(librarySave([small,...state.library].slice(0,8))){state.library=[small,...state.library].slice(0,8);return "withoutPhoto"}
  return false;
 }
 function downloadURL(url,name){
@@ -272,6 +307,7 @@ function asImage(canvas,type,filename){
  },type,type==="image/jpeg"?.92:undefined));
 }
 async function exportImage(type,fromModal=false){
+ if(!requireTopic())return;
  const d=liveNow(),img=await prepare(d);
  const can=fromModal?$("modalCanvas"):$("previewCanvas");
  paint(can,d,img,state.page);
@@ -285,6 +321,7 @@ async function imagesFor(d){
  return arr;
 }
 async function exportHTML(){
+ if(!requireTopic())return;
  const d=liveNow(),imgs=await imagesFor(d);
  const title=esc(d.topic);
  const slides=d.mode==="slides";
@@ -292,16 +329,17 @@ async function exportHTML(){
  const code=slides?'let n=0;const pages=document.querySelectorAll(".page");function go(k){pages[n].hidden=true;n=(n+k+pages.length)%pages.length;pages[n].hidden=false;document.getElementById("pageNumber").textContent=(n+1)+" / "+pages.length}document.getElementById("back").onclick=()=>go(-1);document.getElementById("forward").onclick=()=>go(1);document.addEventListener("keydown",e=>{if(e.key==="ArrowLeft")go(-1);if(e.key==="ArrowRight")go(1)})':'';
  const nav=slides?'<nav><button id="back">←</button> <span id="pageNumber">1 / '+imgs.length+'</span> <button id="forward">→</button></nav>':'';
  const printOrientation=(d.mode==="info"||d.mode==="sheet")?"portrait":"landscape";
- const html='<!doctype html><html lang="'+d.lang+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>body{margin:0;min-height:100vh;background:#102e40;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;font:14px system-ui;padding:16px;box-sizing:border-box}.page{max-width:100%;max-height:calc(100vh - 110px);width:auto;object-fit:contain;box-shadow:0 15px 60px #0006}.page[hidden]{display:none}nav{padding:12px;display:flex;align-items:center;gap:20px}button{background:#fff;color:#123648;padding:9px 18px;border:0;border-radius:7px;cursor:pointer}@media print{body{background:white;padding:0;display:block}.page{display:block!important;max-width:100%;width:100%;height:auto;max-height:none;page-break-after:always;box-shadow:none}nav{display:none}@page{size:'+printOrientation+';margin:0}}</style></head><body>'+tags+nav+(slides?'<script>'+code+'</script>':'')+'</body></html>';
+ const html='<!doctype html><html lang="'+d.lang+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>body{margin:0;min-height:100vh;background:#102e40;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;font:14px system-ui;padding:16px;box-sizing:border-box}.page{max-width:100%;max-height:calc(100vh - 110px);width:auto;object-fit:contain;box-shadow:0 15px 60px #0006}.page[hidden]{display:none}nav{padding:12px;display:flex;align-items:center;gap:20px}button{background:#fff;color:#123648;padding:9px 18px;border:0;border-radius:7px;cursor:pointer}@media print{body{background:white;padding:0;display:block}.page{display:block!important;max-width:100%;width:100%;height:auto;max-height:none;break-after:page;box-shadow:none}.page:last-of-type{break-after:auto}nav{display:none}@page{size:'+printOrientation+';margin:0}}</style></head><body>'+tags+nav+(slides?'<script>'+code+'</script>':'')+'</body></html>';
  const tempURL=URL.createObjectURL(new Blob([html],{type:"text/html;charset=utf-8"}));downloadURL(tempURL,"Tarih_Ustaz_"+d.mode+".html");setTimeout(()=>URL.revokeObjectURL(tempURL),3500);
  setStatus($t("downloaded"));
 }
 function printPDF(){
+ if(!requireTopic())return;
  const d=liveNow();
  imagesFor(d).then(images=>{
  const iframe=document.createElement("iframe");iframe.style.cssText="position:fixed;left:-10000px;top:-10000px;width:1000px;height:700px;border:0";
  document.body.append(iframe);
- const html='<!doctype html><html><head><meta charset="utf-8"><style>@page{size:'+(d.mode==="info"||d.mode==="sheet"?"portrait":"landscape")+';margin:0}body{margin:0;background:white}img{width:100%;height:auto;display:block;page-break-after:always;break-after:page}@media print{img{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body>'+images.map(src=>'<img src="'+src+'">').join("")+'</body></html>';
+ const html='<!doctype html><html><head><meta charset="utf-8"><style>@page{size:'+(d.mode==="info"||d.mode==="sheet"?"portrait":"landscape")+';margin:0}body{margin:0;background:white}img{width:100%;height:auto;display:block;break-after:page}img:last-child{break-after:auto}@media print{img{-webkit-print-color-adjust:exact;print-color-adjust:exact}}</style></head><body>'+images.map(src=>'<img src="'+src+'">').join("")+'</body></html>';
  iframe.onload=()=>{setTimeout(()=>{try{iframe.contentWindow.focus();iframe.contentWindow.print();setStatus($t("pdf"));}catch(e){setStatus($t("error"))}},300);setTimeout(()=>iframe.remove(),35000)};
  iframe.srcdoc=html;
  }).catch(()=>setStatus($t("error")));
@@ -334,13 +372,14 @@ function openModal(){
  const modal=$("viewModal");if(typeof modal.showModal==="function"&&!modal.open)modal.showModal();else modal.setAttribute("open","");
 }
 async function create(){
+ if(!requireTopic())return;
  $("generateBtn").disabled=true;
  try{
   const d=liveNow(),img=await prepare(d);
   state.photo=img;state.page=0;
   paint($("previewCanvas"),d,img,0);
   const saved=persist(d);renderLibrary();openModal();
-  setStatus(saved?$t("saved"):$t("notSaved"));
+  setStatus((img?"":$t("failedImage")+" ")+$t(saved===true?"saved":saved==="withoutPhoto"?"savedWithoutPhoto":"notSaved"));
  }catch(e){setStatus($t("error"));console.error(e)}
  finally{$("generateBtn").disabled=false}
 }
@@ -354,6 +393,15 @@ function init(){
  try{state.lang=localStorage.getItem("tarih-ustaz-lang")==="ru"?"ru":"kk"}catch{}
  document.querySelectorAll("[data-lang]").forEach(b=>b.addEventListener("click",()=>{state.lang=b.dataset.lang;try{localStorage.setItem("tarih-ustaz-lang",state.lang)}catch{}translate();drawPreview()}));
  document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>selectMode(b.dataset.mode)));
+ document.querySelector(".mode-switch").addEventListener("keydown",e=>{
+  if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key))return;
+  const tabs=[...document.querySelectorAll("[data-mode]")],index=tabs.indexOf(e.target);
+  if(index<0)return;
+  e.preventDefault();
+  const next=e.key==="Home"?0:e.key==="End"?tabs.length-1:
+   (index+(e.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length;
+  tabs[next].focus();selectMode(tabs[next].dataset.mode);
+ });
  document.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>{selectMode(b.dataset.jump);$("studio").scrollIntoView({behavior:"smooth"})}));
  $("editorForm").addEventListener("submit",e=>{e.preventDefault();create()});
  let timeout;
@@ -380,10 +428,13 @@ function init(){
 });
  $("pdfBtn").addEventListener("click",printPDF);
  $("modalPng").addEventListener("click",()=>exportImage("image/png",true).catch(()=>setStatus($t("error"))));
+ $("modalJpg").addEventListener("click",()=>exportImage("image/jpeg",true).catch(()=>setStatus($t("error"))));
  $("modalHtml").addEventListener("click",()=>exportHTML().catch(()=>setStatus($t("error"))));
+ $("modalPdf").addEventListener("click",printPDF);
  $("modalClose").addEventListener("click",()=>{const d=$("viewModal");d.close?.();d.removeAttribute("open")});
  $("viewModal").addEventListener("click",e=>{if(e.target===$("viewModal")){const d=$("viewModal");d.close?.();d.removeAttribute("open")}});
  translate();selectMode("slides",false);drawPreview();
 }
+window.TarihWorkshop={selectMode,useLesson};
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init);else init();
 })();

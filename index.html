@@ -4,13 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#123648">
-<meta name="description" content="Tarih Ustaz AI — бір шеберханада презентация, инфографика, иллюстрация және дескрипторлы жұмыс парағын жасау. КТЖ-дан дайын тақырып таңдап, сайтта қарап, жүктеп алыңыз.">
+<meta name="description" content="Tarih Ustaz AI — КТЖ/КТП құрастыру, презентация, инфографика, иллюстрация және жұмыс парағын бір шеберханада жасау. Тақырыпты таңдаңыз, өңдеңіз және жүктеңіз.">
 <title>Tarih Ustaz AI · Шеберхана</title>
-<link rel="stylesheet" href="app.css?v=20261123solo1">
-<link rel="stylesheet" href="ktp.css?v=20261123solo1">
-<link rel="stylesheet" href="workshop-only.css?v=20261123solo1">
-<script defer src="app.js?v=20261123solo1"></script>
-<script defer src="ktp.js?v=20261123solo1"></script>
+<link rel="stylesheet" href="app.css?v=20261123workshop2">
+<link rel="stylesheet" href="ktp.css?v=20261123workshop2">
+<link rel="stylesheet" href="workshop-only.css?v=20261123workshop2">
+<script defer src="app.js?v=20261123workshop2"></script>
+<script defer src="ktp.js?v=20261123workshop2"></script>
+<script defer src="ktp-builder.js?v=20261123workshop2"></script>
 </head>
 <body>
 <header class="site-header">
@@ -19,7 +20,6 @@
       <span class="brand-symbol">T</span>
       <span><strong>Tarih Ustaz AI</strong><small data-kk="Тарих мұғалімінің цифрлық шеберханасы" data-ru="Цифровая мастерская учителя истории">Тарих мұғалімінің цифрлық шеберханасы</small></span>
     </a>
-    <div class="workshop-head-note" data-kk="Бір тақырып → дайын материал" data-ru="Одна тема → готовый материал">Бір тақырып → дайын материал</div>
     <div class="language-switch" aria-label="Тіл таңдау">
       <button type="button" data-lang="kk" class="active" aria-pressed="true">ҚАЗ</button>
       <button type="button" data-lang="ru" aria-pressed="false">РУС</button>
@@ -29,42 +29,79 @@
 <main>
   <section id="studio" class="studio-section">
     <div class="shell">
-      <div class="workshop-title">
-        <div><span class="eyebrow dark" data-kk="ТІКЕЛЕЙ ШЕБЕРХАНА" data-ru="ОНЛАЙН-МАСТЕРСКАЯ">ТІКЕЛЕЙ ШЕБЕРХАНА</span>
-        <h1 data-kk="Материал жасаңыз" data-ru="Создавайте материалы">Материал жасаңыз</h1>
-        <p data-kk="КТЖ-дан тақырып таңдаңыз немесе өзіңіз жазыңыз. Бөлімді таңдап, «Жасау» басыңыз — бәрі осы сайтта." data-ru="Выберите тему из КТП или введите свою. Выберите инструмент и нажмите «Создать» — всё на этом сайте.">КТЖ-дан тақырып таңдаңыз немесе өзіңіз жазыңыз. Бөлімді таңдап, «Жасау» басыңыз — бәрі осы сайтта.</p></div>
-        <div class="workshop-formats"><span>PNG</span><span>JPG</span><span>HTML</span><span>PDF</span></div>
-      </div>
+      <h1 class="workshop-title" data-kk="Менің тарих боттарым" data-ru="Мои боты по истории">Менің тарих боттарым</h1>
+      <div class="plugin-intro" data-kk="Ботты таңдап, ChatGPT бетінде орнатыңыз да, жаңа чатта пайдаланыңыз." data-ru="Выберите бота, установите плагин в ChatGPT и используйте его в новом чате.">Ботты таңдап, ChatGPT бетінде орнатыңыз да, жаңа чатта пайдаланыңыз.</div>
+      <nav class="plugin-grid" aria-label="Мои плагины / Менің плагиндерім">
+        <article class="plugin-card">
+          <span>01 · КСП / ҚМЖ</span><h2 data-kk="Сабақ жоспары" data-ru="План урока">Сабақ жоспары</h2>
+          <p data-kk="ҚМЖ/КСП, жұмыс парағы және мұғалімге жауап кілті." data-ru="КСП/ҚМЖ, рабочий лист и ключ ответов для учителя.">ҚМЖ/КСП, жұмыс парағы және мұғалімге жауап кілті.</p>
+          <a href="https://chatgpt.com/plugins/plugin_fb8d5bda9a948191a1d20360a2763266" target="_blank" rel="noopener noreferrer" data-kk="Плагинді ашу ↗" data-ru="Открыть плагин ↗">Плагинді ашу ↗</a>
+        </article>
+        <article class="plugin-card">
+          <span>02 · ТАРИХ</span><h2 data-kk="Қазақстан тарихы" data-ru="История Казахстана">Қазақстан тарихы</h2>
+          <p data-kk="Тарихи тақырыптарды түсіндіру, тапсырма мен сұрақ дайындау." data-ru="Объяснение истории, подготовка заданий и вопросов.">Тарихи тақырыптарды түсіндіру, тапсырма мен сұрақ дайындау.</p>
+          <a href="https://chatgpt.com/plugins/plugin_41418c5317408191a2a00288743aac21" target="_blank" rel="noopener noreferrer" data-kk="Плагинді ашу ↗" data-ru="Открыть плагин ↗">Плагинді ашу ↗</a>
+        </article>
+        <article class="plugin-card">
+          <span>03 · ҰБТ / ЕНТ</span><h2>Qazaq Tarih Academy</h2>
+          <p data-kk="Қазақстан тарихы бойынша ҰБТ-ға дайындық және өзін тексеру." data-ru="Подготовка к ЕНТ по истории Казахстана и проверка знаний.">Қазақстан тарихы бойынша ҰБТ-ға дайындық және өзін тексеру.</p>
+          <a href="https://chatgpt.com/plugins/plugin_99a0e8de787c81919e79985c790b37db" target="_blank" rel="noopener noreferrer" data-kk="Плагинді ашу ↗" data-ru="Открыть плагин ↗">Плагинді ашу ↗</a>
+        </article>
+      </nav>
+      <p class="plugin-access" data-kk="Сілтемелер ChatGPT-де ашылады. Плагинді пайдалану үшін аккаунтыңызға кіріңіз." data-ru="Ссылки откроются в ChatGPT. Для работы с плагином войдите в свой аккаунт.">Сілтемелер ChatGPT-де ашылады. Плагинді пайдалану үшін аккаунтыңызға кіріңіз.</p>
+      <h2 class="tools-heading" data-kk="Сайттағы құралдар" data-ru="Инструменты на сайте">Сайттағы құралдар</h2>
       <div class="studio-window">
         <div class="studio-top">
-          <div class="studio-top-title"><span class="live-indicator"></span><strong>Tarih Ustaz Studio</strong><span data-kk="Тіркелусіз" data-ru="Без регистрации">Тіркелусіз</span></div>
-          <div class="mode-switch" role="tablist" aria-label="Материал түрі">
-            <button type="button" role="tab" aria-selected="true" data-mode="slides" data-kk="Презентация" data-ru="Презентация">Презентация</button>
-            <button type="button" role="tab" aria-selected="false" data-mode="info" data-kk="Инфографика" data-ru="Инфографика">Инфографика</button>
-            <button type="button" role="tab" aria-selected="false" data-mode="illustration" data-kk="Иллюстрация" data-ru="Иллюстрация">Иллюстрация</button>
-            <button type="button" role="tab" aria-selected="false" data-mode="sheet" data-kk="Жұмыс парағы" data-ru="Рабочий лист">Жұмыс парағы</button>
+          <div class="mode-switch" role="tablist" aria-label="Құрал / Инструмент">
+            <button type="button" role="tab" aria-selected="false" aria-controls="ktpWorkspace" data-mode="ktp" data-kk="КТЖ / КТП" data-ru="КТП / КТЖ">КТЖ / КТП</button>
+            <button type="button" role="tab" aria-selected="true" aria-controls="studioBody" data-mode="slides" data-kk="Презентация" data-ru="Презентация">Презентация</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="studioBody" data-mode="info" data-kk="Инфографика" data-ru="Инфографика">Инфографика</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="studioBody" data-mode="illustration" data-kk="Иллюстрация" data-ru="Иллюстрация">Иллюстрация</button>
+            <button type="button" role="tab" aria-selected="false" aria-controls="studioBody" data-mode="sheet" data-kk="Жұмыс парағы" data-ru="Рабочий лист">Жұмыс парағы</button>
           </div>
         </div>
-        <div class="studio-body">
+        <div class="curriculum-context field-pair">
+          <label><span data-kk="Пән" data-ru="Предмет">Пән</span>
+            <select id="subjectInput">
+              <option value="kaz" data-kk="Қазақстан тарихы" data-ru="История Казахстана">Қазақстан тарихы</option>
+              <option value="world" data-kk="Дүниежүзі тарихы" data-ru="Всемирная история">Дүниежүзі тарихы</option>
+              <option value="law" data-kk="Құқық негіздері" data-ru="Основы права">Құқық негіздері</option>
+              <option value="constitution" data-kk="Конституция негіздері" data-ru="Основы Конституции">Конституция негіздері</option>
+              <option value="order" data-kk="Заң мен тәртіп" data-ru="Закон и порядок">Заң мен тәртіп</option>
+            </select>
+          </label>
+          <label><span data-kk="Сынып" data-ru="Класс">Сынып</span><select id="gradeInput"><option>5</option><option>6</option><option selected>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></label>
+          <details class="ktp-extra">
+            <summary data-kk="Өз КТЖ файлым" data-ru="Мой файл КТП">Өз КТЖ файлым</summary>
+            <label class="ktp-file"><span data-kk="DOCX / XLSX / CSV жүктеу" data-ru="Загрузить DOCX / XLSX / CSV">DOCX / XLSX / CSV жүктеу</span><input id="ktpFileInput" type="file" accept=".docx,.xlsx,.xls,.csv,.tsv" multiple></label>
+            <button type="button" class="ktp-clear" id="ktpClear" data-kk="Жеке КТЖ-ны тазалау" data-ru="Удалить мой КТП">Жеке КТЖ-ны тазалау</button>
+          </details>
+        </div>
+        <section class="ktp-workspace" id="ktpWorkspace" role="tabpanel" aria-label="КТЖ / КТП" hidden>
+          <div class="ktp-builder-head">
+            <div><h2 data-kk="2026–2027 КТЖ құрастыру" data-ru="Составить КТП на 2026–2027">2026–2027 КТЖ құрастыру</h2>
+              <p data-kk="Каталогтағы сабақтарды жоспарға қосыңыз, жолдарды өңдеңіз және инфографикаға өтіңіз." data-ru="Соберите план из каталога, отредактируйте уроки и перейдите к инфографике.">Каталогтағы сабақтарды жоспарға қосыңыз, жолдарды өңдеңіз және инфографикаға өтіңіз.</p></div>
+            <button type="button" id="ktpBuild" class="button button-primary" data-kk="КТЖ құрастыру" data-ru="Составить КТП">КТЖ құрастыру</button>
+          </div>
+          <div class="ktp-builder-tools">
+            <label><span data-kk="Дереккөз" data-ru="Источник">Дереккөз</span><select id="ktpSource"><option value="catalog" data-kk="2026–2027 каталогы" data-ru="Каталог 2026–2027">2026–2027 каталогы</option><option value="import" data-kk="Менің файлым" data-ru="Мой файл">Менің файлым</option></select></label>
+            <label><span data-kk="Тоқсан" data-ru="Четверть">Тоқсан</span><select id="ktpQuarter"><option value="" data-kk="Барлығы" data-ru="Все">Барлығы</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select></label>
+            <button type="button" id="ktpAdd" class="button button-secondary" data-kk="+ Сабақ қосу" data-ru="+ Добавить урок" disabled>+ Сабақ қосу</button>
+          </div>
+          <p id="ktpBuilderStatus" class="status" role="status" aria-live="polite"></p>
+          <div class="ktp-table-wrap"><table class="ktp-table"><thead><tr><th>№</th><th data-kk="Тоқсан / бөлім" data-ru="Четверть / раздел">Тоқсан / бөлім</th><th data-kk="Тақырып" data-ru="Тема">Тақырып</th><th data-kk="Оқу мақсаты" data-ru="Цель обучения">Оқу мақсаты</th><th data-kk="Әрекет" data-ru="Действие">Әрекет</th></tr></thead><tbody id="ktpBuilderRows"></tbody></table></div>
+          <div class="ktp-builder-export" id="ktpBuilderExport" hidden>
+            <button type="button" class="button button-secondary" id="ktpCsv">↓ CSV</button><button type="button" class="button button-secondary" id="ktpHtml">↓ HTML</button><button type="button" class="button button-secondary" id="ktpPdf">↓ PDF</button>
+            <span data-kk="Өзгерістер осы браузерде сақталады. PDF басып шығару терезесінен сақталады." data-ru="Изменения сохраняются в этом браузере. PDF сохраняется через окно печати.">Өзгерістер осы браузерде сақталады. PDF басып шығару терезесінен сақталады.</span>
+          </div>
+        </section>
+        <div class="studio-body" id="studioBody" role="tabpanel" aria-label="Презентация / Инфографика / Иллюстрация / Жұмыс парағы">
           <form id="editorForm" class="editor-fields" novalidate>
-            <div class="editor-section-top"><h2 data-kk="Тақырып және мазмұн" data-ru="Тема и содержание">Тақырып және мазмұн</h2><span data-kk="Өңделетін үлгі" data-ru="Редактируемый шаблон">Өңделетін үлгі</span></div>
-            <div class="field-pair">
-              <label><span data-kk="Пән" data-ru="Предмет">Пән</span>
-                <select id="subjectInput">
-                  <option value="kaz" data-kk="Қазақстан тарихы" data-ru="История Казахстана">Қазақстан тарихы</option>
-                  <option value="world" data-kk="Дүниежүзі тарихы" data-ru="Всемирная история">Дүниежүзі тарихы</option>
-                  <option value="law" data-kk="Құқық негіздері" data-ru="Основы права">Құқық негіздері</option>
-                  <option value="constitution" data-kk="Конституция негіздері" data-ru="Основы Конституции">Конституция негіздері</option>
-                  <option value="order" data-kk="Заң мен тәртіп" data-ru="Закон и порядок">Заң мен тәртіп</option>
-                </select>
-              </label>
-              <label><span data-kk="Сынып" data-ru="Класс">Сынып</span><select id="gradeInput"><option>5</option><option>6</option><option selected>7</option><option>8</option><option>9</option><option>10</option><option>11</option></select></label>
-            </div>
+            <div class="editor-section-top"><h2 data-kk="Тақырып және мазмұн" data-ru="Тема и содержание">Тақырып және мазмұн</h2></div>
             <div class="ktp-import" id="ktpImport">
               <div class="ktp-heading">
                 <div><span class="ktp-kicker" data-kk="КТЖ / КТП · 2026–2027" data-ru="КТП / КТЖ · 2026–2027">КТЖ / КТП · 2026–2027</span>
                   <strong data-kk="Дайын тақырыпты таңдаңыз" data-ru="Выберите готовую тему">Дайын тақырыпты таңдаңыз</strong>
-                  <small data-kk="Пән мен сынып бойынша сабақтар дайын. Қолмен жазу міндетті емес." data-ru="Темы уже есть по предметам и классам. Вводить вручную не обязательно.">Пән мен сынып бойынша сабақтар дайын. Қолмен жазу міндетті емес.</small>
                 </div>
               </div>
               <div class="ktp-controls">
@@ -73,11 +110,6 @@
               </div>
               <div class="ktp-foot">
                 <span id="ktpStatus" role="status" aria-live="polite" data-kk="2026–2027 оқу жылының КТЖ базасы ашылуда." data-ru="Загружается каталог КТП за 2026–2027 год.">2026–2027 оқу жылының КТЖ базасы ашылуда.</span>
-                <details class="ktp-extra">
-                  <summary data-kk="Өз КТЖ файлым" data-ru="Мой файл КТП">Өз КТЖ файлым</summary>
-                  <label class="ktp-file"><span data-kk="Word / Excel жүктеу" data-ru="Загрузить Word / Excel">Word / Excel жүктеу</span><input id="ktpFileInput" type="file" accept=".docx,.xlsx,.xls,.csv,.tsv" multiple></label>
-                  <button type="button" class="ktp-clear" id="ktpClear" data-kk="Жеке КТЖ-ны тазалау" data-ru="Удалить мой КТП">Жеке КТЖ-ны тазалау</button>
-                </details>
               </div>
             </div>
             <label><span data-kk="Тақырып" data-ru="Тема">Тақырып</span><input type="text" id="topicInput" maxlength="300" placeholder="КТЖ-дан таңдаңыз немесе тақырып жазыңыз" required></label>
@@ -98,7 +130,7 @@
               <option value="warm" data-kk="Қоңыр-сепия" data-ru="Тёплая сепия">Қоңыр-сепия</option>
             </select></label>
             <button id="generateBtn" type="submit" class="button button-primary create-button" data-kk="✦ Жасау және ашу" data-ru="✦ Создать и открыть">✦ Жасау және ашу</button>
-            <p class="editor-hint" data-kk="Материал сайт ішінде құрастырылады. Жаңа фотоны AI генерацияламайды; тарихи мәліметтерді мұғалім тексереді." data-ru="Материал создаётся на сайте. AI не генерирует новое фото; факты проверяет учитель.">Материал сайт ішінде құрастырылады. Жаңа фотоны AI генерацияламайды; тарихи мәліметтерді мұғалім тексереді.</p>
+            <p class="editor-hint" data-kk="Жергілікті үлгі: жаңа сурет пен деректерді AI жасамайды. Деректерді тексеріңіз." data-ru="Локальный шаблон: AI не создаёт изображения и факты. Проверяйте данные.">Жергілікті үлгі: жаңа сурет пен деректерді AI жасамайды. Деректерді тексеріңіз.</p>
           </form>
           <div class="preview-panel" id="previewPanel">
             <div class="preview-top"><span data-kk="НӘТИЖЕНІ ҚАРАУ" data-ru="ПРЕДПРОСМОТР">НӘТИЖЕНІ ҚАРАУ</span><span class="preview-type" id="previewType">SLIDES / 16:9</span></div>
@@ -111,7 +143,7 @@
               <button type="button" class="button button-secondary" id="pdfBtn">↓ PDF</button>
             </div>
             <button type="button" id="copyBtn" class="copy-link" data-kk="Мәтінді көшіру" data-ru="Копировать текст">Мәтінді көшіру</button>
-            <p class="download-note" data-kk="Слайдтар үшін PNG/JPG — ағымдағы кадр, HTML/PDF — барлық 4 слайд. PDF браузерден сақталады." data-ru="Для слайдов PNG/JPG — текущий кадр, HTML/PDF — все 4 слайда. PDF сохраняется через браузер.">Слайдтар үшін PNG/JPG — ағымдағы кадр, HTML/PDF — барлық 4 слайд. PDF браузерден сақталады.</p>
+            <p class="download-note" data-kk="Слайдтар: PNG/JPG — ағымдағы кадр; HTML/PDF — барлық 4 кадр. PDF — басып шығару терезесінде." data-ru="Слайды: PNG/JPG — текущий кадр; HTML/PDF — все 4 кадра. PDF — через окно печати.">Слайдтар: PNG/JPG — ағымдағы кадр; HTML/PDF — барлық 4 кадр. PDF — басып шығару терезесінде.</p>
             <p id="status" class="status" role="status" aria-live="polite"></p>
           </div>
         </div>
@@ -120,14 +152,16 @@
         <summary><strong data-kk="Сақталған жұмыстар" data-ru="Сохранённые работы">Сақталған жұмыстар</strong><span data-kk="Осы браузердегі соңғы 8 материал" data-ru="Последние 8 материалов в этом браузере">Осы браузердегі соңғы 8 материал</span></summary>
         <div id="libraryGrid" class="library-grid"></div>
       </details>
-      <p class="source-note" data-kk="Фотодереккөздер: Wikimedia Commons (CentrAsia, Ninaras, Alexandr frolov; CC0 / CC BY-SA 4.0). Сайтта тіркелу жоқ, материалдар тек осы браузерде сақталады." data-ru="Источники фото: Wikimedia Commons (CentrAsia, Ninaras, Alexandr frolov; CC0 / CC BY-SA 4.0). Регистрация не нужна, материалы сохраняются только в этом браузере.">Фотодереккөздер: Wikimedia Commons (CentrAsia, Ninaras, Alexandr frolov; CC0 / CC BY-SA 4.0). Сайтта тіркелу жоқ, материалдар тек осы браузерде сақталады.</p>
+      <p class="source-note" data-kk="Фотодереккөздер: Wikimedia Commons (CentrAsia, Ninaras, Alexandr frolov; CC0 / CC BY-SA 4.0)." data-ru="Источники фото: Wikimedia Commons (CentrAsia, Ninaras, Alexandr frolov; CC0 / CC BY-SA 4.0).">Фотодереккөздер: Wikimedia Commons (CentrAsia, Ninaras, Alexandr frolov; CC0 / CC BY-SA 4.0).</p>
     </div>
   </section>
 </main>
 <dialog id="viewModal" class="view-modal" aria-label="Дайын материал">
   <div class="modal-header"><strong id="modalTitle">Tarih Ustaz AI</strong><div class="modal-head-actions">
     <button type="button" class="modal-action" id="modalPng">↓ PNG</button>
+    <button type="button" class="modal-action" id="modalJpg">↓ JPG</button>
     <button type="button" class="modal-action" id="modalHtml">↓ HTML</button>
+    <button type="button" class="modal-action" id="modalPdf">↓ PDF</button>
     <button type="button" class="modal-close" id="modalClose" aria-label="Жабу">✕</button>
   </div></div>
   <div class="modal-preview"><canvas id="modalCanvas" width="1280" height="720"></canvas></div>
